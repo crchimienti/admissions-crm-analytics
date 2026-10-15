@@ -1,0 +1,177 @@
+# =============================================================================
+# Synthetic scenario parameters — admissions CRM analytics (v1)
+# Parámetros del escenario sintético — admisiones CRM (v1)
+#
+# EVERY value in this file is a SYNTHETIC SCENARIO PARAMETER: arbitrary, chosen
+# so the scenario can be analysed. None is a historical observation, a
+# calibrated rate or an expected real-world value. See docs/assumptions.md §3.
+#
+# TODOS los valores de este archivo son PARÁMETROS DEL ESCENARIO SINTÉTICO:
+# arbitrarios, elegidos para que el escenario sea analizable. Ninguno es una
+# observación histórica, una tasa calibrada ni un valor real esperado.
+# Ver docs/assumptions.es.md §3.
+# =============================================================================
+
+seed: 42
+
+period:
+  start: "2025-01-01"          # calendar year used only for real weekdays
+  end: "2025-12-31"
+  snapshot: "2025-12-31 23:59:00"
+  maturity_days: 60            # analytical assumption (§2.5)
+  last_arrival_buffer_minutes: 30   # no lead is created in the last 30 min before the snapshot
+
+volume:
+  # New eligible leads per month (team). Poisson noise, clipped to [600, 800].
+  # Duplicates and reactivations are generated separately and are NOT included.
+  monthly_new_eligible: {1: 640, 2: 620, 3: 620, 4: 600, 5: 620, 6: 600,
+                         7: 600, 8: 600, 9: 780, 10: 680, 11: 640, 12: 600}
+  clip: [600, 800]
+  weekday_weight: [1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.6]   # Mon..Sun
+  # Relative weight of each arrival hour 0..23 (peaks 10-14 h and 18-22 h,
+  # roughly 15 % of arrivals between 22 h and 08 h).
+  hour_weight: [0.6, 0.4, 0.3, 0.2, 0.2, 0.3, 0.6, 1.0,
+                1.8, 2.6, 4.0, 4.4, 4.4, 4.2, 4.0, 3.0,
+                2.8, 2.8, 4.0, 4.4, 4.4, 4.2, 2.0, 1.2]
+
+team:
+  advisors: [ADV_01, ADV_02, ADV_03, ADV_04, ADV_05]
+  # Assignment weight: scenario parameter, NOT a real distribution and NOT a
+  # performance signal. The Team Lead has no portfolio.
+  assignment_weight: {ADV_01: 0.23, ADV_02: 0.21, ADV_03: 0.20, ADV_04: 0.19, ADV_05: 0.17}
+  working_hours: [9, 19]       # Mon-Fri; the bot runs 24/7
+  # No per-advisor modifiers: all advisors share the same base parameters.
+
+channels:
+  # weight, bot-route share, conversion modifier (multiplies contact, booking
+  # after contact, form and enrollment probabilities; capped at prob_cap)
+  paid_social: {weight: 0.45, bot_share: 0.25, modifier: 0.85,
+                sources: [paid_social_feed, paid_social_video, paid_social_lead_form]}
+  webinar:     {weight: 0.25, bot_share: 0.40, modifier: 1.15,
+                sources: [webinar_live, webinar_replay]}
+  web_direct:  {weight: 0.12, bot_share: 0.35, modifier: 1.05, sources: [website_form]}
+  organic:     {weight: 0.08, bot_share: 0.30, modifier: 1.00, sources: [organic_search]}
+  referral:    {weight: 0.05, bot_share: 0.30, modifier: 1.25, sources: [student_referral]}
+  event:       {weight: 0.03, bot_share: 0.20, modifier: 1.00, sources: [education_fair]}
+  partner:     {weight: 0.02, bot_share: 0.20, modifier: 1.10, sources: [partner_network]}
+prob_cap: 0.95
+
+profiles:
+  share: {healthcare: 0.55, non_healthcare: 0.45}
+  form_modifier: {healthcare: 1.05, non_healthcare: 0.95}
+  program_given_profile:
+    healthcare:     {PRG_A: 0.55, PRG_B: 0.35, PRG_C: 0.05, PRG_D: 0.05}
+    non_healthcare: {PRG_A: 0.05, PRG_B: 0.05, PRG_C: 0.50, PRG_D: 0.40}
+
+contact:
+  first_attempt_median_business_hours: 3.0   # same for all five advisors
+  first_attempt_sigma: 1.0                   # lognormal sigma
+  untouched_share: 0.02                      # anomaly: manual leads never touched
+  sla_hours: 24                              # calendar hours
+  reassignment_prob: 0.80
+  reassigned_attempt_max_business_hours: 2.0
+  call_no_connect_outcomes: {no_answer: 0.70, voicemail: 0.25, wrong_number: 0.05}
+
+iloc:
+  # Contact probability per step (manual route); after a no-show multiplied by
+  # after_no_show_factor. Reply delays for messages in hours.
+  p_bd0_call: 0.35
+  p_bd0_reply: 0.08            # reply to WhatsApp + email 1
+  p_bd2_call: 0.22
+  p_bd3_email: 0.04
+  p_bd4_call: 0.22
+  p_bd4_whatsapp: 0.06
+  p_bd5_email: 0.04
+  after_no_show_factor: 0.7
+  after_no_show_start_bd: 2    # BD0 = 2nd business day after the no-show
+  reply_delay_hours: [0.3, 6.0]
+
+booking:
+  p_book_after_contact: 0.55   # manual route
+  contacted_no_booking_close_bd: [0, 3]
+  lost_mix_contacted_no_booking: {financial: 0.35, official_qualification: 0.35, future_intake: 0.30}
+
+interviews:
+  schedule_bd_manual: [1, 5]
+  schedule_bd_bot: [1, 4]
+  outcome_probs:
+    manual: {held: 0.65, no_show: 0.22, rescheduled: 0.08, cancelled: 0.05}
+    bot_booked: {held: 0.55, no_show: 0.30, rescheduled: 0.09, cancelled: 0.06}
+  max_appointments: 3
+  change_notice_hours: [0.5, 3.0]   # reschedule / cancel recorded this long before the slot
+  rebook_after_no_show_prob: 0.40
+  rebook_after_no_show_bd: [0, 2]
+  rebook_after_iloc_response_prob: 0.70
+  rebook_after_cancel_prob: 0.30
+  replacement_schedule_bd: [1, 5]
+  bot_confirmation_prob: 0.95
+  reminder_24h_prob: 0.97
+  personal_whatsapp_start: "2025-07-01"
+  personal_whatsapp_prob: 0.60     # ZERO effect on show (no causal effect programmed)
+  bot_route_human_contact_prob: 0.35
+  bot_route_human_call_connect_prob: 0.50
+
+post_interview:
+  p_form: 0.45
+  form_days_median: 2
+  form_days_max: 14
+  p_link: 0.85                 # no modifiers
+  link_days_median: 2
+  link_days_max: 10
+  p_enroll: 0.65
+  enroll_days_median: 4
+  enroll_days_max: 21
+  timing_sigma: 0.8
+  close_no_form_days: [7, 21]
+  close_no_link_days: [5, 15]
+  close_no_enroll_days: [10, 30]
+  post_email_within_24h_prob: 0.85
+  advisor_followup_within_48h_prob: 0.80
+  next_step_agreed_prob: 0.70      # ZERO effect on conversion
+  lost_mix_no_form: {financial: 0.40, official_qualification: 0.25, future_intake: 0.35}
+  lost_mix_no_link: {financial: 0.50, future_intake: 0.50}
+  lost_mix_no_enroll: {financial: 0.60, future_intake: 0.40}
+  objection_match_prob: 0.70
+
+post_interview_fields:
+  candidate_situation: {employed: 0.55, unemployed: 0.20, student: 0.10, career_change: 0.15}
+  immediate_interest: {high: 0.35, medium: 0.45, low: 0.20}
+  program_interest: {high: 0.40, medium: 0.45, low: 0.15}
+  decision_maker: {self: 0.70, shared: 0.25, other: 0.05}
+  main_objection_base: {price: 0.30, time: 0.20, official_qualification: 0.15, timing: 0.15, none: 0.20}
+  payment_preference_match_prob: 0.70
+
+pricing:
+  list_price: 3200
+  campaign_discount_probs: {600: 0.30, 500: 0.40, 350: 0.30}   # arbitrary synthetic scenario
+  one_time_extra_discount: 0.15
+  installments_prob: 0.45
+  installments_prob_if_price_objection: 0.65
+
+nurture:
+  enter_prob: 0.85
+  emails_at_days: [30, 60, 90]
+  email_jitter_days: 3
+  email_status_probs: {sent: 0.85, not_sent: 0.10, failed: 0.05}
+  window_days: 150
+  reactivation_prob: 0.12
+  reactivation_days: [30, 150]
+  # v1 simplification: a reactivated lead can enter nurture again but is not
+  # reactivated a second time.
+
+anomalies:
+  duplicate_share: 0.02            # additional, on top of new eligible leads
+  duplicate_max_days: 13.9         # strictly inside the 14-day detection window
+  missing_lost_reason_share: 0.03  # of all closed-lost leads, drawn from the allowed scope
+  open_without_task_share: 0.08
+  overdue_task_share: 0.15         # among open leads with an injected follow-up task
+  # Omission of the dedicated support record of a stage change. Applied only to
+  # stage events whose support record is omittable: opportunity (bot attempt
+  # message), form_completed (form received note), closed_lost (closing note).
+  omit_stage_support_prob: 0.04
+  empty_post_interview_share: 0.10
+  stall:
+    contacted_opportunity: 0.04
+    interview_held: 0.05
+    form_completed: 0.03
+    september_factor: 2.0          # applied when the stall stage is entered in September

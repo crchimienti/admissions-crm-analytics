@@ -1,0 +1,29 @@
+# Time-zone mini-fixture (F2). Synthetic timestamps only.
+# Mini-fixture de zonas horarias (F2). Solo timestamps sintéticos.
+#
+# utc mode: values with an offset are converted to UTC; naive values are localised with source_timezone;
+# ambiguous (DST fall-back) and non-existent (DST spring-forward) local times are errors.
+# naive_wall_clock mode: values are kept as written; any offset is an error.
+source_timezone: Europe/Madrid
+utc_ok:
+  - {in: "2025-07-01 12:00:00", out: "2025-07-01T10:00:00Z", why: "summer local time, UTC+2"}
+  - {in: "2025-01-15 12:00:00", out: "2025-01-15T11:00:00Z", why: "winter local time, UTC+1"}
+  - {in: "2025-03-30 01:59:59", out: "2025-03-30T00:59:59Z", why: "last second before the spring-forward gap"}
+  - {in: "2025-03-30 03:00:00", out: "2025-03-30T01:00:00Z", why: "first second after the gap"}
+  - {in: "2025-10-26 01:59:59", out: "2025-10-25T23:59:59Z", why: "before the repeated hour"}
+  - {in: "2025-10-26 03:00:00", out: "2025-10-26T02:00:00Z", why: "after the repeated hour"}
+  - {in: "2025-07-01T12:00:00+02:00", out: "2025-07-01T10:00:00Z", why: "explicit offset"}
+  - {in: "2025-07-01T12:00:00Z", out: "2025-07-01T12:00:00Z", why: "already UTC"}
+  - {in: "2025-10-26T02:30:00+01:00", out: "2025-10-26T01:30:00Z", why: "repeated hour, made unambiguous by the offset"}
+  - {in: "", out: "", why: "null stays null"}
+utc_errors:
+  - {in: "2025-10-26 02:30:00", code: M_AMBIGUOUS_TIME, why: "02:00-03:00 happens twice in Europe/Madrid"}
+  - {in: "2025-03-30 02:30:00", code: M_NONEXISTENT_TIME, why: "02:00-03:00 does not exist in Europe/Madrid"}
+  - {in: "2025-07-01 25:00:00", code: M_UNPARSEABLE_TIMESTAMP, why: "invalid hour"}
+  - {in: "01/07/2025 12:00", code: M_UNPARSEABLE_TIMESTAMP, why: "not ISO"}
+naive_ok:
+  - {in: "2025-10-26 02:30:00", out: "2025-10-26 02:30:00", why: "wall clock kept as written (synthetic data only)"}
+  - {in: "2025-03-30 02:30:00", out: "2025-03-30 02:30:00", why: "wall clock kept as written (synthetic data only)"}
+naive_errors:
+  - {in: "2025-07-01T12:00:00+02:00", code: M_OFFSET_IN_NAIVE, why: "an offset in naive mode would silently mix clocks"}
+  - {in: "2025-07-01 12:00", code: M_UNPARSEABLE_TIMESTAMP, why: "seconds are required"}

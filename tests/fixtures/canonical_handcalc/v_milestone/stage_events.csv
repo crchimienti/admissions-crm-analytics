@@ -1,0 +1,25 @@
+event_id,record_id,event_kind,from_stage,to_stage,occurred_at
+M01,F01,first_entry_milestone,,opportunity,2025-02-03 10:05:00
+M02,F01,first_entry_milestone,,interview_booked,2025-02-03 12:10:00
+M03,F01,first_entry_milestone,,interview_held,2025-02-05 10:00:00
+M04,F01,first_entry_milestone,,form_completed,2025-02-07 10:00:00
+M05,F01,first_entry_milestone,,enrollment_link_sent,2025-02-10 10:00:00
+M06,F01,first_entry_milestone,,closed_won,2025-02-12 10:00:00
+M07,F02,first_entry_milestone,,opportunity,2025-02-08 11:05:00
+M08,F02,first_entry_milestone,,interview_booked,2025-02-11 10:00:00
+M09,F02,first_entry_milestone,,interview_held,2025-02-17 16:00:00
+M10,F02,first_entry_milestone,,closed_lost,2025-03-10 10:00:00
+M11,F03,first_entry_milestone,,opportunity,2025-03-03 09:35:00
+M12,F03,first_entry_milestone,,interview_booked,2025-03-05 10:10:00
+M13,F03,first_entry_milestone,,interview_held,2025-03-10 11:00:00
+M14,F04,first_entry_milestone,,interview_booked,2025-03-09 20:05:00
+M15,F04,first_entry_milestone,,interview_held,2025-03-12 10:00:00
+M16,F04,first_entry_milestone,,form_completed,2025-03-13 10:00:00
+M17,F04,first_entry_milestone,,enrollment_link_sent,2025-03-14 10:00:00
+M18,F04,first_entry_milestone,,closed_won,2025-03-17 10:00:00
+M19,F05,first_entry_milestone,,interview_booked,2025-04-02 14:05:00
+M20,F05,first_entry_milestone,,closed_lost,2025-04-08 10:00:00
+M21,F05,first_entry_milestone,,opportunity,2025-04-20 10:00:00
+M22,F07,first_entry_milestone,,interview_booked,2025-04-14 10:00:00
+M23,F10,first_entry_milestone,,interview_booked,2025-02-18 11:05:00
+M24,F12,first_entry_milestone,,opportunity,2025-06-10 10:05:00

@@ -1,0 +1,90 @@
+# Mapping-error cases (F2). Each case copies base/ (a valid 3-lead admissions CSV pair), applies one change and
+# runs mapping -> contract validation -> admissions profile rules. The expected error code must be raised.
+# Casos de error de mapeo: cada caso parte de base/ (válido), aplica un cambio y debe dar el código esperado.
+#
+# change kinds: set {file, row, column, value} · drop_column {file, column} · dataset {overrides}
+cases:
+  - id: missing_required_column
+    change: {drop_column: {file: leads, column: pipeline_stage}}
+    stage: mapping
+    code: M_MISSING_COLUMN
+  - id: duplicate_lead_id
+    change: {set: {file: leads, row: 1, column: lead_id, value: L1}}
+    stage: mapping
+    code: M_DUPLICATE_ID
+  - id: unparseable_timestamp
+    change: {set: {file: leads, row: 0, column: created_at, value: "2025-13-01 10:00:00"}}
+    stage: mapping
+    code: M_UNPARSEABLE_TIMESTAMP
+  - id: offset_in_naive_mode
+    change: {set: {file: activities, row: 0, column: activity_at, value: "2025-02-03T11:00:00+01:00"}}
+    stage: mapping
+    code: M_OFFSET_IN_NAIVE
+  - id: naive_wall_clock_on_real_data
+    change: {dataset: {data_origin: real}}
+    stage: mapping
+    code: M_NAIVE_NOT_ALLOWED
+  - id: invalid_boolean
+    change: {set: {file: leads, row: 0, column: is_duplicate, value: "yes"}}
+    stage: mapping
+    code: M_BOOL
+  - id: duplicate_and_reactivation
+    change: {set: {file: leads, row: 2, column: is_duplicate, value: "True"}}
+    stage: mapping
+    code: M_ORIGIN_CONFLICT
+  - id: two_snapshot_dates
+    change: {set: {file: leads, row: 1, column: snapshot_date, value: "2025-06-29 23:59:00"}}
+    stage: mapping
+    code: M_SNAPSHOT
+  - id: interview_row_not_internal
+    change: {set: {file: activities, row: 1, column: direction, value: outbound}}
+    stage: mapping
+    code: M_CONSTANT
+  - id: activity_of_unknown_lead
+    change: {set: {file: activities, row: 3, column: lead_id, value: L999}}
+    stage: contract
+    code: E_FK
+  - id: unknown_actor_type
+    change: {set: {file: activities, row: 0, column: actor_type, value: robot}}
+    stage: contract
+    code: E_ENUM
+  - id: activity_after_snapshot
+    change: {set: {file: activities, row: 3, column: activity_at, value: "2025-07-02 10:00:00"}}
+    stage: contract
+    code: E_AFTER_SNAPSHOT
+  - id: replaced_appointment_not_rescheduled
+    change: {set: {file: activities, row: 1, column: replaced_by_activity_id, value: A3}}
+    stage: contract
+    code: E_RESCHEDULE_CHAIN
+  - id: unknown_stage
+    change: {set: {file: leads, row: 2, column: pipeline_stage, value: won}}
+    stage: profile
+    code: P_STAGE
+  - id: reactivation_without_parent
+    change: {set: {file: leads, row: 2, column: reactivated_from_lead_id, value: ""}}
+    stage: profile
+    code: P_REACTIVATION_PARENT_MISSING
+  - id: reactivation_parent_other_person
+    change: {set: {file: leads, row: 2, column: person_key, value: P9}}
+    stage: profile
+    code: P_REACTIVATION_PARENT_INVALID
+  - id: parent_on_original_record
+    change: {set: {file: leads, row: 0, column: reactivated_from_lead_id, value: L2}}
+    stage: profile
+    code: P_PARENT_NOT_ALLOWED
+  - id: net_price_does_not_reconcile
+    change: {set: {file: leads, row: 0, column: net_price, value: "2200.0"}}
+    stage: profile
+    code: P_AMOUNTS
+  - id: campaign_discount_missing
+    change: {set: {file: leads, row: 0, column: campaign_discount, value: ""}}
+    stage: profile
+    code: P_AMOUNTS
+  - id: lost_reason_outside_profile
+    change: {set: {file: leads, row: 1, column: lost_reason, value: price}}
+    stage: profile
+    code: P_LOST_REASON
+  - id: won_without_won_date
+    change: {set: {file: leads, row: 0, column: enrolled_at, value: ""}}
+    stage: profile
+    code: P_WON_LOST

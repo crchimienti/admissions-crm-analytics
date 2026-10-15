@@ -1,0 +1,9 @@
+# v1.4.0-gh: keep every versioned file byte-identical on every operating system.
+# v1.4.0-gh: conservar cada archivo versionado idéntico byte a byte en todos los sistemas operativos.
+#
+# "-text" turns off Git's end-of-line conversion (core.autocrlf, eol) for all files, so a checkout on Windows
+# gets exactly the LF bytes that were committed. The SHA-256 manifests of F0-F3 and the regression tests compare
+# bytes, so a converted file would be reported as changed. Git still shows normal text diffs.
+# "-text" desactiva la conversión de fin de línea de Git en todos los archivos: un checkout en Windows recibe
+# exactamente los bytes LF versionados. Los manifiestos SHA-256 y las pruebas de regresión comparan bytes.
+* -text

@@ -1,0 +1,91 @@
+# What each admissions KPI needs from a canonical dataset (F2). Read by src/canonical/availability.py.
+# Qué necesita cada KPI de admisiones de un dataset canónico (F2).
+#
+# A KPI is available only if every requirement is met; otherwise it is reported as
+#   {id, status: not_available, reason, missing}   — never with value, numerator or denominator, never as zero.
+# Requirements and reason codes:
+#   stage_milestones   (HM)  first entry into a stage is recorded: full_event_history or milestone_first_entry
+#   stage_transitions  (HF)  every stage change is recorded: full_event_history
+#   is_automated       (AUT) activities.is_automated is present (manual vs automated contact)
+#   appointments       (APT) the appointments table is present
+# Records and activities are always present (required tables), so they are not listed.
+# Computed reasons (decided by the adapter after the capabilities, v1.2.1-f2; same not_available shape):
+#   DEN0   inputs exist but the rate's denominator is zero        (missing: [nonzero_denominator])
+#   INSUF  inputs exist but a median / mean / p90 has no observation (missing: [observations])
+
+reason_codes:
+  stage_milestones: HM
+  stage_transitions: HF
+  is_automated: AUT
+  appointments: APT
+
+# The 31 indicators of the F2 catalogue (24 metrics + 7 history indicators), in catalogue order.
+catalogue:
+  metrics: [share_manual_route, show_rate_per_appointment, show_rate_per_appointment_manual,
+            show_rate_per_appointment_bot, cancellation_rate, show_rate_per_lead, contact_rate,
+            sla_first_attempt_24h_manual, sla_first_attempt_24h_manual_weekday, sla_first_attempt_24h_manual_weekend,
+            sla_first_attempt_same_day_manual, first_response_median_hours, first_response_p90_hours,
+            followup_48h_manual_advisor, main_kpi_interviews_held_over_opportunities, held_rate_manual_route,
+            held_rate_bot_route, booking_rate, forms_over_interviews_held, enrollments_over_interviews_held,
+            links_over_forms, enrollments_over_eligible_leads, sales_cycle_median_days, sales_cycle_mean_days]
+  history: [first_entry, entry_count, regression_events, regression_rate, reopen_events, reopen_rate, time_in_stage]
+  # computable capability without an expected value in the fixture
+  capabilities_without_expected_value: [time_in_stage]
+
+requirements:
+  # ---- the 47 baseline metrics (src/metrics.py) ----
+  eligible_leads: []
+  mature_eligible_leads: []
+  duplicate_rows: []
+  reactivation_rows: []
+  share_manual_route: []
+  main_kpi_interviews_held_over_opportunities: [stage_milestones]
+  held_rate_manual_route: [stage_milestones]
+  held_rate_bot_route: [stage_milestones]
+  booking_rate: [stage_milestones]
+  show_rate_per_appointment: [appointments]
+  show_rate_per_appointment_manual: [appointments]
+  show_rate_per_appointment_bot: [appointments]
+  show_rate_per_lead: [appointments]
+  cancellation_rate: [appointments]
+  forms_over_interviews_held: [stage_milestones]
+  enrollments_over_interviews_held: [stage_milestones]
+  links_over_forms: [stage_milestones]
+  enrollments_over_eligible_leads: []          # records.won_at (current state), no history needed
+  sales_cycle_median_days: []                  # records.won_at - records.created_at
+  sales_cycle_mean_days: []
+  sla_first_attempt_24h_manual: [is_automated]
+  sla_first_attempt_24h_manual_weekday: [is_automated]
+  sla_first_attempt_24h_manual_weekend: [is_automated]
+  sla_first_attempt_same_day_manual: [is_automated]
+  first_response_median_hours: [is_automated]
+  first_response_p90_hours: [is_automated]
+  contact_rate: [is_automated, appointments]   # attempts need is_automated; connections include held appointments
+  reassignment_rate_manual: []
+  bot_pre_interview_confirmation: [appointments]
+  bot_pre_interview_human_contact: [is_automated, appointments]
+  followup_48h_manual_advisor: [stage_milestones, is_automated]
+  open_leads_at_snapshot: []
+  open_without_next_task: []
+  open_with_overdue_task: []
+  closed_lost_without_reason: []
+  lost_reason_share_iloc: []
+  advisor_months_over_150_realised: []
+  advisor_months_over_150_expected: []
+  enrollments_total: []
+  avg_net_price_eur: []
+  avg_net_price_single_eur: []
+  avg_net_price_installments_eur: []
+  installments_share: []
+  nurture_reactivation_complete_window: []
+  nurture_email_failure_rate: []
+  show_rate_with_personal_whatsapp: [appointments]
+  show_rate_without_personal_whatsapp: [appointments]
+  # ---- history indicators (src/canonical/history.py) ----
+  first_entry: [stage_milestones]
+  entry_count: [stage_transitions]
+  regression_events: [stage_transitions]
+  regression_rate: [stage_transitions]
+  reopen_events: [stage_transitions]
+  reopen_rate: [stage_transitions]
+  time_in_stage: [stage_transitions]

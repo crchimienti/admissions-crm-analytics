@@ -1,0 +1,82 @@
+# v1.4.0-gh / v1.4.1-gh — prepared, not run yet. It runs only once the repository is published on GitHub.
+# v1.4.0-gh / v1.4.1-gh — preparado, todavía no ejecutado. Solo se ejecuta cuando el repositorio esté publicado en GitHub.
+#
+# Job "tests": the quick start and the whole test suite on Linux, Windows and macOS with the pinned environment.
+#   Until it has passed on a system, that system is "prepared, not yet verified" in the README.
+# Job "reproduction-portable" (manual only): analytical verification on Linux, Windows and macOS — data, the 47
+#   metrics and 8 KPIs, every notebook cell, text, table and number, chart structure, tests, frozen references.
+#   PNG image differences are reported separately (build/portable/PORTABLE_REPORT.md, uploaded as an artifact); this
+#   is not a byte-for-byte reproduction of the notebook.
+# Job "reproduction-strict" (manual only): byte-for-byte reproduction, PNG images included, on the Linux reference.
+#   It is not run on Windows or macOS: their chart images are known (Windows) or expected to differ.
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.16"
+      - name: Install the pinned environment
+        run: python -m pip install -r requirements-lock.txt
+      - name: Quick start (read-only)
+        run: python scripts/show_results.py
+      - name: Tests
+        run: python -m pytest -q
+
+  reproduction-portable:
+    if: github.event_name == 'workflow_dispatch'
+    name: reproduction, portable analytical (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.16"
+      - name: Install the pinned environment
+        run: python -m pip install -r requirements-lock.txt
+      - name: Portable analytical reproduction (PNG differences reported, not required)
+        run: python scripts/release_run.py --mode portable
+      - name: Keep the portable report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable-report-${{ matrix.os }}
+          path: build/portable/
+          if-no-files-found: ignore
+
+  reproduction-strict:
+    if: github.event_name == 'workflow_dispatch'
+    name: reproduction, strict byte-for-byte (Linux reference)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.16"
+      - name: Install the pinned environment
+        run: python -m pip install -r requirements-lock.txt
+      - name: Strict reproduction (notebook and PNG images byte-identical to F1)
+        run: python scripts/release_run.py --check

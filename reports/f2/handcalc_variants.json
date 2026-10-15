@@ -1,0 +1,1239 @@
+{
+  "v_full": {
+    "history_mode": "full_event_history",
+    "available": 31,
+    "not_available": 0,
+    "ids_once": true,
+    "matrix_matches_expected": true,
+    "full_path_status_matches": true,
+    "values_checked": 30,
+    "value_mismatches": [],
+    "computed_reasons_in_baseline_metrics": [
+      "DEN0"
+    ],
+    "catalogue": [
+      {
+        "id": "share_manual_route",
+        "status": "available",
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10
+      },
+      {
+        "id": "show_rate_per_appointment",
+        "status": "available",
+        "value": 0.625,
+        "numerator": 5,
+        "denominator": 8
+      },
+      {
+        "id": "show_rate_per_appointment_manual",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "show_rate_per_appointment_bot",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "cancellation_rate",
+        "status": "available",
+        "value": 0.111111,
+        "numerator": 1,
+        "denominator": 9
+      },
+      {
+        "id": "show_rate_per_lead",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "contact_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "sla_first_attempt_24h_manual",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 3,
+        "denominator": 6
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekday",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekend",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "sla_first_attempt_same_day_manual",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 2,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_median_hours",
+        "status": "available",
+        "value": 22.75,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_p90_hours",
+        "status": "available",
+        "value": 54.5,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "followup_48h_manual_advisor",
+        "status": "available",
+        "value": 0.75,
+        "numerator": 3,
+        "denominator": 4
+      },
+      {
+        "id": "main_kpi_interviews_held_over_opportunities",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 4,
+        "denominator": 8
+      },
+      {
+        "id": "held_rate_manual_route",
+        "status": "available",
+        "value": 0.6,
+        "numerator": 3,
+        "denominator": 5
+      },
+      {
+        "id": "held_rate_bot_route",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 1,
+        "denominator": 3
+      },
+      {
+        "id": "booking_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "forms_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "enrollments_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "links_over_forms",
+        "status": "available",
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2
+      },
+      {
+        "id": "enrollments_over_eligible_leads",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 2,
+        "denominator": 8
+      },
+      {
+        "id": "sales_cycle_median_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "sales_cycle_mean_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "first_entry",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 7,
+          "interview_held": 4,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 2
+        }
+      },
+      {
+        "id": "entry_count",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 8,
+          "interview_held": 5,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 3
+        }
+      },
+      {
+        "id": "regression_events",
+        "status": "available",
+        "value": 1
+      },
+      {
+        "id": "regression_rate",
+        "status": "available",
+        "value": 0.04,
+        "numerator": 1,
+        "denominator": 25
+      },
+      {
+        "id": "reopen_events",
+        "status": "available",
+        "value": 1
+      },
+      {
+        "id": "reopen_rate",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 1,
+        "denominator": 4
+      },
+      {
+        "id": "time_in_stage",
+        "status": "available",
+        "value": {
+          "opportunity": 59.75,
+          "interview_booked": 130.375,
+          "interview_held": 95.0,
+          "form_completed": 48.0,
+          "enrollment_link_sent": 60.0
+        }
+      }
+    ]
+  },
+  "v_milestone": {
+    "history_mode": "milestone_first_entry",
+    "available": 25,
+    "not_available": 6,
+    "ids_once": true,
+    "matrix_matches_expected": true,
+    "full_path_status_matches": true,
+    "values_checked": 25,
+    "value_mismatches": [],
+    "computed_reasons_in_baseline_metrics": [
+      "DEN0"
+    ],
+    "catalogue": [
+      {
+        "id": "share_manual_route",
+        "status": "available",
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10
+      },
+      {
+        "id": "show_rate_per_appointment",
+        "status": "available",
+        "value": 0.625,
+        "numerator": 5,
+        "denominator": 8
+      },
+      {
+        "id": "show_rate_per_appointment_manual",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "show_rate_per_appointment_bot",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "cancellation_rate",
+        "status": "available",
+        "value": 0.111111,
+        "numerator": 1,
+        "denominator": 9
+      },
+      {
+        "id": "show_rate_per_lead",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "contact_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "sla_first_attempt_24h_manual",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 3,
+        "denominator": 6
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekday",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekend",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "sla_first_attempt_same_day_manual",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 2,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_median_hours",
+        "status": "available",
+        "value": 22.75,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_p90_hours",
+        "status": "available",
+        "value": 54.5,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "followup_48h_manual_advisor",
+        "status": "available",
+        "value": 0.75,
+        "numerator": 3,
+        "denominator": 4
+      },
+      {
+        "id": "main_kpi_interviews_held_over_opportunities",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 4,
+        "denominator": 8
+      },
+      {
+        "id": "held_rate_manual_route",
+        "status": "available",
+        "value": 0.6,
+        "numerator": 3,
+        "denominator": 5
+      },
+      {
+        "id": "held_rate_bot_route",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 1,
+        "denominator": 3
+      },
+      {
+        "id": "booking_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "forms_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "enrollments_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "links_over_forms",
+        "status": "available",
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2
+      },
+      {
+        "id": "enrollments_over_eligible_leads",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 2,
+        "denominator": 8
+      },
+      {
+        "id": "sales_cycle_median_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "sales_cycle_mean_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "first_entry",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 7,
+          "interview_held": 4,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 2
+        }
+      },
+      {
+        "id": "entry_count",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "regression_events",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "regression_rate",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "reopen_events",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "reopen_rate",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "time_in_stage",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      }
+    ]
+  },
+  "v_snapshot": {
+    "history_mode": "snapshot_only",
+    "available": 16,
+    "not_available": 15,
+    "ids_once": true,
+    "matrix_matches_expected": true,
+    "full_path_status_matches": true,
+    "values_checked": 16,
+    "value_mismatches": [],
+    "computed_reasons_in_baseline_metrics": [
+      "DEN0"
+    ],
+    "catalogue": [
+      {
+        "id": "share_manual_route",
+        "status": "available",
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10
+      },
+      {
+        "id": "show_rate_per_appointment",
+        "status": "available",
+        "value": 0.625,
+        "numerator": 5,
+        "denominator": 8
+      },
+      {
+        "id": "show_rate_per_appointment_manual",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "show_rate_per_appointment_bot",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "cancellation_rate",
+        "status": "available",
+        "value": 0.111111,
+        "numerator": 1,
+        "denominator": 9
+      },
+      {
+        "id": "show_rate_per_lead",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "contact_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "sla_first_attempt_24h_manual",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 3,
+        "denominator": 6
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekday",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekend",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "sla_first_attempt_same_day_manual",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 2,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_median_hours",
+        "status": "available",
+        "value": 22.75,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_p90_hours",
+        "status": "available",
+        "value": 54.5,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "followup_48h_manual_advisor",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "main_kpi_interviews_held_over_opportunities",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "held_rate_manual_route",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "held_rate_bot_route",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "booking_rate",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "forms_over_interviews_held",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "enrollments_over_interviews_held",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "links_over_forms",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "enrollments_over_eligible_leads",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 2,
+        "denominator": 8
+      },
+      {
+        "id": "sales_cycle_median_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "sales_cycle_mean_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "first_entry",
+        "status": "not_available",
+        "reason": "HM",
+        "missing": [
+          "stage_milestones"
+        ]
+      },
+      {
+        "id": "entry_count",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "regression_events",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "regression_rate",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "reopen_events",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "reopen_rate",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      },
+      {
+        "id": "time_in_stage",
+        "status": "not_available",
+        "reason": "HF",
+        "missing": [
+          "stage_transitions"
+        ]
+      }
+    ]
+  },
+  "v_no_automated": {
+    "history_mode": "full_event_history",
+    "available": 23,
+    "not_available": 8,
+    "ids_once": true,
+    "matrix_matches_expected": true,
+    "full_path_status_matches": true,
+    "values_checked": 22,
+    "value_mismatches": [],
+    "computed_reasons_in_baseline_metrics": [
+      "DEN0"
+    ],
+    "catalogue": [
+      {
+        "id": "share_manual_route",
+        "status": "available",
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10
+      },
+      {
+        "id": "show_rate_per_appointment",
+        "status": "available",
+        "value": 0.625,
+        "numerator": 5,
+        "denominator": 8
+      },
+      {
+        "id": "show_rate_per_appointment_manual",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "show_rate_per_appointment_bot",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "cancellation_rate",
+        "status": "available",
+        "value": 0.111111,
+        "numerator": 1,
+        "denominator": 9
+      },
+      {
+        "id": "show_rate_per_lead",
+        "status": "available",
+        "value": 0.666667,
+        "numerator": 4,
+        "denominator": 6
+      },
+      {
+        "id": "contact_rate",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "sla_first_attempt_24h_manual",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekday",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekend",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "sla_first_attempt_same_day_manual",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "first_response_median_hours",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "first_response_p90_hours",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "followup_48h_manual_advisor",
+        "status": "not_available",
+        "reason": "AUT",
+        "missing": [
+          "is_automated"
+        ]
+      },
+      {
+        "id": "main_kpi_interviews_held_over_opportunities",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 4,
+        "denominator": 8
+      },
+      {
+        "id": "held_rate_manual_route",
+        "status": "available",
+        "value": 0.6,
+        "numerator": 3,
+        "denominator": 5
+      },
+      {
+        "id": "held_rate_bot_route",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 1,
+        "denominator": 3
+      },
+      {
+        "id": "booking_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "forms_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "enrollments_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "links_over_forms",
+        "status": "available",
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2
+      },
+      {
+        "id": "enrollments_over_eligible_leads",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 2,
+        "denominator": 8
+      },
+      {
+        "id": "sales_cycle_median_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "sales_cycle_mean_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "first_entry",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 7,
+          "interview_held": 4,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 2
+        }
+      },
+      {
+        "id": "entry_count",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 8,
+          "interview_held": 5,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 3
+        }
+      },
+      {
+        "id": "regression_events",
+        "status": "available",
+        "value": 1
+      },
+      {
+        "id": "regression_rate",
+        "status": "available",
+        "value": 0.04,
+        "numerator": 1,
+        "denominator": 25
+      },
+      {
+        "id": "reopen_events",
+        "status": "available",
+        "value": 1
+      },
+      {
+        "id": "reopen_rate",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 1,
+        "denominator": 4
+      },
+      {
+        "id": "time_in_stage",
+        "status": "available",
+        "value": {
+          "opportunity": 59.75,
+          "interview_booked": 130.375,
+          "interview_held": 95.0,
+          "form_completed": 48.0,
+          "enrollment_link_sent": 60.0
+        }
+      }
+    ]
+  },
+  "v_no_appointments": {
+    "history_mode": "full_event_history",
+    "available": 25,
+    "not_available": 6,
+    "ids_once": true,
+    "matrix_matches_expected": true,
+    "full_path_status_matches": true,
+    "values_checked": 24,
+    "value_mismatches": [],
+    "computed_reasons_in_baseline_metrics": [
+      "DEN0"
+    ],
+    "catalogue": [
+      {
+        "id": "share_manual_route",
+        "status": "available",
+        "value": 0.7,
+        "numerator": 7,
+        "denominator": 10
+      },
+      {
+        "id": "show_rate_per_appointment",
+        "status": "not_available",
+        "reason": "APT",
+        "missing": [
+          "appointments"
+        ]
+      },
+      {
+        "id": "show_rate_per_appointment_manual",
+        "status": "not_available",
+        "reason": "APT",
+        "missing": [
+          "appointments"
+        ]
+      },
+      {
+        "id": "show_rate_per_appointment_bot",
+        "status": "not_available",
+        "reason": "APT",
+        "missing": [
+          "appointments"
+        ]
+      },
+      {
+        "id": "cancellation_rate",
+        "status": "not_available",
+        "reason": "APT",
+        "missing": [
+          "appointments"
+        ]
+      },
+      {
+        "id": "show_rate_per_lead",
+        "status": "not_available",
+        "reason": "APT",
+        "missing": [
+          "appointments"
+        ]
+      },
+      {
+        "id": "contact_rate",
+        "status": "not_available",
+        "reason": "APT",
+        "missing": [
+          "appointments"
+        ]
+      },
+      {
+        "id": "sla_first_attempt_24h_manual",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 3,
+        "denominator": 6
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekday",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "sla_first_attempt_24h_manual_weekend",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 1,
+        "denominator": 2
+      },
+      {
+        "id": "sla_first_attempt_same_day_manual",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 2,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_median_hours",
+        "status": "available",
+        "value": 22.75,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "first_response_p90_hours",
+        "status": "available",
+        "value": 54.5,
+        "numerator": null,
+        "denominator": 6
+      },
+      {
+        "id": "followup_48h_manual_advisor",
+        "status": "available",
+        "value": 0.75,
+        "numerator": 3,
+        "denominator": 4
+      },
+      {
+        "id": "main_kpi_interviews_held_over_opportunities",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 4,
+        "denominator": 8
+      },
+      {
+        "id": "held_rate_manual_route",
+        "status": "available",
+        "value": 0.6,
+        "numerator": 3,
+        "denominator": 5
+      },
+      {
+        "id": "held_rate_bot_route",
+        "status": "available",
+        "value": 0.333333,
+        "numerator": 1,
+        "denominator": 3
+      },
+      {
+        "id": "booking_rate",
+        "status": "available",
+        "value": 0.875,
+        "numerator": 7,
+        "denominator": 8
+      },
+      {
+        "id": "forms_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "enrollments_over_interviews_held",
+        "status": "available",
+        "value": 0.5,
+        "numerator": 2,
+        "denominator": 4
+      },
+      {
+        "id": "links_over_forms",
+        "status": "available",
+        "value": 1.0,
+        "numerator": 2,
+        "denominator": 2
+      },
+      {
+        "id": "enrollments_over_eligible_leads",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 2,
+        "denominator": 8
+      },
+      {
+        "id": "sales_cycle_median_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "sales_cycle_mean_days",
+        "status": "available",
+        "value": 8.291667,
+        "numerator": null,
+        "denominator": 2
+      },
+      {
+        "id": "first_entry",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 7,
+          "interview_held": 4,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 2
+        }
+      },
+      {
+        "id": "entry_count",
+        "status": "available",
+        "value": {
+          "opportunity": 4,
+          "interview_booked": 8,
+          "interview_held": 5,
+          "form_completed": 2,
+          "enrollment_link_sent": 2,
+          "closed_won": 2,
+          "closed_lost": 3
+        }
+      },
+      {
+        "id": "regression_events",
+        "status": "available",
+        "value": 1
+      },
+      {
+        "id": "regression_rate",
+        "status": "available",
+        "value": 0.04,
+        "numerator": 1,
+        "denominator": 25
+      },
+      {
+        "id": "reopen_events",
+        "status": "available",
+        "value": 1
+      },
+      {
+        "id": "reopen_rate",
+        "status": "available",
+        "value": 0.25,
+        "numerator": 1,
+        "denominator": 4
+      },
+      {
+        "id": "time_in_stage",
+        "status": "available",
+        "value": {
+          "opportunity": 59.75,
+          "interview_booked": 130.375,
+          "interview_held": 95.0,
+          "form_completed": 48.0,
+          "enrollment_link_sent": 60.0
+        }
+      }
+    ]
+  }
+}

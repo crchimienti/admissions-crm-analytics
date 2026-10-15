@@ -1,0 +1,1042 @@
+{
+  "schema_version": "1.0",
+  "baseline_id": "v1.0.0-f0",
+  "note": "All values are synthetic (seed 42). Not historical data, not findings about any real organisation.",
+  "seed": 42,
+  "snapshot_date": "2025-12-31 23:59:00",
+  "maturity_days": 60,
+  "inputs_sha256": {
+    "config/simulation_params.yaml": "51c5d18fb1c7b3221dc06d0764413353ccaaee7f1cfff6851c880b622653708f",
+    "data/leads.csv": "255720913fea99f247e657e0969597c2d4652fb1f09e5bec3e61ea566cd22a0b",
+    "data/activities.csv": "3318a0b81877ae8b63f916cda6b459723e508f59b5a27b70ab87de9df5b4b25e",
+    "data/dq_ground_truth.csv": "f0dc4ac66ddc789d5a37ae3b07e36439dd581d34ea36f0f3b4131893f0699a7b"
+  },
+  "metrics": [
+    {
+      "id": "eligible_leads",
+      "label_en": "Eligible leads",
+      "label_es": "Leads elegibles",
+      "unit": "lead",
+      "kind": "count",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false)",
+      "numerator": "count of rows",
+      "denominator": null,
+      "time_basis": "12 months, all cohorts",
+      "definition_ref": [
+        "docs/kpi_definitions.md §0",
+        "docs/kpi_definitions.es.md §0"
+      ],
+      "numerator_value": 7691,
+      "denominator_value": null,
+      "value": 7691
+    },
+    {
+      "id": "mature_eligible_leads",
+      "label_en": "Mature eligible leads",
+      "label_es": "Leads elegibles maduros",
+      "unit": "lead",
+      "kind": "count",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h)",
+      "numerator": "count of rows",
+      "denominator": null,
+      "time_basis": "all cohorts",
+      "definition_ref": [
+        "docs/kpi_definitions.md §0",
+        "docs/kpi_definitions.es.md §0"
+      ],
+      "numerator_value": 6487,
+      "denominator_value": null,
+      "value": 6487
+    },
+    {
+      "id": "duplicate_rows",
+      "label_en": "Duplicate rows",
+      "label_es": "Filas duplicadas",
+      "unit": "lead",
+      "kind": "count",
+      "population": "rows with is_duplicate = true",
+      "numerator": "count of rows",
+      "denominator": null,
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §7",
+        "docs/kpi_definitions.es.md §7"
+      ],
+      "numerator_value": 154,
+      "denominator_value": null,
+      "value": 154
+    },
+    {
+      "id": "reactivation_rows",
+      "label_en": "Reactivated leads",
+      "label_es": "Leads reactivados",
+      "unit": "lead",
+      "kind": "count",
+      "population": "rows with is_reactivation = true",
+      "numerator": "count of rows",
+      "denominator": null,
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §6",
+        "docs/kpi_definitions.es.md §6"
+      ],
+      "numerator_value": 100,
+      "denominator_value": null,
+      "value": 100
+    },
+    {
+      "id": "share_manual_route",
+      "label_en": "Share of manual route",
+      "label_es": "Proporción ruta manual",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false)",
+      "numerator": "entry_path = manual",
+      "denominator": "eligible leads",
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 5374,
+      "denominator_value": 7691,
+      "value": 0.698739
+    },
+    {
+      "id": "main_kpi_interviews_held_over_opportunities",
+      "label_en": "Main KPI: interviews held / opportunities",
+      "label_es": "KPI principal: entrevistas realizadas / oportunidades",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h), both routes",
+      "numerator": "leads with ≥1 held appointment",
+      "denominator": "all mature eligible leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 2923,
+      "denominator_value": 6487,
+      "value": 0.450593
+    },
+    {
+      "id": "held_rate_manual_route",
+      "label_en": "Held interview rate, manual route",
+      "label_es": "Entrevista realizada, ruta manual",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h), entry_path = manual",
+      "numerator": "leads with ≥1 held appointment",
+      "denominator": "mature eligible manual leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 1420,
+      "denominator_value": 4533,
+      "value": 0.313258
+    },
+    {
+      "id": "held_rate_bot_route",
+      "label_en": "Held interview rate, bot route",
+      "label_es": "Entrevista realizada, ruta bot",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h), entry_path = bot_booked",
+      "numerator": "leads with ≥1 held appointment",
+      "denominator": "mature eligible bot-route leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 1503,
+      "denominator_value": 1954,
+      "value": 0.769191
+    },
+    {
+      "id": "booking_rate",
+      "label_en": "Booking rate",
+      "label_es": "Tasa de reserva",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h)",
+      "numerator": "leads with entered_interview_booked_at",
+      "denominator": "mature eligible leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 3651,
+      "denominator_value": 6487,
+      "value": 0.562818
+    },
+    {
+      "id": "show_rate_per_appointment",
+      "label_en": "Per-appointment show rate",
+      "label_es": "Show rate por cita",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments: eligible lead, not replaced, scheduled ≤ snapshot",
+      "numerator": "held appointments",
+      "denominator": "held + no_show appointments",
+      "time_basis": "period (all appointment months)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 3431,
+      "denominator_value": 4932,
+      "value": 0.695661
+    },
+    {
+      "id": "show_rate_per_appointment_manual",
+      "label_en": "Per-appointment show rate, manual route",
+      "label_es": "Show rate por cita, ruta manual",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments of manual-route leads",
+      "numerator": "held appointments",
+      "denominator": "held + no_show appointments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 1665,
+      "denominator_value": 2219,
+      "value": 0.750338
+    },
+    {
+      "id": "show_rate_per_appointment_bot",
+      "label_en": "Per-appointment show rate, bot route",
+      "label_es": "Show rate por cita, ruta bot",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments of bot-route leads",
+      "numerator": "held appointments",
+      "denominator": "held + no_show appointments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 1766,
+      "denominator_value": 2713,
+      "value": 0.65094
+    },
+    {
+      "id": "show_rate_per_lead",
+      "label_en": "Per-lead show rate",
+      "label_es": "Show rate por lead",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) with ≥1 eligible appointment held or no_show",
+      "numerator": "leads with ≥1 held appointment",
+      "denominator": "leads with ≥1 eligible appointment held or no_show",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 2923,
+      "denominator_value": 3478,
+      "value": 0.840426
+    },
+    {
+      "id": "cancellation_rate",
+      "label_en": "Cancellation rate",
+      "label_es": "Tasa de cancelación",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments with a terminal outcome",
+      "numerator": "cancelled appointments",
+      "denominator": "held + no_show + cancelled appointments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 327,
+      "denominator_value": 5259,
+      "value": 0.062179
+    },
+    {
+      "id": "forms_over_interviews_held",
+      "label_en": "Forms completed / interviews held",
+      "label_es": "Formularios / entrevistas realizadas",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) with a held interview",
+      "numerator": "leads with entered_form_completed_at",
+      "denominator": "leads with entered_interview_held_at",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": 1255,
+      "denominator_value": 2923,
+      "value": 0.429353
+    },
+    {
+      "id": "enrollments_over_interviews_held",
+      "label_en": "Enrollments / interviews held",
+      "label_es": "Matrículas / entrevistas realizadas",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) with a held interview",
+      "numerator": "leads with enrolled_at",
+      "denominator": "leads with entered_interview_held_at",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": 684,
+      "denominator_value": 2923,
+      "value": 0.234006
+    },
+    {
+      "id": "links_over_forms",
+      "label_en": "Enrollment links / forms",
+      "label_es": "Enlaces / formularios",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) with a completed form",
+      "numerator": "leads with entered_enrollment_link_sent_at",
+      "denominator": "leads with entered_form_completed_at",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": 1042,
+      "denominator_value": 1255,
+      "value": 0.830279
+    },
+    {
+      "id": "enrollments_over_eligible_leads",
+      "label_en": "Enrollments / eligible leads",
+      "label_es": "Matrículas / leads elegibles",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h)",
+      "numerator": "leads with enrolled_at",
+      "denominator": "mature eligible leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": 684,
+      "denominator_value": 6487,
+      "value": 0.105442
+    },
+    {
+      "id": "sales_cycle_median_days",
+      "label_en": "Sales cycle, median (days)",
+      "label_es": "Ciclo de venta, mediana (días)",
+      "unit": "lead",
+      "kind": "median",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) enrolled",
+      "numerator": "enrolled_at − created_at in days",
+      "denominator": "enrolled mature leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": null,
+      "denominator_value": 684,
+      "value": 17.043947
+    },
+    {
+      "id": "sales_cycle_mean_days",
+      "label_en": "Sales cycle, mean (days)",
+      "label_es": "Ciclo de venta, media (días)",
+      "unit": "lead",
+      "kind": "mean",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) enrolled",
+      "numerator": "enrolled_at − created_at in days",
+      "denominator": "enrolled mature leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": null,
+      "denominator_value": 684,
+      "value": 18.19736
+    },
+    {
+      "id": "sla_first_attempt_24h_manual",
+      "label_en": "Manual first attempt ≤ 24 calendar hours",
+      "label_es": "Primer intento manual ≤ 24 horas naturales",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot",
+      "numerator": "first_human_attempt_at − created_at ≤ 24 h",
+      "denominator": "all leads in the population (with or without attempt)",
+      "time_basis": "period (12 months)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 3735,
+      "denominator_value": 5358,
+      "value": 0.697088
+    },
+    {
+      "id": "sla_first_attempt_24h_manual_weekday",
+      "label_en": "Manual first attempt ≤ 24 h, weekday arrivals",
+      "label_es": "Primer intento ≤ 24 h, entradas entre semana",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot, created Mon–Fri",
+      "numerator": "first attempt ≤ 24 h",
+      "denominator": "population",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 3371,
+      "denominator_value": 4355,
+      "value": 0.774053
+    },
+    {
+      "id": "sla_first_attempt_24h_manual_weekend",
+      "label_en": "Manual first attempt ≤ 24 h, weekend arrivals",
+      "label_es": "Primer intento ≤ 24 h, entradas en fin de semana",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot, created Sat–Sun",
+      "numerator": "first attempt ≤ 24 h",
+      "denominator": "population",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 364,
+      "denominator_value": 1003,
+      "value": 0.362911
+    },
+    {
+      "id": "sla_first_attempt_same_day_manual",
+      "label_en": "Manual first attempt same calendar day",
+      "label_es": "Primer intento el mismo día natural",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot",
+      "numerator": "first attempt on the calendar date of created_at",
+      "denominator": "population",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 1911,
+      "denominator_value": 5358,
+      "value": 0.356663
+    },
+    {
+      "id": "first_response_median_hours",
+      "label_en": "First response, median (calendar hours)",
+      "label_es": "Primera respuesta, mediana (horas naturales)",
+      "unit": "lead",
+      "kind": "median",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot with an attempt",
+      "numerator": "first_human_attempt_at − created_at",
+      "denominator": "leads with an attempt",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": null,
+      "denominator_value": 5243,
+      "value": 15.850278
+    },
+    {
+      "id": "first_response_p90_hours",
+      "label_en": "First response, p90 (calendar hours)",
+      "label_es": "Primera respuesta, p90 (horas naturales)",
+      "unit": "lead",
+      "kind": "p90",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot with an attempt",
+      "numerator": "first_human_attempt_at − created_at",
+      "denominator": "leads with an attempt",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": null,
+      "denominator_value": 5243,
+      "value": 59.662778
+    },
+    {
+      "id": "contact_rate",
+      "label_en": "Contact rate",
+      "label_es": "Tasa de contacto",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false) with ≥1 human attempt",
+      "numerator": "leads with first_connected_at",
+      "denominator": "leads with ≥1 human attempt",
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 5486,
+      "denominator_value": 7469,
+      "value": 0.734503
+    },
+    {
+      "id": "reassignment_rate_manual",
+      "label_en": "Reassignment rate (manual)",
+      "label_es": "Tasa de reasignación (manual)",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible manual leads",
+      "numerator": "reassigned_flag = true",
+      "denominator": "eligible manual leads",
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 1182,
+      "denominator_value": 5374,
+      "value": 0.219948
+    },
+    {
+      "id": "bot_pre_interview_confirmation",
+      "label_en": "Bot route: confirmation/reminder before first appointment",
+      "label_es": "Ruta bot: confirmación o recordatorio antes de la primera cita",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible bot-route leads",
+      "numerator": "leads with a bot pre_interview_reminder before the first appointment",
+      "denominator": "eligible bot-route leads",
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 2314,
+      "denominator_value": 2317,
+      "value": 0.998705
+    },
+    {
+      "id": "bot_pre_interview_human_contact",
+      "label_en": "Bot route: human contact before first appointment",
+      "label_es": "Ruta bot: contacto humano antes de la primera cita",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible bot-route leads",
+      "numerator": "leads with a manual advisor activity before the first appointment",
+      "denominator": "eligible bot-route leads",
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 1115,
+      "denominator_value": 2317,
+      "value": 0.481226
+    },
+    {
+      "id": "followup_48h_manual_advisor",
+      "label_en": "Manual advisor follow-up within 48 calendar hours",
+      "label_es": "Seguimiento manual del asesor en 48 horas naturales",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible leads whose first held interview + 48 h ≤ snapshot",
+      "numerator": "leads with ≥1 manual outbound advisor call/WhatsApp with held < activity_at ≤ held + 48 h",
+      "denominator": "eligible leads with a complete 48-hour window",
+      "time_basis": "period (12 months)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §7",
+        "docs/kpi_definitions.es.md §7"
+      ],
+      "numerator_value": 2118,
+      "denominator_value": 3403,
+      "value": 0.622392
+    },
+    {
+      "id": "open_leads_at_snapshot",
+      "label_en": "Open leads at snapshot",
+      "label_es": "Leads abiertos en la fecha de corte",
+      "unit": "lead",
+      "kind": "count",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false), stage not closed_won/closed_lost",
+      "numerator": "count",
+      "denominator": null,
+      "time_basis": "state at snapshot_date",
+      "definition_ref": [
+        "docs/kpi_definitions.md §7",
+        "docs/kpi_definitions.es.md §7"
+      ],
+      "numerator_value": 671,
+      "denominator_value": null,
+      "value": 671
+    },
+    {
+      "id": "open_without_next_task",
+      "label_en": "Open leads without next task",
+      "label_es": "Leads abiertos sin próxima tarea",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "open eligible leads",
+      "numerator": "has_open_task = false",
+      "denominator": "open eligible leads",
+      "time_basis": "state at snapshot_date",
+      "definition_ref": [
+        "docs/kpi_definitions.md §7",
+        "docs/kpi_definitions.es.md §7"
+      ],
+      "numerator_value": 48,
+      "denominator_value": 671,
+      "value": 0.071535
+    },
+    {
+      "id": "open_with_overdue_task",
+      "label_en": "Open leads with overdue task",
+      "label_es": "Leads abiertos con tarea vencida",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "open eligible leads",
+      "numerator": "leads with ≥1 task in status overdue",
+      "denominator": "open eligible leads",
+      "time_basis": "state at snapshot_date",
+      "definition_ref": [
+        "docs/kpi_definitions.md §7",
+        "docs/kpi_definitions.es.md §7"
+      ],
+      "numerator_value": 314,
+      "denominator_value": 671,
+      "value": 0.467958
+    },
+    {
+      "id": "closed_lost_without_reason",
+      "label_en": "Closed-lost without reason",
+      "label_es": "Cerrados perdidos sin motivo",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible closed-lost leads",
+      "numerator": "lost_reason is null",
+      "denominator": "closed-lost leads",
+      "time_basis": "state at snapshot_date",
+      "definition_ref": [
+        "docs/kpi_definitions.md §7",
+        "docs/kpi_definitions.es.md §7"
+      ],
+      "numerator_value": 187,
+      "denominator_value": 6238,
+      "value": 0.029978
+    },
+    {
+      "id": "lost_reason_share_iloc",
+      "label_en": "Share of ILOC among lost with reason",
+      "label_es": "Proporción ILOC entre perdidos con motivo",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible closed-lost leads with a reason",
+      "numerator": "lost_reason = iloc",
+      "denominator": "closed-lost leads with a reason",
+      "time_basis": "state at snapshot_date",
+      "definition_ref": [
+        "docs/kpi_definitions.md §6",
+        "docs/kpi_definitions.es.md §6"
+      ],
+      "numerator_value": 2084,
+      "denominator_value": 6051,
+      "value": 0.344406
+    },
+    {
+      "id": "advisor_months_over_150_realised",
+      "label_en": "Advisor-months above 150 leads (realised)",
+      "label_es": "Meses-asesor por encima de 150 leads (realizados)",
+      "unit": "advisor_month",
+      "kind": "count",
+      "population": "eligible leads by first_owner_id and created_at month",
+      "numerator": "advisor-months with workload > 150",
+      "denominator": "all advisor-months",
+      "time_basis": "period (month)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §5",
+        "docs/kpi_definitions.es.md §5"
+      ],
+      "numerator_value": 7,
+      "denominator_value": 60,
+      "value": 7
+    },
+    {
+      "id": "advisor_months_over_150_expected",
+      "label_en": "Advisor-months above 150 leads (expected before randomness)",
+      "label_es": "Meses-asesor por encima de 150 (esperados antes del azar)",
+      "unit": "advisor_month",
+      "kind": "count",
+      "population": "scenario monthly volume × assignment weight",
+      "numerator": "advisor-months with expected workload > 150",
+      "denominator": "all advisor-months",
+      "time_basis": "period (month)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §5",
+        "docs/kpi_definitions.es.md §5"
+      ],
+      "numerator_value": 4,
+      "denominator_value": 60,
+      "value": 4
+    },
+    {
+      "id": "enrollments_total",
+      "label_en": "Enrollments recorded by the snapshot",
+      "label_es": "Matrículas registradas hasta el corte",
+      "unit": "deal",
+      "kind": "count",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false) with enrolled_at",
+      "numerator": "count",
+      "denominator": null,
+      "time_basis": "period (12 months)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §8",
+        "docs/kpi_definitions.es.md §8"
+      ],
+      "numerator_value": 782,
+      "denominator_value": null,
+      "value": 782
+    },
+    {
+      "id": "avg_net_price_eur",
+      "label_en": "Average net price (EUR)",
+      "label_es": "Precio neto medio (EUR)",
+      "unit": "deal",
+      "kind": "mean",
+      "population": "enrolled eligible leads",
+      "numerator": "Σ net_price",
+      "denominator": "enrollments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §8",
+        "docs/kpi_definitions.es.md §8"
+      ],
+      "numerator_value": null,
+      "denominator_value": 782,
+      "value": 2521.835038
+    },
+    {
+      "id": "avg_net_price_single_eur",
+      "label_en": "Average net price, single payment (EUR)",
+      "label_es": "Precio neto medio, pago único (EUR)",
+      "unit": "deal",
+      "kind": "mean",
+      "population": "enrolled eligible leads, payment_type = single",
+      "numerator": "Σ net_price",
+      "denominator": "single-payment enrollments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §8",
+        "docs/kpi_definitions.es.md §8"
+      ],
+      "numerator_value": null,
+      "denominator_value": 365,
+      "value": 2301.986301
+    },
+    {
+      "id": "avg_net_price_installments_eur",
+      "label_en": "Average net price, instalments (EUR)",
+      "label_es": "Precio neto medio, fraccionado (EUR)",
+      "unit": "deal",
+      "kind": "mean",
+      "population": "enrolled eligible leads, payment_type = installments",
+      "numerator": "Σ net_price",
+      "denominator": "instalment enrollments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §8",
+        "docs/kpi_definitions.es.md §8"
+      ],
+      "numerator_value": null,
+      "denominator_value": 417,
+      "value": 2714.268585
+    },
+    {
+      "id": "installments_share",
+      "label_en": "Share of instalment enrollments",
+      "label_es": "Proporción de matrículas fraccionadas",
+      "unit": "deal",
+      "kind": "rate",
+      "population": "enrolled eligible leads",
+      "numerator": "payment_type = installments",
+      "denominator": "enrollments",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §8",
+        "docs/kpi_definitions.es.md §8"
+      ],
+      "numerator_value": 417,
+      "denominator_value": 782,
+      "value": 0.533248
+    },
+    {
+      "id": "nurture_reactivation_complete_window",
+      "label_en": "Nurture reactivation (complete 150-day windows)",
+      "label_es": "Reactivación desde nurture (ventanas completas de 150 días)",
+      "unit": "deal",
+      "kind": "rate",
+      "population": "eligible deals that entered nurture ≥ 150 days before the snapshot",
+      "numerator": "nurture_end_reason = reactivated",
+      "denominator": "those deals",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §6",
+        "docs/kpi_definitions.es.md §6"
+      ],
+      "numerator_value": 85,
+      "denominator_value": 697,
+      "value": 0.121951
+    },
+    {
+      "id": "nurture_email_failure_rate",
+      "label_en": "Nurture emails not sent or failed",
+      "label_es": "Emails de nurture no enviados o fallidos",
+      "unit": "email",
+      "kind": "rate",
+      "population": "nurture emails recorded by the snapshot",
+      "numerator": "email_status in {not_sent, failed}",
+      "denominator": "nurture emails",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §6",
+        "docs/kpi_definitions.es.md §6"
+      ],
+      "numerator_value": 453,
+      "denominator_value": 3001,
+      "value": 0.15095
+    },
+    {
+      "id": "show_rate_with_personal_whatsapp",
+      "label_en": "Show rate with personal WhatsApp (association only)",
+      "label_es": "Show rate con WhatsApp personalizado (solo asociación)",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments held/no_show scheduled ≥ 2025-07-01, with a personal WhatsApp before the slot",
+      "numerator": "held",
+      "denominator": "held + no_show",
+      "time_basis": "period (Jul–Dec)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 1099,
+      "denominator_value": 1546,
+      "value": 0.710867
+    },
+    {
+      "id": "show_rate_without_personal_whatsapp",
+      "label_en": "Show rate without personal WhatsApp (association only)",
+      "label_es": "Show rate sin WhatsApp personalizado (solo asociación)",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments held/no_show scheduled ≥ 2025-07-01, without a personal WhatsApp",
+      "numerator": "held",
+      "denominator": "held + no_show",
+      "time_basis": "period (Jul–Dec)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 713,
+      "denominator_value": 1038,
+      "value": 0.686898
+    }
+  ],
+  "cohort_maturity": [
+    {
+      "cohort": "2025-01",
+      "eligible_leads": 661,
+      "mature_leads": 661,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-01-31 21:47:54",
+      "min_age_days": 334.09
+    },
+    {
+      "cohort": "2025-02",
+      "eligible_leads": 606,
+      "mature_leads": 606,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-02-28 23:47:03",
+      "min_age_days": 306.01
+    },
+    {
+      "cohort": "2025-03",
+      "eligible_leads": 628,
+      "mature_leads": 628,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-03-31 23:19:22",
+      "min_age_days": 275.03
+    },
+    {
+      "cohort": "2025-04",
+      "eligible_leads": 654,
+      "mature_leads": 654,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-04-30 23:48:05",
+      "min_age_days": 245.01
+    },
+    {
+      "cohort": "2025-05",
+      "eligible_leads": 633,
+      "mature_leads": 633,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-05-31 21:08:18",
+      "min_age_days": 214.12
+    },
+    {
+      "cohort": "2025-06",
+      "eligible_leads": 600,
+      "mature_leads": 600,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-06-30 20:58:30",
+      "min_age_days": 184.13
+    },
+    {
+      "cohort": "2025-07",
+      "eligible_leads": 600,
+      "mature_leads": 600,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-07-31 21:31:17",
+      "min_age_days": 153.1
+    },
+    {
+      "cohort": "2025-08",
+      "eligible_leads": 603,
+      "mature_leads": 603,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-08-31 23:25:01",
+      "min_age_days": 122.02
+    },
+    {
+      "cohort": "2025-09",
+      "eligible_leads": 798,
+      "mature_leads": 798,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-09-30 22:26:27",
+      "min_age_days": 92.06
+    },
+    {
+      "cohort": "2025-10",
+      "eligible_leads": 696,
+      "mature_leads": 696,
+      "mature_share": 1.0,
+      "label": "mature",
+      "newest_lead_created_at": "2025-10-31 21:58:47",
+      "min_age_days": 61.08
+    },
+    {
+      "cohort": "2025-11",
+      "eligible_leads": 612,
+      "mature_leads": 8,
+      "mature_share": 0.013072,
+      "label": "partial",
+      "newest_lead_created_at": "2025-11-30 20:54:42",
+      "min_age_days": 31.13
+    },
+    {
+      "cohort": "2025-12",
+      "eligible_leads": 600,
+      "mature_leads": 0,
+      "mature_share": 0.0,
+      "label": "immature",
+      "newest_lead_created_at": "2025-12-31 23:19:12",
+      "min_age_days": 0.03
+    }
+  ],
+  "anomaly_reconciliation": [
+    {
+      "anomaly": "missing_lost_reason",
+      "injected": 190,
+      "detectable": 190,
+      "detected": 190,
+      "not_detectable": 0,
+      "rule": "closed_lost with null lost_reason"
+    },
+    {
+      "anomaly": "open_without_task",
+      "injected": 48,
+      "detectable": 48,
+      "detected": 48,
+      "not_detectable": 0,
+      "rule": "open lead with has_open_task = false"
+    },
+    {
+      "anomaly": "overdue_task",
+      "injected": 318,
+      "detectable": 318,
+      "detected": 318,
+      "not_detectable": 0,
+      "rule": "lead with >= 1 task in status overdue"
+    },
+    {
+      "anomaly": "empty_post_interview_fields",
+      "injected": 347,
+      "detectable": 347,
+      "detected": 347,
+      "not_detectable": 0,
+      "rule": "held lead with >= 1 null post-interview field"
+    },
+    {
+      "anomaly": "duplicate",
+      "injected": 154,
+      "detectable": 154,
+      "detected": 154,
+      "not_detectable": 0,
+      "rule": "is_duplicate = true (14-day person rule)"
+    },
+    {
+      "anomaly": "untouched_manual",
+      "injected": 116,
+      "detectable": 115,
+      "detected": 115,
+      "not_detectable": 1,
+      "rule": "open manual lead, no human attempt, created >= 10 days before snapshot"
+    },
+    {
+      "anomaly": "stage_support_omitted",
+      "injected": 484,
+      "detectable": 484,
+      "detected": 484,
+      "not_detectable": 0,
+      "rule": "stage timestamp without its dedicated record at the same time"
+    },
+    {
+      "anomaly": "stalled",
+      "injected": 286,
+      "detectable": 266,
+      "detected": 266,
+      "not_detectable": 20,
+      "rule": "open lead in contacted Opportunity / Interview Held / Form Completed, no activity for 30+ days"
+    }
+  ],
+  "logic_checks": {
+    "count": 71,
+    "violations": 0
+  }
+}

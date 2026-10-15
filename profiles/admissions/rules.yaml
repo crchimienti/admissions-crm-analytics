@@ -1,0 +1,50 @@
+# Admissions profile rules (F2). Checked by src/canonical/adapters/admissions.py after the neutral contract.
+# Reglas del perfil de admisiones (F2). Se comprueban tras el contrato neutral.
+#
+# These rules belong to the admissions profile, not to crm-canonical/0.1: another profile could have other stages,
+# routes, reasons or no reactivations at all.
+
+profile: admissions
+attribute_prefix: adm
+
+stages:
+  ordered_open: [new_lead, opportunity, interview_booked, interview_held, form_completed, enrollment_link_sent]
+  terminal: [closed_won, closed_lost]
+  won: closed_won
+  lost: closed_lost
+
+entry_routes: [bot_booked, manual]
+statuses: [new, working, iloc_sequence, nurture, closed_won, closed_lost]
+lost_reasons: [iloc, financial, official_qualification, future_intake]
+
+rules:
+  - id: P01
+    code: P_STAGE
+    text: records.current_stage, stage_events.to_stage and from_stage use the profile stages
+  - id: P02
+    code: P_ROUTE
+    text: entry_route is bot_booked or manual for original and reactivated records; duplicates may have none
+  - id: P03
+    code: P_REACTIVATION_PARENT_MISSING
+    text: a record with record_origin = reactivation must have parent_record_id
+  - id: P04
+    code: P_REACTIVATION_PARENT_INVALID
+    text: the parent of a reactivation exists, belongs to the same person_key, was created earlier and is closed_lost with lost_reason future_intake
+  - id: P05
+    code: P_PARENT_NOT_ALLOWED
+    text: original and duplicate records have no parent_record_id
+  - id: P06
+    code: P_WON_LOST
+    text: won_at is set iff current_stage = closed_won; lost_at is set iff current_stage = closed_lost
+  - id: P07
+    code: P_AMOUNTS
+    text: list_amount, discount_amount and net_amount are all set or all null; list_amount - discount_amount = net_amount (cents)
+  - id: P08
+    code: P_DISCOUNT_SPLIT
+    text: when amounts are set, adm_campaign_discount + adm_one_time_discount = discount_amount (cents), both attributes present
+  - id: P09
+    code: P_LOST_REASON
+    text: lost_reason, when set, is one of the profile lost reasons and the record is closed_lost
+  - id: P10
+    code: P_STATUS
+    text: current_status, when set, is one of the profile statuses

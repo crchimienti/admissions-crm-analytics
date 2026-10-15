@@ -1,0 +1,23 @@
+# Changelog
+
+All data in every version is synthetic. Each phase was approved before implementation and is frozen with SHA-256 manifests; the tree id is the SHA-256 of the phase manifest. Details: [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md).
+
+Todos los datos de todas las versiones son sintéticos. Cada fase se aprobó antes de implementarse y está congelada con manifiestos SHA-256; el tree id es el SHA-256 del manifiesto de la fase.
+
+| Version | Delivered | Change | Tree id |
+|---|---|---|---|
+| `v1.4.4-gh` | 2026-10-15 | Licences and documentation only: `LICENSE` (MIT, code and notebook code cells), `LICENSE-CONTENT` (CC BY 4.0: documentation, original charts, synthetic data, notebook narrative and outputs), Inter fonts unchanged under SIL OFL 1.1; Windows 11 portable analytical verification reported by the project owner recorded (strict graphical level not passed, accepted limitation); no change to code, data, notebook, charts or fonts | SHA-256 of [`reports/release/MANIFEST_RELEASE.sha256`](reports/release/MANIFEST_RELEASE.sha256), shown in the [release report](reports/release/RELEASE_REPORT.md) |
+| `v1.4.3-gh` | 2026-10-14 | Two verification levels kept apart: portable analytical (`release_run.py --mode portable`: data, metrics, KPIs, every notebook cell, text, table and number, chart structure; PNG differences reported separately, reports outside the versioned files) and strict graphical (default: notebook and PNG images byte-identical to F1); separate CI jobs | `a9da920c3e2e8a3b7ee6fed8fff5875faf25fd2b05ebe840c859e3841c232d7b` ([manifest](reports/release/MANIFEST_RELEASE_v1.4.3.sha256)) |
+| `v1.4.2-gh` | 2026-10-14 | Authorised compatibility fix found on Windows: `tests/test_integrity.py::test_regeneration_is_reproducible` writes its temporary CSV with `lineterminator="\n"` (byte-for-byte comparison unchanged); static check extended to every `to_csv` call in the tests | `98841cc859eec50fb11a2772263dbc1595f16ce4a86952584729791e1c8096c2` ([manifest](reports/release/MANIFEST_RELEASE_v1.4.2.sha256)) |
+| `v1.4.1-gh` | 2026-10-14 | Bounded revision of v1.4.0-gh: reference chart rendering fixed by the project (bundled Inter fonts, SIL OFL 1.1; notebook equals F1 on Linux with no system font or external configuration), Windows path comparison in `test_reports_f2_frozen`, README results block, wording and reproducibility levels | `a2e68371cadd318a0d2d72d33d55663ab68d41dea2d7706253cbcbb927d9c7bb` ([manifest](reports/release/MANIFEST_RELEASE_v1.4.1.sha256)) |
+| `v1.4.0-gh` | 2026-10-14 | GitHub preparation: visitor README (EN/ES), pinned environment, line-ending fix (same bytes on Linux), read-only quick start, README figures, analytical decisions, release run and report, CI workflow (not run yet), F3 frozen | `e1c13bfa5390ed5128970700941e63887ed999f6304cc1b96e946b0479b4a41d` ([manifest](reports/release/MANIFEST_RELEASE_v1.4.0.sha256)) |
+| `v1.3.1-f3` | 2026-10-13 | F3.0 corrections: no indirect import of `metrics.py`, `HF` for stage fields, `APT+FLD`, eligibility equivalence on all fixture variants | `f1a73209cfaf24d3768784e121f376e1d0ec485eca31ddd22f2b57e09ef23c34` |
+| `v1.3.0-f3` | 2026-10-13 | F3.0: declarative specification `kpi-spec/0.1` and engine for eight KPIs, in parallel with `metrics.py` | `b189d44e9d092d3481817a28e7fcca98535cf311286affa079bf5af1d560e1bd` |
+| `v1.2.3-f2` | 2026-10-13 | F2 close: documentation-only correction | `a1df9fca9a38538f912fadfb437b4831f609962baa7b97fe763f68ec7a0885db` |
+| `v1.2.2-f2` | 2026-10-13 | Contract `crm-canonical/0.1.1` (optional `seq`), event order | `ddfc93cf87313a3b22d4a59961d938c420fcd97d15c8b530b0947457d9afc1a9` |
+| `v1.2.1-f2` | 2026-10-13 | Authorised robustness fix of `metrics.py`; official 12-record fixture | `f71ca2471525fbaa28b3b2a29f1012f5c9a18671a2f57c178de97a15788a95e4` |
+| `v1.2.0-f2` | 2026-10-12 | Canonical contract, CSV mapping, admissions adapter, availability reasons | `2ba1a33f9001b613ed75192eee11c6c7c591c3cb321e51c07cb995b375eddc1e` |
+| `v1.1.0-f1` | 2026-10-12 | `src/metrics.py` as the single source of every metric; notebook only presents | `9206c83e2b6fea8042f748621542179b4fbb885ca785dff93f7d711053aa9651` |
+| `v1.0.0-f0` | 2026-10-12 | Frozen baseline of 47 metrics | `eb4f60681f71e88a8c581d4a68670c19d8be661e4ca86298cffc63dfb4d682df` |
+
+Delivery dates are those of the delivered ZIP files. Versions before `v1.4.0-gh` were delivered as local ZIP files; they have no Git commits or tags, and none will be created retroactively.

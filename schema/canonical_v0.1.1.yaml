@@ -1,0 +1,166 @@
+# Canonical CRM contract crm-canonical/0.1.1 (F2, v1.2.2-f2).
+# Contrato canónico CRM crm-canonical/0.1.1 (F2, v1.2.2-f2).
+#
+# 0.1.1 is an additive revision of 0.1 (schema/canonical_v0.1.yaml, kept unchanged for reference): it adds the
+# optional stage_events.seq column, which carries the source's explicit order of events within a record, and the
+# order rules C08-C09. A dataset declaring crm-canonical/0.1 is still valid (it simply has no seq column).
+#
+# A neutral, file-based description of a CRM snapshot: records, their stage history (with an explicit history mode),
+# activities, optional appointments and profile attributes. The contract says nothing about any particular funnel;
+# funnel-specific rules (stages, routes, reasons, reactivation parents, amounts) live in a profile
+# (profiles/<name>/rules.yaml). Only the admissions profile exists; no portability claim is made.
+#
+# Storage: one CSV per table in a directory (UTF-8, header row, empty cell = null). `dataset.csv` has one row.
+# Types: string · bool ("True"/"False") · int · float · timestamp (see timestamp_modes) · enum (closed list).
+
+schema_version: crm-canonical/0.1.1
+accepts_schema_versions: [crm-canonical/0.1, crm-canonical/0.1.1]   # seq requires 0.1.1
+
+history_modes:
+  full_event_history:
+    description: every stage change is recorded as an event (transition or reopen); re-entries and regressions are observable
+    allowed_event_kinds: [transition, reopen]
+    provides: [stage_milestones, stage_transitions]
+  milestone_first_entry:
+    description: only the first entry into each stage is recorded; re-entries, regressions and reopens are not observable
+    allowed_event_kinds: [first_entry_milestone]
+    provides: [stage_milestones]
+  snapshot_only:
+    description: only the state at the snapshot (records.current_stage); no stage history at all
+    allowed_event_kinds: []
+    provides: []
+
+timestamp_modes:
+  naive_wall_clock:
+    description: naive local wall-clock timestamps "YYYY-MM-DD HH:MM:SS"; allowed only when dataset.data_origin is synthetic or legacy; dataset.source_timezone is metadata only
+    allowed_data_origins: [synthetic, legacy]
+  utc:
+    description: timestamps stored as "YYYY-MM-DDTHH:MM:SSZ"; inputs with an offset are converted to UTC, naive inputs are localised with dataset.source_timezone and ambiguous or non-existent local times are rejected
+    allowed_data_origins: [synthetic, legacy, real]
+
+# Extension columns on records/activities/appointments and keys of record_attributes must start with
+# "<dataset.attribute_prefix>_". Anything else that is not declared below is rejected.
+tables:
+  dataset:
+    required: true
+    primary_key: [dataset_id]
+    max_rows: 1
+    columns:
+      dataset_id:        {type: string, required: true, nullable: false}
+      schema_version:    {type: string, required: true, nullable: false}
+      profile:           {type: string, required: true, nullable: false}
+      attribute_prefix:  {type: string, required: true, nullable: false, pattern: "^[a-z]{2,8}$"}
+      data_origin:       {type: enum, required: true, nullable: false, values: [synthetic, legacy, real]}
+      history_mode:      {type: enum, required: true, nullable: false, values: [full_event_history, milestone_first_entry, snapshot_only]}
+      timestamp_mode:    {type: enum, required: true, nullable: false, values: [naive_wall_clock, utc]}
+      source_timezone:   {type: string, required: true, nullable: true}
+      snapshot_at:       {type: timestamp, required: true, nullable: false}
+      currency:          {type: string, required: true, nullable: true, pattern: "^[A-Z]{3}$"}
+
+  records:
+    required: true
+    primary_key: [record_id]
+    allow_extension_columns: true
+    columns:
+      record_id:         {type: string, required: true, nullable: false}
+      person_key:        {type: string, required: true, nullable: false}
+      record_origin:     {type: enum, required: true, nullable: false, values: [original, duplicate, reactivation]}
+      parent_record_id:  {type: string, required: true, nullable: true, references: records.record_id}
+      created_at:        {type: timestamp, required: true, nullable: false}
+      entry_route:       {type: string, required: true, nullable: true}
+      source:            {type: string, required: true, nullable: true}
+      channel:           {type: string, required: true, nullable: true}
+      product_alias:     {type: string, required: true, nullable: true}
+      owner_first_id:    {type: string, required: true, nullable: true}
+      owner_current_id:  {type: string, required: true, nullable: true}
+      reassigned_at:     {type: timestamp, required: true, nullable: true}
+      current_stage:     {type: string, required: true, nullable: false}
+      current_status:    {type: string, required: true, nullable: true}
+      lost_reason:       {type: string, required: true, nullable: true}
+      won_at:            {type: timestamp, required: true, nullable: true}
+      lost_at:           {type: timestamp, required: true, nullable: true}
+      list_amount:       {type: float, required: true, nullable: true}
+      discount_amount:   {type: float, required: true, nullable: true}
+      net_amount:        {type: float, required: true, nullable: true}
+
+  stage_events:
+    required: false            # absent or empty in snapshot_only
+    primary_key: [event_id]
+    columns:
+      event_id:          {type: string, required: true, nullable: false}
+      record_id:         {type: string, required: true, nullable: false, references: records.record_id}
+      event_kind:        {type: enum, required: true, nullable: false, values: [transition, first_entry_milestone, reopen]}
+      from_stage:        {type: string, required: true, nullable: true}
+      to_stage:          {type: string, required: true, nullable: false}
+      occurred_at:       {type: timestamp, required: true, nullable: false}
+      seq:               {type: int, required: false, nullable: false, since: crm-canonical/0.1.1}   # source order within the record
+
+  activities:
+    required: true
+    primary_key: [activity_id]
+    allow_extension_columns: true
+    columns:
+      activity_id:       {type: string, required: true, nullable: false}
+      record_id:         {type: string, required: true, nullable: false, references: records.record_id}
+      occurred_at:       {type: timestamp, required: true, nullable: false}
+      actor_type:        {type: enum, required: true, nullable: false, values: [advisor, bot, system, candidate]}
+      actor_id:          {type: string, required: true, nullable: true}
+      activity_type:     {type: enum, required: true, nullable: false, values: [call, whatsapp, email, task, note]}
+      direction:         {type: enum, required: true, nullable: false, values: [outbound, inbound, internal]}
+      is_automated:      {type: bool, required: false, nullable: false, capability: is_automated}
+      sequence_name:     {type: string, required: true, nullable: true}
+      sequence_step:     {type: string, required: true, nullable: true}
+      call_outcome:      {type: string, required: true, nullable: true}
+      email_status:      {type: string, required: true, nullable: true}
+      task_due_at:       {type: timestamp, required: true, nullable: true}
+      task_completed_at: {type: timestamp, required: true, nullable: true}
+      task_status:       {type: string, required: true, nullable: true}
+
+  appointments:
+    required: false            # capability: appointments
+    capability: appointments
+    primary_key: [appointment_id]
+    allow_extension_columns: true
+    columns:
+      appointment_id:                  {type: string, required: true, nullable: false}
+      record_id:                       {type: string, required: true, nullable: false, references: records.record_id}
+      booked_at:                       {type: timestamp, required: true, nullable: false}
+      booked_by_actor_type:            {type: enum, required: true, nullable: false, values: [advisor, bot, system, candidate]}
+      booked_by_actor_id:              {type: string, required: true, nullable: true}
+      booking_is_automated:            {type: bool, required: false, nullable: false, capability: is_automated}
+      scheduled_for:                   {type: timestamp, required: true, nullable: false}
+      outcome:                         {type: enum, required: true, nullable: false, values: [pending, held, no_show, rescheduled, cancelled]}
+      host_id:                         {type: string, required: true, nullable: true}
+      rescheduled_from_appointment_id: {type: string, required: true, nullable: true, references: appointments.appointment_id}
+      replaced_by_appointment_id:      {type: string, required: true, nullable: true, references: appointments.appointment_id}
+      rebooked_after_appointment_id:   {type: string, required: true, nullable: true, references: appointments.appointment_id}
+
+  record_attributes:
+    required: false
+    primary_key: [record_id, attribute]
+    columns:
+      record_id:   {type: string, required: true, nullable: false, references: records.record_id}
+      attribute:   {type: string, required: true, nullable: false, prefixed: true}
+      value_type:  {type: enum, required: true, nullable: false, values: [string, bool, int, float, timestamp]}
+      value:       {type: string, required: true, nullable: false}
+
+# Neutral consistency rules checked by src/canonical/validate.py (profile rules are separate).
+rules:
+  - id: C01
+    text: stage_events.event_kind must be allowed by dataset.history_mode; snapshot_only has no stage events
+  - id: C02
+    text: at most one first_entry_milestone per (record_id, to_stage)
+  - id: C03
+    text: a transition has a from_stage; a first_entry_milestone has none; a reopen has a from_stage
+  - id: C04
+    text: every timestamp follows dataset.timestamp_mode; naive_wall_clock needs data_origin synthetic or legacy
+  - id: C05
+    text: no stage event, activity or appointment booking after dataset.snapshot_at
+  - id: C06
+    text: replaced_by_appointment_id is set exactly when outcome = rescheduled, and the chain is reciprocal
+  - id: C07
+    text: capability columns (is_automated, booking_is_automated) are present in both tables or in neither
+  - id: C08
+    text: when stage_events.seq is present (dataset schema_version crm-canonical/0.1.1), it is unique per record and does not contradict occurred_at (a later seq never has an earlier timestamp)
+  - id: C09
+    text: event order within a record is seq when present; otherwise occurred_at, and events of the same record with the same occurred_at have an indeterminate order (never resolved by stage, event_id or file position)

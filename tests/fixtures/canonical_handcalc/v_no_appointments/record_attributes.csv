@@ -1,0 +1,16 @@
+record_id,attribute,value_type,value
+F01,adm_campaign_discount,float,600.0
+F01,adm_candidate_situation,string,employed
+F01,adm_last_interview_outcome,string,held
+F01,adm_one_time_discount,float,390.0
+F01,adm_payment_type,string,single
+F02,adm_last_interview_outcome,string,held
+F03,adm_last_interview_outcome,string,held
+F04,adm_campaign_discount,float,500.0
+F04,adm_last_interview_outcome,string,held
+F04,adm_one_time_discount,float,0.0
+F04,adm_payment_type,string,installments
+F05,adm_last_interview_outcome,string,no_show
+F05,adm_nurture_started_at,timestamp,2025-05-05 10:00:00
+F07,adm_last_interview_outcome,string,pending
+F10,adm_last_interview_outcome,string,cancelled

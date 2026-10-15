@@ -1,0 +1,5 @@
+activity_id,lead_id,activity_at,actor_type,actor_id,activity_type,direction,is_automated,sequence_name,sequence_step,sequence_instance,business_day_index,call_outcome,email_status,interview_scheduled_for,interview_outcome,interviewer_id,rescheduled_from_activity_id,replaced_by_activity_id,rebooked_after_activity_id,task_due_at,task_completed_at,task_status
+A1,L1,2025-02-03 11:00:00,advisor,ADV_01,call,outbound,False,first_contact,call_1,,,connected,,,,,,,,,,
+A2,L1,2025-02-03 11:10:00,advisor,ADV_01,interview,internal,False,booking,advisor_booking,,,,,2025-02-05 10:00:00,held,ADV_01,,,,,,
+A3,L2,2025-02-04 10:05:00,bot,,interview,internal,True,booking,bot_booking,,,,,2025-02-06 10:00:00,cancelled,ADV_02,,,,,,
+A4,L3,2025-05-04 10:06:00,bot,,whatsapp,outbound,True,first_contact,bot_welcome,,,,,,,,,,,,,

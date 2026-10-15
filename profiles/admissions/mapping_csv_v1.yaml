@@ -1,0 +1,133 @@
+# Mapping of the admissions CSV files (leads.csv, activities.csv) to crm-canonical/0.1 (F2).
+# Mapeo de los CSV de admisiones (leads.csv, activities.csv) a crm-canonical/0.1 (F2).
+#
+# Read by src/canonical/mapping.py. Nothing is inferred: every canonical value comes from one source column, a
+# constant declared here, or a documented one-to-one rule. Derived lead fields of the CSV (first attempt, first
+# connection, open-task flags, reassignment flag) are NOT mapped: the adapter recomputes them from activities and
+# appointments with the F0 rules, and the tests prove the recomputation equals the CSV.
+
+profile: admissions
+mapping_version: admissions-csv/1
+schema_version: crm-canonical/0.1
+attribute_prefix: adm
+
+dataset:
+  dataset_id: admissions-synthetic-seed42
+  data_origin: synthetic                 # naive_wall_clock is allowed only for synthetic / legacy data
+  history_mode: milestone_first_entry    # the CSV holds first-entry timestamps only (entered_*_at); no transitions
+  timestamp_mode: naive_wall_clock
+  source_timezone: Europe/Madrid         # metadata only in naive_wall_clock
+  currency: EUR
+  snapshot_from: leads.snapshot_date     # must be one single value
+
+required_columns:
+  leads: [lead_id, person_key, is_reactivation, reactivated_from_lead_id, is_duplicate, is_synthetic, created_at, source,
+          channel_group, program_alias, candidate_profile, entry_path, first_owner_id, current_owner_id, reassigned_flag,
+          reassigned_at, first_human_attempt_at, first_connected_at, entered_opportunity_at, entered_interview_booked_at,
+          entered_interview_held_at, entered_form_completed_at, entered_enrollment_link_sent_at, enrolled_at,
+          closed_lost_at, pipeline_stage, lead_status, last_interview_outcome, lost_reason, iloc_started_at,
+          iloc_ended_at, iloc_end_reason, iloc_episode_count, nurture_started_at, nurture_ended_at,
+          nurture_end_reason, has_open_task, next_task_due_at, candidate_situation, immediate_interest,
+          program_interest, decision_maker, main_objection, payment_preference, next_step_agreed, payment_type,
+          list_price, campaign_discount, one_time_discount, net_price, snapshot_date]
+  activities: [activity_id, lead_id, activity_at, actor_type, actor_id, activity_type, direction, is_automated,
+               sequence_name, sequence_step, sequence_instance, business_day_index, call_outcome, email_status,
+               interview_scheduled_for, interview_outcome, interviewer_id, rescheduled_from_activity_id,
+               replaced_by_activity_id, rebooked_after_activity_id, task_due_at, task_completed_at, task_status]
+
+# leads.csv -> records (one-to-one columns)
+records:
+  record_id: lead_id
+  person_key: person_key
+  parent_record_id: reactivated_from_lead_id
+  created_at: created_at
+  entry_route: entry_path
+  source: source
+  channel: channel_group
+  product_alias: program_alias
+  owner_first_id: first_owner_id
+  owner_current_id: current_owner_id
+  reassigned_at: reassigned_at
+  current_stage: pipeline_stage
+  current_status: lead_status
+  lost_reason: lost_reason
+  won_at: enrolled_at
+  lost_at: closed_lost_at
+  list_amount: list_price
+  net_amount: net_price
+# record_origin: is_duplicate -> duplicate, is_reactivation -> reactivation, else original (both true = error)
+# discount_amount: campaign_discount + one_time_discount (both kept separately as adm_ attributes)
+
+# leads.csv -> stage_events (first_entry_milestone, one per non-null column; from_stage empty)
+milestones:
+  entered_opportunity_at: opportunity
+  entered_interview_booked_at: interview_booked
+  entered_interview_held_at: interview_held
+  entered_form_completed_at: form_completed
+  entered_enrollment_link_sent_at: enrollment_link_sent
+  enrolled_at: closed_won
+  closed_lost_at: closed_lost
+
+# leads.csv -> record_attributes (adm_<column>; only non-null values are stored)
+attributes:
+  candidate_profile: string
+  last_interview_outcome: string
+  iloc_started_at: timestamp
+  iloc_ended_at: timestamp
+  iloc_end_reason: string
+  iloc_episode_count: int
+  nurture_started_at: timestamp
+  nurture_ended_at: timestamp
+  nurture_end_reason: string
+  candidate_situation: string
+  immediate_interest: string
+  program_interest: string
+  decision_maker: string
+  main_objection: string
+  payment_preference: string
+  next_step_agreed: bool
+  payment_type: string
+  campaign_discount: float
+  one_time_discount: float
+
+# Lead columns that are derived in the CSV and recomputed by the adapter (not mapped)
+derived_not_mapped: [first_human_attempt_at, first_connected_at, has_open_task, next_task_due_at, reassigned_flag]
+# Lead columns represented elsewhere
+dataset_level: {is_synthetic: data_origin, snapshot_date: snapshot_at}
+
+# activities.csv rows with activity_type = interview -> appointments
+appointments:
+  appointment_id: activity_id
+  record_id: lead_id
+  booked_at: activity_at
+  booked_by_actor_type: actor_type
+  booked_by_actor_id: actor_id
+  booking_is_automated: is_automated
+  scheduled_for: interview_scheduled_for
+  outcome: interview_outcome
+  host_id: interviewer_id
+  rescheduled_from_appointment_id: rescheduled_from_activity_id
+  replaced_by_appointment_id: replaced_by_activity_id
+  rebooked_after_appointment_id: rebooked_after_activity_id
+  extensions: {adm_booking_sequence_step: sequence_step}
+  # constant on every interview row of the CSV (checked during mapping; a different value is an error)
+  constants: {direction: internal, sequence_name: booking}
+
+# all other activities.csv rows -> activities
+activities:
+  activity_id: activity_id
+  record_id: lead_id
+  occurred_at: activity_at
+  actor_type: actor_type
+  actor_id: actor_id
+  activity_type: activity_type
+  direction: direction
+  is_automated: is_automated
+  sequence_name: sequence_name
+  sequence_step: sequence_step
+  call_outcome: call_outcome
+  email_status: email_status
+  task_due_at: task_due_at
+  task_completed_at: task_completed_at
+  task_status: task_status
+  extensions: {adm_sequence_instance: sequence_instance, adm_business_day_index: business_day_index}

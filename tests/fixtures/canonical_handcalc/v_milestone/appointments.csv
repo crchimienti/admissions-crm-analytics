@@ -1,0 +1,12 @@
+appointment_id,record_id,booked_at,booked_by_actor_type,booked_by_actor_id,booking_is_automated,scheduled_for,outcome,host_id,rescheduled_from_appointment_id,replaced_by_appointment_id,rebooked_after_appointment_id,adm_booking_sequence_step
+AP01,F01,2025-02-03 12:10:00,advisor,ADV_01,False,2025-02-05 10:00:00,held,ADV_01,,,,advisor_booking
+AP02,F02,2025-02-11 10:00:00,advisor,ADV_02,False,2025-02-13 16:00:00,no_show,ADV_02,,,,advisor_booking
+AP03,F02,2025-02-14 09:00:00,advisor,ADV_02,False,2025-02-17 16:00:00,held,ADV_02,,,AP02,advisor_booking
+AP04,F03,2025-03-05 10:10:00,advisor,ADV_01,False,2025-03-07 11:00:00,rescheduled,ADV_01,,AP05,,advisor_booking
+AP05,F03,2025-03-06 12:00:00,advisor,ADV_01,False,2025-03-10 11:00:00,held,ADV_01,AP04,,,advisor_booking
+AP06,F03,2025-03-14 10:00:00,advisor,ADV_01,False,2025-03-18 10:00:00,held,ADV_01,,,,advisor_booking
+AP07,F04,2025-03-09 20:05:00,bot,,True,2025-03-12 10:00:00,held,ADV_03,,,,bot_booking
+AP08,F05,2025-04-02 14:05:00,bot,,True,2025-04-04 10:00:00,no_show,ADV_02,,,,bot_booking
+AP09,F07,2025-04-14 10:00:00,advisor,ADV_02,False,2025-07-02 10:00:00,no_show,ADV_02,,,,advisor_booking
+AP10,F10,2025-02-18 11:05:00,bot,,True,2025-02-20 12:00:00,cancelled,ADV_03,,,,bot_booking
+AP11,F07,2025-07-03 10:00:00,advisor,ADV_02,False,2025-08-05 10:00:00,pending,ADV_02,,,AP09,advisor_booking

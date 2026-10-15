@@ -1,0 +1,70 @@
+Content licence — Admissions CRM Analytics
+==========================================
+
+Copyright (c) 2026 Carlos Eduardo Rodriguez Chimienti
+
+Licence: Creative Commons Attribution 4.0 International (CC BY 4.0)
+SPDX identifier: CC-BY-4.0
+Legal code (official text): https://creativecommons.org/licenses/by/4.0/legalcode
+Summary (not a substitute for the legal code): https://creativecommons.org/licenses/by/4.0/
+
+The content of this repository listed below is licensed under CC BY 4.0, to the extent that copyright or similar
+rights exist in it and are held by the licensor. The source code is licensed separately under the MIT License
+(see LICENSE). Third-party material keeps its own licence and notices (see "Not covered" below).
+
+What CC BY 4.0 covers
+---------------------
+- Documentation: README.md, README.es.md, CHANGELOG.md, docs/ (Markdown files and docs/img/), and the Markdown
+  documents in assets/fonts/inter/FONTS.md, baseline/, reports/ and scripts/notebook_conclusions.md.
+- Original charts: docs/img/*.png and the chart images embedded in notebooks/admissions_analysis.ipynb.
+- Synthetic data: data/*.csv and the synthetic test data in tests/fixtures/ (CSV and JSON), and the recorded
+  results, reports and manifests in baseline/ and reports/.
+- In the notebook (notebooks/admissions_analysis.ipynb): the narrative (Markdown) cells, the charts and the
+  output tables and text. The code cells of the notebook are source code and are covered by the MIT License.
+
+What the MIT License covers instead (see LICENSE)
+-------------------------------------------------
+- Source code and configuration: src/, scripts/ (Python files), tests/ (Python files), schema/, profiles/,
+  config/, .github/, requirements*.txt, .gitignore, .gitattributes, and the code cells of the notebook.
+
+Not covered by either licence
+-----------------------------
+- The Inter font files in assets/fonts/inter/ (Inter-Regular.otf, Inter-Bold.otf) are by The Inter Project Authors
+  and are licensed under the SIL Open Font License, Version 1.1 (assets/fonts/inter/OFL.txt, unchanged). Their
+  copyright and trademark notices are kept as published.
+- Python packages and any other third-party software named in this repository are not distributed here and keep
+  their own licences.
+- No claim is made to exclusive rights in material that is not protected by copyright or similar rights, such as
+  individual synthetic values, facts, standard or generic code patterns, or parts produced with AI assistance to
+  the extent no such rights exist in them. Where no rights exist, this licence neither grants nor restricts anything.
+
+How to attribute
+----------------
+When you share or adapt the content, give credit, link to the licence and indicate whether changes were made, as
+CC BY 4.0 requires. Suggested attribution:
+
+    Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics, licensed under CC BY 4.0
+    (https://creativecommons.org/licenses/by/4.0/). Changes: <describe your changes, or "none">.
+
+Add the repository URL to the attribution once the repository is published.
+
+The data are 100 % synthetic: they do not describe any real company, person or market.
+
+---------------------------------------------------------------------------------------------------------------------
+
+Licencia del contenido (resumen en español; el texto válido es el código legal oficial de CC BY 4.0)
+--------------------------------------------------------------------------------------------------
+
+- CC BY 4.0 (Creative Commons Atribución 4.0 Internacional) cubre, en la medida en que existan derechos que el
+  licenciante pueda licenciar: la documentación (README, CHANGELOG, docs/, documentos Markdown de baseline/, reports/,
+  scripts/notebook_conclusions.md y assets/fonts/inter/FONTS.md), los gráficos originales (docs/img/ y las imágenes del
+  notebook), los datos sintéticos (data/ y los datos de prueba de tests/fixtures/), los resultados, informes y
+  manifiestos registrados, y en el notebook las celdas narrativas, los gráficos y las tablas y textos de salida.
+- La licencia MIT (LICENSE) cubre el código fuente y la configuración, incluidas las celdas de código del notebook.
+- Las fuentes Inter (assets/fonts/inter/) conservan su licencia SIL Open Font License 1.1 y sus avisos, sin cambios.
+  Los paquetes de Python y demás software de terceros no se distribuyen aquí y conservan sus licencias.
+- No se reclaman derechos exclusivos sobre lo que no está protegido (valores sintéticos individuales, hechos, código
+  genérico o partes generadas con asistencia de IA en la medida en que no existan derechos sobre ellas).
+- Atribución sugerida: «Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics», con licencia CC BY 4.0
+  (https://creativecommons.org/licenses/by/4.0/), indicando si se hicieron cambios. La URL del repositorio se añadirá
+  cuando esté publicado.

@@ -1,0 +1,181 @@
+# Admissions KPIs in the kpi-spec/0.1 format (F3.0, v1.3.0-f3): eight KPIs evaluated by src/kpispec in parallel with
+# src/metrics.py, which stays the official reference. Synthetic data only.
+# KPIs de admisiones en formato kpi-spec/0.1 (F3.0): ocho KPIs evaluados por src/kpispec en paralelo con src/metrics.py.
+#
+# Eligibility (admissions profile rule, not an engine rule): F0 defines an eligible lead as is_duplicate = false and
+# is_reactivation = false. The admissions CSV mapping sets record_origin = duplicate when is_duplicate, reactivation
+# when is_reactivation, original otherwise, and rejects rows with both flags (M_ORIGIN_CONFLICT). Hence, for this
+# profile, record_origin = original  <=>  is_duplicate = false AND is_reactivation = false. The equivalence is
+# tested on the generated data, on the canonical path and on the fixture (tests/test_kpi_eligibility.py). The
+# engine knows nothing about eligibility: it only applies the `eligible` population declared below. record_origin is
+# declared with its domain and non-nullable, so an unknown or missing origin is an error (K_FIELD_VALUE) or FLD,
+# never a silent member of `eligible`.
+
+spec_version: kpi-spec/0.1
+profile: admissions
+accepts_contracts: [crm-canonical/0.1, crm-canonical/0.1.1]
+time_model: naive_wall_clock
+maturity_days: 60
+
+fields:
+  record_origin:          {source: records.record_origin, unit: lead, if_missing: FLD,
+                           values: [original, duplicate, reactivation], nullable: false}
+  entry_route:            {source: records.entry_route, unit: lead, if_missing: FLD}
+  created_at:             {source: records.created_at, unit: lead, if_missing: FLD, nullable: false}
+  won_at:                 {source: records.won_at, unit: lead, if_missing: FLD}
+  snapshot_at:            {source: dataset.snapshot_at, unit: dataset, if_missing: FLD, nullable: false}
+  held_entered_at:        {source: stage_first_entry.interview_held, unit: lead, if_missing: HM}
+  form_entered_at:        {source: stage_first_entry.form_completed, unit: lead, if_missing: HM}
+  first_human_attempt_at:
+    source: profile.first_human_attempt
+    unit: lead
+    needs: {activities.is_automated: AUT, activities.actor_type: FLD, activities.direction: FLD,
+            activities.activity_type: FLD}
+  appt_record_origin:     {source: records.record_origin, via: appointments.record_id, unit: appointment,
+                           if_missing: APT, values: [original, duplicate, reactivation], nullable: false}
+  appt_outcome:           {source: appointments.outcome, unit: appointment, if_missing: APT,
+                           values: [pending, held, no_show, rescheduled, cancelled], nullable: false}
+  appt_scheduled_for:     {source: appointments.scheduled_for, unit: appointment, if_missing: APT, nullable: false}
+  appt_replaced_by:       {source: appointments.replaced_by_appointment_id, unit: appointment, if_missing: APT}
+
+populations:
+  eligible:                  {unit: lead, where: [{equals: [record_origin, original]}]}
+  mature:                    {from: eligible, where: [{age_at_least_days: [created_at, maturity_days]}]}
+  mature_with_held:          {from: mature, where: [{not_null: held_entered_at}]}
+  mature_with_form:          {from: mature, where: [{not_null: form_entered_at}]}
+  mature_enrolled:           {from: mature, where: [{not_null: won_at}]}
+  manual_sla_window:         {from: eligible, where: [{equals: [entry_route, manual]},
+                                                      {created_before_snapshot_minus_hours: [created_at, 24]}]}
+  manual_sla_window_weekend: {from: manual_sla_window, where: [{weekday_in: [created_at, [5, 6]]}]}
+  eligible_appointments:     {unit: appointment, where: [{equals: [appt_record_origin, original]},
+                                                         {is_null: appt_replaced_by},
+                                                         {at_or_before_snapshot: appt_scheduled_for}]}
+  show_appointments:         {from: eligible_appointments, where: [{in: [appt_outcome, [held, no_show]]}]}
+
+kpis:
+  eligible_leads:
+    op: count
+    population: eligible
+    describe:
+      label_en: Eligible leads
+      label_es: Leads elegibles
+      unit: lead
+      kind: count
+      population: "eligible leads (is_duplicate = false, is_reactivation = false)"
+      numerator: count of rows
+      denominator: null
+      time_basis: "12 months, all cohorts"
+      definition_ref: ["docs/kpi_definitions.md §0", "docs/kpi_definitions.es.md §0"]
+
+  share_manual_route:
+    op: share
+    population: eligible
+    numerator_where: [{equals: [entry_route, manual]}]
+    describe:
+      label_en: Share of manual route
+      label_es: Proporción ruta manual
+      unit: lead
+      kind: rate
+      population: "eligible leads (is_duplicate = false, is_reactivation = false)"
+      numerator: "entry_path = manual"
+      denominator: eligible leads
+      time_basis: 12 months
+      definition_ref: ["docs/kpi_definitions.md §3", "docs/kpi_definitions.es.md §3"]
+
+  main_kpi_interviews_held_over_opportunities:
+    op: share
+    population: mature
+    numerator_where: [{not_null: held_entered_at}]
+    describe:
+      label_en: "Main KPI: interviews held / opportunities"
+      label_es: "KPI principal: entrevistas realizadas / oportunidades"
+      unit: lead
+      kind: rate
+      population: "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h), both routes"
+      numerator: leads with ≥1 held appointment
+      denominator: all mature eligible leads
+      time_basis: cohort by created_at month; mature leads only
+      definition_ref: ["docs/kpi_definitions.md §1", "docs/kpi_definitions.es.md §1"]
+
+  show_rate_per_appointment:
+    op: share
+    population: show_appointments
+    numerator_where: [{equals: [appt_outcome, held]}]
+    describe:
+      label_en: Per-appointment show rate
+      label_es: Show rate por cita
+      unit: appointment
+      kind: rate
+      population: "eligible appointments: eligible lead, not replaced, scheduled ≤ snapshot"
+      numerator: held appointments
+      denominator: held + no_show appointments
+      time_basis: period (all appointment months)
+      definition_ref: ["docs/kpi_definitions.md §1", "docs/kpi_definitions.es.md §1"]
+
+  forms_over_interviews_held:
+    op: ratio
+    relation: same_base
+    numerator: mature_with_form
+    denominator: mature_with_held
+    describe:
+      label_en: Forms completed / interviews held
+      label_es: Formularios / entrevistas realizadas
+      unit: lead
+      kind: rate
+      population: "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) with a held interview"
+      numerator: leads with entered_form_completed_at
+      denominator: leads with entered_interview_held_at
+      time_basis: cohort by created_at month; mature leads only
+      definition_ref: ["docs/kpi_definitions.md §2", "docs/kpi_definitions.es.md §2"]
+
+  sla_first_attempt_24h_manual_weekend:
+    op: share
+    population: manual_sla_window_weekend
+    numerator_where: [{duration_le_hours: [created_at, first_human_attempt_at, 24]}]
+    describe:
+      label_en: Manual first attempt ≤ 24 h, weekend arrivals
+      label_es: Primer intento ≤ 24 h, entradas en fin de semana
+      unit: lead
+      kind: rate
+      population: "eligible manual leads created ≥ 24 h before the snapshot, created Sat–Sun"
+      numerator: first attempt ≤ 24 h
+      denominator: population
+      time_basis: period
+      definition_ref: ["docs/kpi_definitions.md §3", "docs/kpi_definitions.es.md §3"]
+
+  first_response_p90_hours:
+    op: duration_stat
+    stat: p90
+    interpolation: linear
+    population: manual_sla_window
+    start: created_at
+    end: first_human_attempt_at
+    in: hours
+    describe:
+      label_en: First response, p90 (calendar hours)
+      label_es: Primera respuesta, p90 (horas naturales)
+      unit: lead
+      kind: p90
+      population: "eligible manual leads created ≥ 24 h before the snapshot with an attempt"
+      numerator: "first_human_attempt_at − created_at"
+      denominator: leads with an attempt
+      time_basis: period
+      definition_ref: ["docs/kpi_definitions.md §3", "docs/kpi_definitions.es.md §3"]
+
+  sales_cycle_median_days:
+    op: duration_stat
+    stat: median
+    population: mature_enrolled
+    start: created_at
+    end: won_at
+    in: days
+    describe:
+      label_en: Sales cycle, median (days)
+      label_es: Ciclo de venta, mediana (días)
+      unit: lead
+      kind: median
+      population: "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) enrolled"
+      numerator: "enrolled_at − created_at in days"
+      denominator: enrolled mature leads
+      time_basis: cohort by created_at month; mature leads only
+      definition_ref: ["docs/kpi_definitions.md §2", "docs/kpi_definitions.es.md §2"]

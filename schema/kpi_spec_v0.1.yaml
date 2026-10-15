@@ -1,0 +1,87 @@
+# KPI specification format kpi-spec/0.1 (F3.0, v1.3.0-f3).
+# Formato de especificación de KPIs kpi-spec/0.1 (F3.0, v1.3.0-f3).
+#
+# A small, closed configuration language for KPIs evaluated on canonical datasets (crm-canonical/0.1 and 0.1.1).
+# There are no expressions, no OR, no nesting beyond `from`, and no embedded code. Anything not listed here is
+# rejected by src/kpispec/spec.py with a K_* error. Profile-specific logic stays in Python, registered by name
+# (field source `profile.<name>`).
+
+spec_version: kpi-spec/0.1
+
+top_level_keys:
+  required: [spec_version, profile, accepts_contracts, time_model, maturity_days, fields, populations, kpis]
+time_models: [naive_wall_clock]          # utc arrives with F3.5 (not implemented)
+
+fields:
+  # source forms: records.<col> · dataset.<col> · appointments.<col> · activities.<col>
+  #               stage_first_entry.<stage> · profile.<function>
+  keys: [source, unit, if_missing, via, needs, values, nullable]
+  required: [source, unit]
+  units: [lead, appointment, dataset]
+  if_missing_codes: [FLD, HM, HF, AUT, APT]
+  # values / nullable: declared domain; a value outside it (or a null where nullable is false) is a data error
+  # (K_FIELD_VALUE), so a record can never enter a population silently.
+
+populations:
+  keys: [unit, from, where]
+  # exactly one of `unit` (base population over all units) or `from` (another population + more filters)
+
+filters:                                  # combined with AND only (a list); arguments are field names or literals
+  equals: [field, value]
+  in: [field, values]
+  not_null: field
+  is_null: field
+  age_at_least_days: [field, days_or_maturity_days]        # snapshot_at - field >= days x 24 h
+  created_before_snapshot_minus_hours: [field, hours]      # field <= snapshot_at - hours
+  at_or_before_snapshot: field                             # field <= snapshot_at
+  weekday_in: [field, weekdays]                            # Monday = 0 ... Sunday = 6; null never matches
+  duration_le_hours: [start_field, end_field, hours]       # end - start <= hours; a null end never matches
+
+operations:
+  count:         {keys: [op, population, describe]}
+  share:         {keys: [op, population, numerator_where, describe]}
+  ratio:         {keys: [op, relation, justification, numerator, denominator, describe]}
+  duration_stat: {keys: [op, stat, interpolation, population, start, end, in, describe]}
+  field_stat:    {keys: [op, stat, population, field, describe]}       # in the catalogue; not used in F3.0
+duration_stats: [median, mean, p90]
+duration_units: [hours, days]
+interpolations: [linear]
+
+ratio:
+  relations:
+    subset_of: the numerator population is defined from the denominator population (numerator.from == denominator)
+    same_base: both populations are defined from the same base population (numerator.from == denominator.from)
+    independent_allowed: different bases with the same unit; a written justification is required
+  # both populations must have the same unit (K_RATIO_UNIT)
+
+describe_keys: [label_en, label_es, unit, kind, population, numerator, denominator, time_basis, definition_ref]
+
+forbidden_keys: [or, any, expr, expression, formula, code, eval, python, lambda, sql, query]
+
+errors:
+  K_SPEC_VERSION: unknown spec_version or a top-level key missing / unknown
+  K_TIME_MODEL: time_model not supported
+  K_UNKNOWN_KEY: a key not allowed at that place
+  K_FORBIDDEN_KEY: an expression-like key (see forbidden_keys)
+  K_MISSING_KEY: a required key is missing
+  K_UNKNOWN_FIELD: a filter or operation references an undeclared field
+  K_UNKNOWN_POPULATION: a reference to an undeclared population, or a cycle in `from`
+  K_UNKNOWN_FILTER: a filter name not in the closed list, or wrong arguments
+  K_UNKNOWN_OP: an operation not in the closed list
+  K_FIELD_SOURCE: an unknown field source form
+  K_UNIT: field / population unit mismatch inside a population or an operation
+  K_RATIO_UNIT: ratio populations with different units
+  K_RATIO_RELATION_MISSING: ratio without relation
+  K_RATIO_RELATION: declared relation does not match how the populations are defined
+  K_RATIO_JUSTIFICATION: independent_allowed without a justification
+  K_FIELD_VALUE: (data) a value outside the declared domain, or a null in a non-nullable field
+
+not_available_reasons:                    # same shape as F2: {id, status: not_available, reason, missing}
+  FLD: a required field or attribute is not provided by the load / profile (missing lists the field names)
+  HM: no stage milestones
+  HF: no full stage history
+  AUT: activities.is_automated absent
+  APT: appointments table absent
+  DEN0: zero denominator
+  INSUF: no observation for a median / mean / percentile
+  ORD: indeterminate event order (not used by the F3.0 KPIs)

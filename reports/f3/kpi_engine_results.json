@@ -1,0 +1,152 @@
+{
+  "version_id": "v1.3.1-f3",
+  "spec": "profiles/admissions/kpis.yaml (kpi-spec/0.1)",
+  "route": "CSV -> canonical dataset -> src/kpispec engine (src/metrics.py not imported, directly or indirectly)",
+  "note": "All values are synthetic (seed 42). Not historical data, not findings about any real organisation.",
+  "results": [
+    {
+      "id": "eligible_leads",
+      "label_en": "Eligible leads",
+      "label_es": "Leads elegibles",
+      "unit": "lead",
+      "kind": "count",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false)",
+      "numerator": "count of rows",
+      "denominator": null,
+      "time_basis": "12 months, all cohorts",
+      "definition_ref": [
+        "docs/kpi_definitions.md §0",
+        "docs/kpi_definitions.es.md §0"
+      ],
+      "numerator_value": 7691,
+      "denominator_value": null,
+      "value": 7691
+    },
+    {
+      "id": "share_manual_route",
+      "label_en": "Share of manual route",
+      "label_es": "Proporción ruta manual",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible leads (is_duplicate = false, is_reactivation = false)",
+      "numerator": "entry_path = manual",
+      "denominator": "eligible leads",
+      "time_basis": "12 months",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 5374,
+      "denominator_value": 7691,
+      "value": 0.698739
+    },
+    {
+      "id": "main_kpi_interviews_held_over_opportunities",
+      "label_en": "Main KPI: interviews held / opportunities",
+      "label_es": "KPI principal: entrevistas realizadas / oportunidades",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h), both routes",
+      "numerator": "leads with ≥1 held appointment",
+      "denominator": "all mature eligible leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 2923,
+      "denominator_value": 6487,
+      "value": 0.450593
+    },
+    {
+      "id": "show_rate_per_appointment",
+      "label_en": "Per-appointment show rate",
+      "label_es": "Show rate por cita",
+      "unit": "appointment",
+      "kind": "rate",
+      "population": "eligible appointments: eligible lead, not replaced, scheduled ≤ snapshot",
+      "numerator": "held appointments",
+      "denominator": "held + no_show appointments",
+      "time_basis": "period (all appointment months)",
+      "definition_ref": [
+        "docs/kpi_definitions.md §1",
+        "docs/kpi_definitions.es.md §1"
+      ],
+      "numerator_value": 3431,
+      "denominator_value": 4932,
+      "value": 0.695661
+    },
+    {
+      "id": "forms_over_interviews_held",
+      "label_en": "Forms completed / interviews held",
+      "label_es": "Formularios / entrevistas realizadas",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) with a held interview",
+      "numerator": "leads with entered_form_completed_at",
+      "denominator": "leads with entered_interview_held_at",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": 1255,
+      "denominator_value": 2923,
+      "value": 0.429353
+    },
+    {
+      "id": "sla_first_attempt_24h_manual_weekend",
+      "label_en": "Manual first attempt ≤ 24 h, weekend arrivals",
+      "label_es": "Primer intento ≤ 24 h, entradas en fin de semana",
+      "unit": "lead",
+      "kind": "rate",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot, created Sat–Sun",
+      "numerator": "first attempt ≤ 24 h",
+      "denominator": "population",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": 364,
+      "denominator_value": 1003,
+      "value": 0.362911
+    },
+    {
+      "id": "first_response_p90_hours",
+      "label_en": "First response, p90 (calendar hours)",
+      "label_es": "Primera respuesta, p90 (horas naturales)",
+      "unit": "lead",
+      "kind": "p90",
+      "population": "eligible manual leads created ≥ 24 h before the snapshot with an attempt",
+      "numerator": "first_human_attempt_at − created_at",
+      "denominator": "leads with an attempt",
+      "time_basis": "period",
+      "definition_ref": [
+        "docs/kpi_definitions.md §3",
+        "docs/kpi_definitions.es.md §3"
+      ],
+      "numerator_value": null,
+      "denominator_value": 5243,
+      "value": 59.662778
+    },
+    {
+      "id": "sales_cycle_median_days",
+      "label_en": "Sales cycle, median (days)",
+      "label_es": "Ciclo de venta, mediana (días)",
+      "unit": "lead",
+      "kind": "median",
+      "population": "mature eligible leads (snapshot_date − created_at ≥ 60 × 24 h) enrolled",
+      "numerator": "enrolled_at − created_at in days",
+      "denominator": "enrolled mature leads",
+      "time_basis": "cohort by created_at month; mature leads only",
+      "definition_ref": [
+        "docs/kpi_definitions.md §2",
+        "docs/kpi_definitions.es.md §2"
+      ],
+      "numerator_value": null,
+      "denominator_value": 684,
+      "value": 17.043947
+    }
+  ]
+}

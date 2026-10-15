@@ -1,0 +1,13 @@
+record_id,person_key,record_origin,parent_record_id,created_at,entry_route,source,channel,product_alias,owner_first_id,owner_current_id,reassigned_at,current_stage,current_status,lost_reason,won_at,lost_at,list_amount,discount_amount,net_amount
+F01,P01,original,,2025-02-03 10:00:00,manual,web_form,web_direct,PRG_A,ADV_01,ADV_01,,closed_won,closed_won,,2025-02-12 10:00:00,,3200.0,990.0,2210.0
+F02,P02,original,,2025-02-08 11:00:00,manual,paid_feed,paid_social,PRG_B,ADV_02,ADV_02,,closed_lost,closed_lost,financial,,2025-03-10 10:00:00,,,
+F03,P03,original,,2025-03-03 09:30:00,manual,webinar_live,webinar,PRG_C,ADV_01,ADV_01,,interview_held,working,,,,,,
+F04,P04,original,,2025-03-09 20:00:00,bot_booked,paid_feed,paid_social,PRG_A,ADV_03,ADV_03,,closed_won,closed_won,,2025-03-17 10:00:00,,3200.0,500.0,2700.0
+F05,P05,original,,2025-04-02 14:00:00,bot_booked,referral_form,referral,PRG_D,ADV_02,ADV_02,,closed_lost,nurture,future_intake,,2025-05-05 10:00:00,,,
+F06,P06,original,,2025-04-11 18:30:00,manual,web_form,web_direct,PRG_B,ADV_03,ADV_04,2025-04-12 18:30:00,new_lead,working,,,,,,
+F07,P07,original,,2025-04-12 10:00:00,manual,organic_search,organic,PRG_A,ADV_02,ADV_02,,interview_booked,working,,,,,,
+F08,P08,original,,2025-06-02 18:00:00,manual,web_form,web_direct,PRG_C,ADV_01,ADV_01,,new_lead,working,,,,,,
+F09,P09,original,,2025-07-31 08:00:00,manual,paid_feed,paid_social,PRG_D,ADV_03,ADV_03,,new_lead,new,,,,,,
+F10,P10,original,,2025-02-18 11:00:00,bot_booked,webinar_replay,webinar,PRG_B,ADV_03,ADV_03,,interview_booked,working,,,,,,
+F11,P01,duplicate,,2025-02-05 09:00:00,,web_form,web_direct,PRG_A,ADV_02,ADV_02,,new_lead,new,,,,,,
+F12,P05,reactivation,F05,2025-06-10 10:00:00,manual,nurture,referral,PRG_D,ADV_02,ADV_02,,opportunity,working,,,,,,

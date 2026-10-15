@@ -1,0 +1,2 @@
+dataset_id,schema_version,profile,attribute_prefix,data_origin,history_mode,timestamp_mode,source_timezone,snapshot_at,currency
+handcalc-v-no-appointments,crm-canonical/0.1,admissions,adm,synthetic,full_event_history,naive_wall_clock,Europe/Madrid,2025-07-31 23:59:00,EUR
