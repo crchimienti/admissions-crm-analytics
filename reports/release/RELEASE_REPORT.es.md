@@ -1,8 +1,8 @@
 **Idioma:** [English](RELEASE_REPORT.md) | Español
 
-# Preparación para GitHub — informe de ejecución (`v1.5.0-app`, modo estricto)
+# Preparación para GitHub — informe de ejecución (`v1.5.1-app`, modo estricto)
 
-Generado por `python scripts/release_run.py` · 2026-10-15 16:05 CEST.
+Generado por `python scripts/release_run.py` · 2026-10-16 12:02 CEST.
 
 **Modo: estricto** (verificación analítica y verificación gráfica byte a byte).
 Todos los datos y cifras son sintéticos (semilla 42 y el fixture oficial de 12 registros). Solo el perfil de admisiones; sin CRM; sin datos reales; nada publicado.
@@ -11,8 +11,8 @@ Todos los datos y cifras son sintéticos (semilla 42 y el fixture oficial de 12 
 
 | Elemento | Valor |
 |---|---|
-| Identificador | `v1.5.0-app` |
-| Tree id (SHA-256 de `reports/release/MANIFEST_RELEASE.sha256`) | `cfe38dcaf631ece9fa91654263efd60467155994057cf794a78b3bc9bee1e248` |
+| Identificador | `v1.5.1-app` |
+| Tree id (SHA-256 de `reports/release/MANIFEST_RELEASE.sha256`) | `7d99230598f8df859472498e5b67c6774675a440f6369da75ab22d18074d80df` |
 | Comparado con | `v1.3.1-f3` (`reports/f3/MANIFEST_F3.sha256`, tree id `f1a73209cfaf24d3768784e121f376e1d0ec485eca31ddd22f2b57e09ef23c34`, solo lectura) |
 | Git | sin repositorio, commit ni tag (no autorizado) |
 | Plataforma | Linux x86_64 · Python 3.13.16 |
@@ -24,15 +24,15 @@ Todos los datos y cifras son sintéticos (semilla 42 y el fixture oficial de 12 
 |---|---|---|---|
 | 1 | `remove data/, notebook, docs/img/*.png, build/, caches, reports/release/*` | 0 | 0.0 |
 | 2 | `python src/generate_data.py` | 0 | 6.0 |
-| 3 | `python scripts/build_notebook.py` | 0 | 28.9 |
-| 4 | `python scripts/chart_signature.py --check` | 0 | 26.1 |
-| 5 | `python scripts/export_figures.py` | 0 | 0.0 |
-| 6 | `python scripts/map_to_canonical.py` | 0 | 2.8 |
-| 7 | `python -m pytest -q` | 0 | 351.7 |
-| 8 | `python scripts/show_results.py` | 0 | 4.3 |
-| 9 | `python scripts/show_results.py --lang es` | 0 | 4.8 |
-| 10 | `python scripts/show_results.py --all` | 0 | 4.4 |
-| 11 | `python scripts/export_figures.py --check` | 0 | 0.1 |
+| 3 | `python scripts/build_notebook.py` | 0 | 27.5 |
+| 4 | `python scripts/chart_signature.py --check` | 0 | 20.9 |
+| 5 | `python scripts/export_figures.py` | 0 | 0.1 |
+| 6 | `python scripts/map_to_canonical.py` | 0 | 2.6 |
+| 7 | `python -m pytest -q` | 0 | 286.5 |
+| 8 | `python scripts/show_results.py` | 0 | 3.7 |
+| 9 | `python scripts/show_results.py --lang es` | 0 | 4.3 |
+| 10 | `python scripts/show_results.py --all` | 0 | 3.8 |
+| 11 | `python scripts/export_figures.py --check` | 0 | 0.0 |
 
 ### Verificación analítica (portable)
 
@@ -42,13 +42,13 @@ Todos los datos y cifras son sintéticos (semilla 42 y el fixture oficial de 12 
 | Notebook ejecutado sin errores | sí |
 | Código, texto, tablas y cifras del notebook = F1 | idéntico a F1 en todo salvo los bytes de las imágenes PNG: código, texto, tablas, cifras, contadores de ejecución y metadatos (no se exime ningún campo volátil) |
 | Estructura de los gráficos (datos, títulos, etiquetas, leyendas) = referencia | chart structure: 5 charts — identical to the reference (data, titles, labels) |
-| Pruebas | **496 passed, 0 failed, 0 xfailed, 0 xpassed** |
+| Pruebas | **497 passed, 0 failed, 0 xfailed, 0 xpassed** |
 | show_results.py no escribe nada (en, es, --all) | árbol idéntico antes y después |
 | Ocho KPIs declarativos = F0, F1, F2 y src/metrics.py | **8 / 8** |
 | 47 métricas de referencia frente a F0, ruta directa / canónica | **47 / 47** · **47 / 47** |
 | Bloques de resultados del README (EN, ES) = resultados calculados | idénticos |
-| Enlaces internos | 82 comprobados, 0 rotos |
-| Congelados: baseline/, reports/f1/, reports/f2/, reports/f3/ | idénticos byte a byte antes y después; hashes fijados verificados (39 archivos) |
+| Enlaces internos | 87 comprobados, 0 rotos |
+| Congelados: baseline/, reports/f1/, reports/f2/, reports/f3/ | idénticos byte a byte antes y después; hashes fijados verificados (40 archivos) |
 | Reproducibilidad | no ejecutada en este modo (usar --check) |
 
 ### Verificación gráfica (estricta, byte a byte)
@@ -57,7 +57,7 @@ Todos los datos y cifras son sintéticos (semilla 42 y el fixture oficial de 12 
 |---|---|
 | Notebook ejecutado = bytes de F1, incluidas las imágenes PNG | idéntico (incluidas las 5 imágenes PNG) |
 | Gráficos del README = salidas del notebook | idénticos |
-| Entorno de renderizado de esta ejecución | system Linux 6.18.44-fc-v114 x86_64, python 3.13.16, matplotlib 3.11.2, freetype 2.14.3 (local build), numpy 2.5.3, pillow 12.3.0, project_fonts {'Inter-Bold.otf': '00fd6f4691ee8884', 'Inter-Regular.otf': 'be6d709dcb730dda'} |
+| Entorno de renderizado de esta ejecución | system Linux 6.18.44-fc-v139 x86_64, python 3.13.16, matplotlib 3.11.2, freetype 2.14.3 (local build), numpy 2.5.3, pillow 12.3.0, project_fonts {'Inter-Bold.otf': '00fd6f4691ee8884', 'Inter-Regular.otf': 'be6d709dcb730dda'} |
 | Entorno de renderizado de referencia (imágenes de F1) | system Linux x86_64, python 3.13.16, matplotlib 3.11.2, freetype 2.14.3 (local build), numpy 2.5.3, pillow 12.3.0, project_fonts Inter-Regular.otf be6d709dcb730ddaf…, Inter-Bold.otf 00fd6f4691ee8884… |
 
 La causa de una diferencia en los PNG no se deduce de estas versiones: se registran para poder comparar entornos.
@@ -74,17 +74,17 @@ La causa de una diferencia en los PNG no se deduce de estas versiones: se regist
 
 ## Revisión de seguridad (patrones)
 
-Revisado: 176 archivos de texto del repositorio (todo lo que Git versionaría, incluidos datos y notebook); patrones: email address, phone number, private key, cloud or API token, credential assignment, local absolute path, personal-data column name, notebook metadata/errors. Notebook: claves de metadatos ['kernelspec', 'language_info'], metadatos de celda —, 49 salidas, 0 errores, 0 stderr, 5 imágenes. Columnas revisadas por valor: {'email_status': ['failed', 'not_sent', 'sent']}.
+Revisado: 178 archivos de texto del repositorio (todo lo que Git versionaría, incluidos datos y notebook); patrones: email address, phone number, private key, cloud or API token, credential assignment, local absolute path, personal-data column name, notebook metadata/errors. Notebook: claves de metadatos ['kernelspec', 'language_info'], metadatos de celda —, 49 salidas, 0 errores, 0 stderr, 5 imágenes. Columnas revisadas por valor: {'email_status': ['failed', 'not_sent', 'sent']}.
 
 Hallazgos:
 
 ninguno
 
-Límites: un escaneo por patrones puede no detectar secretos o datos personales escritos de otra forma, y no lee imágenes (assets/fonts/inter/Inter-Bold.otf, assets/fonts/inter/Inter-Regular.otf, docs/img/funnel_mature_cohorts.png, docs/img/main_kpi_by_cohort.png, docs/img/show_rate_by_month.png). Se excluye el archivo que contiene los patrones (scripts/release_checks.py). Las reglas de exclusión se aplican con un comparador simplificado; `git check-ignore` es la comprobación definitiva cuando exista un repositorio. Esta revisión no garantiza la seguridad.
+Límites: un escaneo por patrones puede no detectar secretos o datos personales escritos de otra forma, y no lee imágenes (assets/fonts/inter/Inter-Bold.otf, assets/fonts/inter/Inter-Regular.otf, docs/img/funnel_mature_cohorts.png, docs/img/main_kpi_by_cohort.png, docs/img/show_rate_by_month.png, docs/screenshots/app_funnel.png, docs/screenshots/app_summary.png). Se excluye el archivo que contiene los patrones (scripts/release_checks.py). Las reglas de exclusión se aplican con un comparador simplificado; `git check-ignore` es la comprobación definitiva cuando exista un repositorio. Esta revisión no garantiza la seguridad.
 
 ## Archivos frente a `v1.3.1-f3`
 
-modified (declared): 12, new (declared): 40, unchanged: 109. Problemas:
+modified (declared): 12, new (declared): 44, unchanged: 109. Problemas:
 
 ninguno
 
@@ -112,6 +112,7 @@ Nuevos (declarados):
 - `LICENSE`
 - `LICENSE-CONTENT`
 - `app/app_data.py`
+- `app/requirements.txt`
 - `app/streamlit_app.py`
 - `assets/fonts/inter/FONTS.md`
 - `assets/fonts/inter/Inter-Bold.otf`
@@ -122,11 +123,14 @@ Nuevos (declarados):
 - `docs/img/funnel_mature_cohorts.png`
 - `docs/img/main_kpi_by_cohort.png`
 - `docs/img/show_rate_by_month.png`
+- `docs/screenshots/app_funnel.png`
+- `docs/screenshots/app_summary.png`
 - `reports/release/MANIFEST_RELEASE_v1.4.0.sha256`
 - `reports/release/MANIFEST_RELEASE_v1.4.1.sha256`
 - `reports/release/MANIFEST_RELEASE_v1.4.2.sha256`
 - `reports/release/MANIFEST_RELEASE_v1.4.3.sha256`
 - `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`
+- `reports/release/MANIFEST_RELEASE_v1.5.0.sha256`
 - `requirements-app.txt`
 - `requirements-lock.txt`
 - `scripts/chart_signature.py`
@@ -260,28 +264,25 @@ Intactos (idénticos byte a byte a `v1.3.1-f3`; las carpetas congeladas reports/
 
 Hashes por archivo: [`F3_COMPARISON.es.md`](F3_COMPARISON.es.md).
 
-## Cambios frente a `v1.4.4-gh` (`reports/release/MANIFEST_RELEASE_v1.4.4.sha256`, tree id `2d794550d0f0f00d…`, fijado, solo lectura)
+## Cambios frente a `v1.5.0-app` (`reports/release/MANIFEST_RELEASE_v1.5.0.sha256`, tree id `cfe38dcaf631ece9…`, fijado, solo lectura)
 
-modified (declared): 9, new (declared): 7, unchanged: 145. Modificados (declarados):
+modified (declared): 9, new (declared): 4, unchanged: 152. Modificados (declarados):
 
-- `CHANGELOG.md` — v1.5.0-app row; v1.4.4-gh tree id pinned with its kept manifest
-- `LICENSE-CONTENT` — MIT scope includes app/ and .streamlit/; repository URL in the suggested attribution (was pending)
-- `README.es.md` — sección de la demo local (entorno aparte, sin filtros, probada solo en Linux); app/ en el mapa del repositorio y en el alcance de licencias; instrucción de clonado y URL del repositorio; arranque y revisión visual inicial en Windows confirmados por el usuario
-- `README.md` — local demo section (separate environment, no filters, Linux-only testing); app/ in the repository map and licence scope; clone instruction and repository URL; Windows start-up and initial visual review confirmed by the user
-- `docs/PROJECT_STATUS.es.md` — fila y alcance de v1.5.0-app; v1.4.4-gh fijada y registrada como publicada; estado de la demo (Windows: arranque y revisión visual inicial confirmados por el usuario; macOS sin verificar)
-- `docs/PROJECT_STATUS.md` — v1.5.0-app row and scope; v1.4.4-gh pinned and recorded as published; demo status (Windows: start-up and initial visual review confirmed by the user; macOS not verified)
-- `scripts/release_run.py` — version identification v1.5.0-app and declarations of this revision
-- `tests/test_licenses.py` — repository URL allowed and required in the attribution; app/ and .streamlit/ in the licence scope
-- `tests/test_release.py` — v1.5.0-app in the version list; app/, .streamlit/ and requirements-app.txt in the repository top level
+- `CHANGELOG.md` — v1.5.1-app row; v1.5.0-app tree id pinned with its kept manifest
+- `LICENSE-CONTENT` — screenshots of the demo (docs/screenshots/) under CC BY 4.0 for the project content they show; the Streamlit interface keeps its own licence
+- `README.es.md` — vista previa de la demo con dos capturas y espacio para el enlace de la demo en línea; nota sobre la copia alojada (Streamlit Community Cloud, requiere Internet, todavía no verificada allí); resultado de Windows de v1.5.0-app informado por la responsable
+- `README.md` — demo preview with two screenshots and a placeholder for the online demo link; hosted-copy note (Streamlit Community Cloud, requires Internet, not yet verified there); Windows result of v1.5.0-app as reported by the project owner
+- `docs/PROJECT_STATUS.es.md` — fila y alcance de v1.5.1-app; v1.5.0-app fijada y registrada como publicada; resultado de Windows; mantenimiento pendiente; copia alojada preparada, no desplegada
+- `docs/PROJECT_STATUS.md` — v1.5.1-app row and scope; v1.5.0-app pinned and recorded as published; Windows result; maintenance pending; hosted copy prepared, not deployed
+- `scripts/release_run.py` — version identification v1.5.1-app and declarations of this revision
+- `tests/test_app_data.py` — the Community Cloud dependency file (app/requirements.txt) only points to requirements-app.txt
+- `tests/test_release.py` — v1.5.1-app in the version list
 
 Nuevos (declarados):
 
-- `.streamlit/config.toml`
-- `app/app_data.py`
-- `app/streamlit_app.py`
-- `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`
-- `requirements-app.txt`
-- `tests/test_app.py`
-- `tests/test_app_data.py`
+- `app/requirements.txt`
+- `docs/screenshots/app_funnel.png`
+- `docs/screenshots/app_summary.png`
+- `reports/release/MANIFEST_RELEASE_v1.5.0.sha256`
 
-Todos los demás archivos son idénticos byte a byte a `v1.4.4-gh`.
+Todos los demás archivos son idénticos byte a byte a `v1.5.0-app`.

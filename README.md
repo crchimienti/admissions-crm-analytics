@@ -6,6 +6,17 @@ A portfolio project in **CRM analytics, sales operations and revenue operations*
 
 > ⚠️ **All data is 100 % synthetic.** The process structure comes from real, anonymised operational experience; every row, rate, amount and result is generated from synthetic scenario parameters (seed 42). Nothing here describes a real company, team, programme, student or market, and no causal claim is made.
 
+## Demo preview
+
+Screenshots of the Streamlit demo (`app/`, release `v1.5.0-app`, Spanish view). Every figure on screen is computed by the project's tested code from the synthetic data; nothing is retouched. The demo shows the [results below](#main-synthetic-results) within the [scope and limits](#scope-and-current-limits) of this case: 47 reference metrics, 8 declarative KPIs, synthetic data only, no CRM, no filters.
+
+**Online demo:** not deployed yet. <!-- demo-url: add the Streamlit Community Cloud link here once it is deployed and checked -->
+To run it on your own computer, see [Local demo](#how-to-run).
+
+| Summary: the eight KPIs and the synthetic-data notice | Funnel of the mature cohorts and the analysis charts |
+|---|---|
+| ![Demo summary: eight KPIs with numerator, denominator, population and time basis, and the synthetic-data notice](docs/screenshots/app_summary.png) | ![Demo funnel view: funnel table of the mature cohorts and the first analysis chart](docs/screenshots/app_funnel.png) |
+
 ## The business problem
 
 An admissions team receives leads through two routes — a bot that books interviews directly and a manual route worked by advisors — and needs to know, with definitions it can defend:
@@ -137,7 +148,9 @@ python -m pip install -r requirements-app.txt
 python -m streamlit run app/streamlit_app.py   # opens http://localhost:8501 — stop with Ctrl+C
 ```
 
-`requirements-app.txt` is `requirements-lock.txt` plus Streamlit 1.65.0 and its dependencies, all pinned. Tested on Linux (automated tests, server start, review in a headless browser). Windows: start-up and initial visual review on Windows confirmed by the user (v1.5.0-app, 2026-10-15); the test suite has not been run on Windows with this version. macOS: pending.
+`requirements-app.txt` is `requirements-lock.txt` plus Streamlit 1.65.0 and its dependencies, all pinned. Tested on Linux (automated tests, server start, review in a headless browser). Windows 11 (v1.5.0-app, reported by the project owner): start-up and initial visual review correct; 501 tests passed; portable analytical verification passed. macOS: pending.
+
+**Hosted copy (Streamlit Community Cloud, optional).** The same app can be deployed from this repository: entrypoint `app/streamlit_app.py`, Python 3.13. `app/requirements.txt`, next to the entrypoint, only points to `requirements-app.txt`, so the hosted copy installs the same pinned versions while the root `requirements.txt` and the analytical environment stay unchanged. A hosted copy runs on Streamlit's servers: opening it requires Internet, and the platform's own terms and data practices apply. The app code itself still opens no external connection, uses no credentials or secrets, accepts no uploads, and shows only the synthetic data of this repository. Not yet verified on Community Cloud.
 
 **Environment files.** `requirements-lock.txt` pins every package; its eight reference packages are exactly the versions recorded in [`baseline/environment.txt`](baseline/environment.txt), and platform-only dependencies carry environment markers. `requirements.txt` (minimum versions, unchanged since v1) is kept for reference but does not pin versions, so it can install newer releases than the ones verified.
 
@@ -146,7 +159,7 @@ python -m streamlit run app/streamlit_app.py   # opens http://localhost:8501 —
 | System | Status |
 |---|---|
 | Linux x86-64, Python 3.13.16 | **tested**: clean virtual environment from the lock file, quick start, all tests, strict and portable reproductions without any external chart configuration |
-| Windows 11 AMD64 | **portable analytical level verified by the project owner** with v1.4.3-gh (2026-10-15, PowerShell, Python 3.13.16, pinned environment identical to `baseline/environment.txt`): 477 tests passed (0 failed, xfail or xpass), 8/8 KPIs, the 5 chart signatures identical, every command of the portable report with exit code 0, versioned notebook and figures not overwritten. **Strict graphical level not passed**: the PNG images differ; cause not determined; accepted as a limitation. Not run by the maintainer of this delivery on Windows |
+| Windows 11 AMD64 | **portable analytical level verified by the project owner** with v1.4.3-gh (2026-10-15, PowerShell, Python 3.13.16, pinned environment identical to `baseline/environment.txt`): 477 tests passed (0 failed, xfail or xpass), 8/8 KPIs, the 5 chart signatures identical, every command of the portable report with exit code 0, versioned notebook and figures not overwritten. **Strict graphical level not passed**: the PNG images differ; cause not determined; accepted as a limitation. Not run by the maintainer of this delivery on Windows. With v1.5.0-app (reported by the project owner on 2026-10-16): 501 tests passed, portable analytical verification passed, strict graphical level not passed for the PNG images only |
 | macOS (Apple Silicon, Intel ≥ 10.15) | **prepared, not yet verified**: a wheel exists for every pinned package; the workflow will run the tests and the portable reproduction there |
 
 ## Repository map

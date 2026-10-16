@@ -1,6 +1,6 @@
 **Language:** English | [Español](PROJECT_STATUS.es.md)
 
-# Project status (local demo, `v1.5.0-app`)
+# Project status (demo preview and hosting preparation, `v1.5.1-app`)
 
 > **Use:** this document is the reference when a session is resumed. If a specification is not found here or in the files it cites, **it is not substituted or reconstructed**: it is requested from the project owner. Any change to this document must reflect an approved decision.
 
@@ -19,7 +19,7 @@ These are not permanent prohibitions: they apply until the project owner explici
 
 - Synthetic data only, created from scratch. No real data, exports, screenshots, names, emails, phone numbers or identifiers are used or requested.
 - No HubSpot or other CRM connection.
-- No public web app or deployment. The local Streamlit demo `v1.5.0-app` is authorised (2026-10-15) within the scope recorded in §3.
+- No public web app or deployment by the deliveries. The local Streamlit demo `v1.5.0-app` is authorised (2026-10-15) within the scope recorded in §3; `v1.5.1-app` only prepares an optional hosted copy on Streamlit Community Cloud, which the project owner deploys from her own account.
 - The repository was published by the project owner (https://github.com/crchimienti/admissions-crm-analytics/, `v1.4.4-gh`, first commit `bc52084`). No commits, tags, pushes or deployments are made by the deliveries; the history and the `v1.4.4-gh` tag are not rewritten or moved.
 - The synthetic generator is not generalised yet, and no portability to other funnels is claimed.
 
@@ -48,7 +48,8 @@ They are part of the project's planned evolution, but none is authorised or star
 | `v1.4.2-gh` | authorised compatibility fix found on Windows: the temporary CSV of `test_regeneration_is_reproducible` is written with LF | tree id `98841cc859eec50fb11a2772263dbc1595f16ce4a86952584729791e1c8096c2` | `reports/release/MANIFEST_RELEASE_v1.4.2.sha256`, ZIP v1.4.2-gh |
 | `v1.4.3-gh` | verification levels separated: portable analytical (`--mode portable`) and strict graphical (default); chart structure signature; separate CI jobs | tree id `a9da920c3e2e8a3b7ee6fed8fff5875faf25fd2b05ebe840c859e3841c232d7b` | `reports/release/MANIFEST_RELEASE_v1.4.3.sha256`, ZIP v1.4.3-gh |
 | `v1.4.4-gh` | licences (MIT for code, CC BY 4.0 for content, Inter fonts under SIL OFL 1.1) and documentation of the Windows result; no change to code, data, notebook, charts or fonts — published by the project owner as the first commit (`bc52084`) | tree id `2d794550d0f0f00d7554f298cddbd718134a55bfa7672d8f28d52d4a93018777` | `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`, ZIP v1.4.4-gh |
-| `v1.5.0-app` | local Streamlit demo (`app/`, `.streamlit/`, `requirements-app.txt`), its tests, repository URL in the attribution; no change to engines, calculations, data, definitions, notebook, charts or fonts | tree id = SHA-256 of `reports/release/MANIFEST_RELEASE.sha256` (shown in `reports/release/RELEASE_REPORT.md`) | `reports/release/`, ZIP v1.5.0-app |
+| `v1.5.0-app` | local Streamlit demo (`app/`, `.streamlit/`, `requirements-app.txt`), its tests, repository URL in the attribution; no change to engines, calculations, data, definitions, notebook, charts or fonts — published by the project owner (commit `0bd6d2a`, tag `v1.5.0-app`) | tree id `cfe38dcaf631ece9fa91654263efd60467155994057cf794a78b3bc9bee1e248` (SHA-256 of the stored manifest file) | `reports/release/MANIFEST_RELEASE_v1.5.0.sha256`, ZIP v1.5.0-app |
+| `v1.5.1-app` | demo preview in the README (two screenshots of `v1.5.0-app`), `app/requirements.txt` for Streamlit Community Cloud (points to `requirements-app.txt`), hosted-copy note, Windows result of v1.5.0-app; no change to the app code, engines, calculations, data, definitions, notebook, charts or fonts | tree id = SHA-256 of `reports/release/MANIFEST_RELEASE.sha256` (shown in `reports/release/RELEASE_REPORT.md` when run on Linux) | `reports/release/` |
 
 `baseline/`, `reports/f1/`, `reports/f2/` and `reports/f3/` are never written. `scripts/f0_baseline.py`, `scripts/f1_run.py`, `scripts/export_metrics.py`, `scripts/f2_run.py` and `scripts/f3_run.py` refuse to run on the current tree. F0, F1, F2 and F3 are verified from their ZIPs in a clean folder. The current tree is verified with `python scripts/release_run.py --check`, which compares it with `reports/f3/MANIFEST_F3.sha256` read-only and writes only `reports/release/`.
 
@@ -80,6 +81,10 @@ They are part of the project's planned evolution, but none is authorised or star
   - The demo only calls existing, tested functions (`release_checks.load_results`, `metrics.funnel`, `metrics.cohort_table`, `metrics.population_counts`) and shows the versioned notebook images; no formula, KPI or business logic is added. No network, CRM, credentials, uploads or real data; the generator, the tests and the release run are never executed by the app. A visible synthetic-data notice on every view.
   - **No interactive filters:** the current functions compute each metric on its whole population; filtering would need a new route for populations and denominators, which is not authorised.
   - Modified: `README(.es).md` (demo section, repository map, licence scope, clone instruction, repository URL), `LICENSE-CONTENT` (scope includes `app/` and `.streamlit/`; repository URL in the attribution), `docs/PROJECT_STATUS(.es).md`, `CHANGELOG.md`, `scripts/release_run.py` (version and declarations; the v1.4.4-gh manifest kept as `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`), `tests/test_release.py`, `tests/test_licenses.py`.
+- **v1.5.1-app** (requested on 2026-10-16, presentation and hosting preparation only):
+  - New: `docs/screenshots/app_summary.png` and `app_funnel.png` (real screenshots of the published `v1.5.0-app`, Spanish view, taken on Linux in a headless browser; not retouched), `app/requirements.txt` (one line, `-r ../requirements-app.txt`: Community Cloud reads the dependency file next to the entrypoint before the root one), `reports/release/MANIFEST_RELEASE_v1.5.0.sha256` (kept, read only).
+  - Modified: `README(.es).md` (demo preview, placeholder for the online demo link, hosted-copy note, Windows result of v1.5.0-app), `LICENSE-CONTENT` (screenshots under CC BY 4.0 for the project content they show), `docs/PROJECT_STATUS(.es).md`, `CHANGELOG.md`, `scripts/release_run.py` (version and declarations), `tests/test_release.py`, `tests/test_app_data.py` (the cloud dependency file only points to `requirements-app.txt`).
+  - Unchanged: the app code and its local configuration (`.streamlit/config.toml`), `requirements.txt`, `requirements-lock.txt`, `requirements-app.txt`, every engine, calculation, data file, definition and frozen reference.
 
 ## 4. Current contract: `crm-canonical/0.1.1`
 
@@ -152,7 +157,10 @@ They are part of the project's planned evolution, but none is authorised or star
   - **Linux:** analytical and strict graphical levels tested by the maintainer of the deliveries (unchanged).
   - **macOS:** not verified.
   - **JupyterLab:** optional interactive viewing; not part of the pinned environment.
-- **Local demo `v1.5.0-app` delivered**, to be integrated on GitHub by the project owner. Linux: automated tests, server start and review in a headless browser. Windows: start-up and initial visual review on Windows confirmed by the user (2026-10-15) — not a run of the test suite nor an exhaustive check of every view. macOS: not verified. Requirements it follows:
+- **Local demo `v1.5.0-app` published** by the project owner (commit `0bd6d2afc53b5e2a7d2b9284113946ea27ccdbb1`, tag `v1.5.0-app`); GitHub Actions of that commit finished correctly according to her check (which jobs or systems is not attributed). Linux: automated tests, server start and review in a headless browser. Windows 11 AMD64, Python 3.13.16 (reported by the project owner on 2026-10-15/16): start-up and initial visual review correct; 501 tests passed (0 failed, xfailed or xpassed); portable analytical verification passed; 8/8 KPIs and 47/47 metrics by both routes; the five chart structures identical; frozen references and versioned files unchanged; 82 links without breaks; stored manifest identical (182 files); strict graphical verification not passed only because of PNG differences (accepted limitation). macOS: not verified.
+  - **Maintenance pending:** the runner hashes the manifest it rebuilds in memory with the platform's path order, so on Windows its "tree id" is not the SHA-256 of the stored file (the file-by-file check is unaffected); the release report still prints a static line saying there is no Git repository, commit or tag.
+  - **Hosted copy (`v1.5.1-app`) prepared, not deployed:** verified locally on Linux only (see §3). Community Cloud itself is not verified until the project owner deploys it.
+  - Requirements the demo follows:
   - no external connections, CRM or telemetry; local browser–server communication only;
   - caches may exist, but data, code and versioned references must stay intact;
   - only functions and views that exist and are tested; no mature-cohort filter promised as an existing parameter without checking its API;

@@ -1,6 +1,6 @@
 **Idioma:** [English](PROJECT_STATUS.md) | Español
 
-# Estado del proyecto (demo local, `v1.5.0-app`)
+# Estado del proyecto (vista previa de la demo y preparación del alojamiento, `v1.5.1-app`)
 
 > **Uso:** este documento es la referencia al retomar una sesión. Si una especificación no aparece aquí ni en los archivos que se citan, **no se sustituye ni se reconstruye**: se pide a la responsable del proyecto. Cualquier cambio de este documento debe reflejar una decisión aprobada.
 
@@ -19,7 +19,7 @@ Estas restricciones no son prohibiciones permanentes: rigen hasta que la respons
 
 - Solo datos sintéticos, creados desde cero. No se usan ni se solicitan datos reales, exports, capturas, nombres, emails, teléfonos ni identificadores.
 - Sin conexión a HubSpot ni a ningún otro CRM.
-- Sin app web pública ni despliegue. La demo local de Streamlit `v1.5.0-app` está autorizada (2026-10-15) dentro del alcance registrado en §3.
+- Las entregas no publican ninguna app web ni hacen despliegues. La demo local de Streamlit `v1.5.0-app` está autorizada (2026-10-15) dentro del alcance registrado en §3; `v1.5.1-app` solo prepara una copia alojada opcional en Streamlit Community Cloud, que la responsable despliega desde su propia cuenta.
 - El repositorio lo publicó la responsable (https://github.com/crchimienti/admissions-crm-analytics/, `v1.4.4-gh`, primer commit `bc52084`). Las entregas no hacen commits, tags, push ni despliegues; no se rehace el historial ni se mueve la etiqueta `v1.4.4-gh`.
 - No se generaliza todavía el generador sintético ni se afirma portabilidad a otros funnels.
 
@@ -48,7 +48,8 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
 | `v1.4.2-gh` | corrección autorizada de compatibilidad detectada en Windows: el CSV temporal de `test_regeneration_is_reproducible` se escribe con LF | tree id `98841cc859eec50fb11a2772263dbc1595f16ce4a86952584729791e1c8096c2` | `reports/release/MANIFEST_RELEASE_v1.4.2.sha256`, ZIP v1.4.2-gh |
 | `v1.4.3-gh` | niveles de verificación separados: analítica portable (`--mode portable`) y gráfica estricta (por defecto); firma estructural de los gráficos; trabajos de CI separados | tree id `a9da920c3e2e8a3b7ee6fed8fff5875faf25fd2b05ebe840c859e3841c232d7b` | `reports/release/MANIFEST_RELEASE_v1.4.3.sha256`, ZIP v1.4.3-gh |
 | `v1.4.4-gh` | licencias (MIT para el código, CC BY 4.0 para el contenido, fuentes Inter con SIL OFL 1.1) y documentación del resultado de Windows; sin cambios en código, datos, notebook, gráficos ni fuentes — publicada por la responsable como primer commit (`bc52084`) | tree id `2d794550d0f0f00d7554f298cddbd718134a55bfa7672d8f28d52d4a93018777` | `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`, ZIP v1.4.4-gh |
-| `v1.5.0-app` | demo local de Streamlit (`app/`, `.streamlit/`, `requirements-app.txt`), sus pruebas y la URL del repositorio en la atribución; sin cambios en motores, cálculos, datos, definiciones, notebook, gráficos ni fuentes | tree id = SHA-256 de `reports/release/MANIFEST_RELEASE.sha256` (figura en `reports/release/RELEASE_REPORT.es.md`) | `reports/release/`, ZIP v1.5.0-app |
+| `v1.5.0-app` | demo local de Streamlit (`app/`, `.streamlit/`, `requirements-app.txt`), sus pruebas y la URL del repositorio en la atribución; sin cambios en motores, cálculos, datos, definiciones, notebook, gráficos ni fuentes — publicada por la responsable (commit `0bd6d2a`, etiqueta `v1.5.0-app`) | tree id `cfe38dcaf631ece9fa91654263efd60467155994057cf794a78b3bc9bee1e248` (SHA-256 del archivo de manifiesto guardado) | `reports/release/MANIFEST_RELEASE_v1.5.0.sha256`, ZIP v1.5.0-app |
+| `v1.5.1-app` | vista previa de la demo en el README (dos capturas de `v1.5.0-app`), `app/requirements.txt` para Streamlit Community Cloud (remite a `requirements-app.txt`), nota sobre la copia alojada, resultado de Windows de v1.5.0-app; sin cambios en el código de la app, motores, cálculos, datos, definiciones, notebook, gráficos ni fuentes | tree id = SHA-256 de `reports/release/MANIFEST_RELEASE.sha256` (figura en `reports/release/RELEASE_REPORT.es.md` al ejecutarse en Linux) | `reports/release/` |
 
 `baseline/`, `reports/f1/`, `reports/f2/` y `reports/f3/` no se escriben nunca. `scripts/f0_baseline.py`, `scripts/f1_run.py`, `scripts/export_metrics.py`, `scripts/f2_run.py` y `scripts/f3_run.py` se niegan a ejecutarse en el árbol actual. F0, F1, F2 y F3 se verifican desde sus ZIP en una carpeta limpia. El árbol actual se verifica con `python scripts/release_run.py --check`, que lo compara en solo lectura con `reports/f3/MANIFEST_F3.sha256` y solo escribe `reports/release/`.
 
@@ -80,6 +81,10 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
   - La demo solo llama a funciones existentes y probadas (`release_checks.load_results`, `metrics.funnel`, `metrics.cohort_table`, `metrics.population_counts`) y muestra las imágenes versionadas del notebook; no añade fórmulas, KPIs ni lógica de negocio. Sin red, CRM, credenciales, carga de archivos ni datos reales; la app nunca ejecuta el generador, las pruebas ni la ejecución de release. Aviso visible de datos sintéticos en todas las vistas.
   - **Sin filtros interactivos:** las funciones actuales calculan cada métrica sobre su población completa; filtrar exigiría una ruta nueva para poblaciones y denominadores, que no está autorizada.
   - Modificados: `README(.es).md` (sección de la demo, mapa del repositorio, alcance de licencias, instrucción de clonado, URL del repositorio), `LICENSE-CONTENT` (el alcance incluye `app/` y `.streamlit/`; URL del repositorio en la atribución), `docs/PROJECT_STATUS(.es).md`, `CHANGELOG.md`, `scripts/release_run.py` (versión y declaraciones; el manifiesto de v1.4.4-gh se conserva como `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`), `tests/test_release.py`, `tests/test_licenses.py`.
+- **v1.5.1-app** (solicitada el 2026-10-16, solo presentación y preparación del alojamiento):
+  - Nuevos: `docs/screenshots/app_summary.png` y `app_funnel.png` (capturas reales de `v1.5.0-app` publicada, vista en español, tomadas en Linux con un navegador sin interfaz; sin retoques), `app/requirements.txt` (una línea, `-r ../requirements-app.txt`: Community Cloud lee el archivo de dependencias junto al punto de entrada antes que el de la raíz), `reports/release/MANIFEST_RELEASE_v1.5.0.sha256` (conservado, solo lectura).
+  - Modificados: `README(.es).md` (vista previa de la demo, espacio para el enlace de la demo en línea, nota sobre la copia alojada, resultado de Windows de v1.5.0-app), `LICENSE-CONTENT` (capturas bajo CC BY 4.0 en cuanto al contenido del proyecto), `docs/PROJECT_STATUS(.es).md`, `CHANGELOG.md`, `scripts/release_run.py` (versión y declaraciones), `tests/test_release.py`, `tests/test_app_data.py` (el archivo de dependencias para la nube solo remite a `requirements-app.txt`).
+  - Sin cambios: el código de la app y su configuración local (`.streamlit/config.toml`), `requirements.txt`, `requirements-lock.txt`, `requirements-app.txt`, todos los motores, cálculos, datos, definiciones y referencias congeladas.
 
 ## 4. Contrato vigente: `crm-canonical/0.1.1`
 
@@ -152,7 +157,10 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
   - **Linux:** niveles analítico y gráfico estricto probados por quien preparó las entregas (sin cambios).
   - **macOS:** sin verificar.
   - **JupyterLab:** visualización interactiva opcional; no forma parte del entorno fijado.
-- **Demo local `v1.5.0-app` entregada**, para que la responsable la integre en GitHub. Linux: pruebas automáticas, arranque del servidor y revisión en un navegador sin interfaz. Windows: arranque y revisión visual inicial en Windows confirmados por el usuario (2026-10-15); no es una ejecución de la batería de pruebas ni una comprobación exhaustiva de todas las vistas. macOS: sin verificar. Requisitos que cumple:
+- **Demo local `v1.5.0-app` publicada** por la responsable (commit `0bd6d2afc53b5e2a7d2b9284113946ea27ccdbb1`, etiqueta `v1.5.0-app`); GitHub Actions de ese commit terminó correctamente según su comprobación (no se atribuye a trabajos ni sistemas concretos). Linux: pruebas automáticas, arranque del servidor y revisión en un navegador sin interfaz. Windows 11 AMD64, Python 3.13.16 (informado por la responsable el 2026-10-15/16): arranque y revisión visual inicial correctos; 501 pruebas aprobadas (0 fallidas, xfailed ni xpassed); verificación analítica portable aprobada; 8/8 KPIs y 47/47 métricas por ambas rutas; estructura de los cinco gráficos idéntica; referencias congeladas y archivos versionados sin cambios; 82 enlaces sin roturas; manifiesto guardado idéntico (182 archivos); verificación gráfica estricta no aprobada solo por diferencias PNG (limitación aceptada). macOS: sin verificar.
+  - **Mantenimiento pendiente:** el runner calcula el hash del manifiesto que reconstruye en memoria con el orden de rutas de la plataforma, así que en Windows su «tree id» no es el SHA-256 del archivo guardado (la comprobación archivo por archivo no se ve afectada); el informe de release sigue mostrando una línea fija que dice que no hay repositorio, commit ni etiqueta de Git.
+  - **Copia alojada (`v1.5.1-app`) preparada, no desplegada:** verificada solo localmente en Linux (ver §3). Community Cloud no queda verificado hasta que la responsable la despliegue.
+  - Requisitos que cumple la demo:
   - sin conexiones externas, CRM ni telemetría; solo comunicación local navegador–servidor;
   - puede haber cachés, pero los datos, el código y las referencias versionadas deben quedar intactos;
   - solo funciones y vistas que existen y están probadas; no se promete un filtro de cohortes maduras como parámetro existente sin verificar su API;

@@ -6,6 +6,17 @@ Un proyecto de portfolio de **analítica CRM, sales operations y revenue operati
 
 > ⚠️ **Todos los datos son 100 % sintéticos.** La estructura del proceso procede de experiencia operativa real y anonimizada; cada fila, tasa, importe y resultado se genera a partir de parámetros sintéticos de escenario (semilla 42). Nada describe una empresa, equipo, programa, alumno o mercado reales, y no se hacen afirmaciones causales.
 
+## Vista previa de la demo
+
+Capturas de la demo de Streamlit (`app/`, versión `v1.5.0-app`, vista en español). Todas las cifras de pantalla las calcula el código probado del proyecto a partir de los datos sintéticos; nada está retocado. La demo muestra los [resultados de abajo](#principales-resultados-sintéticos) dentro del [alcance y los límites](#alcance-y-límites-actuales) de este caso: 47 métricas de referencia, 8 KPIs declarativos, solo datos sintéticos, sin CRM y sin filtros.
+
+**Demo en línea:** todavía no desplegada. <!-- demo-url: añadir aquí el enlace de Streamlit Community Cloud cuando esté desplegada y comprobada -->
+Para ejecutarla en tu equipo, consulta [Demo local](#cómo-ejecutarlo).
+
+| Resumen: los ocho KPIs y el aviso de datos sintéticos | Funnel de las cohortes maduras y gráficos del análisis |
+|---|---|
+| ![Resumen de la demo: ocho KPIs con numerador, denominador, población y base temporal, y el aviso de datos sintéticos](docs/screenshots/app_summary.png) | ![Vista del funnel: tabla del funnel de las cohortes maduras y el primer gráfico del análisis](docs/screenshots/app_funnel.png) |
+
 ## El problema de negocio
 
 Un equipo de admisiones recibe leads por dos rutas —un bot que agenda entrevistas directamente y una ruta manual que trabajan los asesores— y necesita saber, con definiciones defendibles:
@@ -137,7 +148,9 @@ python -m pip install -r requirements-app.txt
 python -m streamlit run app/streamlit_app.py   # abre http://localhost:8501 — se detiene con Ctrl+C
 ```
 
-`requirements-app.txt` es `requirements-lock.txt` más Streamlit 1.65.0 y sus dependencias, todas fijadas. Probada en Linux (pruebas automáticas, arranque del servidor, revisión en un navegador sin interfaz). Windows: arranque y revisión visual inicial en Windows confirmados por el usuario (v1.5.0-app, 2026-10-15); la batería de pruebas no se ha ejecutado en Windows con esta versión. macOS: pendiente.
+`requirements-app.txt` es `requirements-lock.txt` más Streamlit 1.65.0 y sus dependencias, todas fijadas. Probada en Linux (pruebas automáticas, arranque del servidor, revisión en un navegador sin interfaz). Windows 11 (v1.5.0-app, informado por la responsable): arranque y revisión visual inicial correctos; 501 pruebas aprobadas; verificación analítica portable aprobada. macOS: pendiente.
+
+**Copia alojada (Streamlit Community Cloud, opcional).** La misma app puede desplegarse desde este repositorio: punto de entrada `app/streamlit_app.py`, Python 3.13. `app/requirements.txt`, junto al punto de entrada, solo remite a `requirements-app.txt`, así que la copia alojada instala las mismas versiones fijadas y el `requirements.txt` de la raíz y el entorno analítico no cambian. Una copia alojada se ejecuta en los servidores de Streamlit: abrirla requiere Internet y se aplican los términos y las prácticas de datos de la plataforma. El código de la app sigue sin abrir conexiones externas, sin credenciales ni secretos, sin subida de archivos y solo con los datos sintéticos de este repositorio. Todavía no verificada en Community Cloud.
 
 **Archivos de entorno.** `requirements-lock.txt` fija todos los paquetes; sus ocho paquetes de referencia son exactamente las versiones registradas en [`baseline/environment.txt`](baseline/environment.txt), y las dependencias de una sola plataforma llevan marcadores de entorno. `requirements.txt` (versiones mínimas, sin cambios desde v1) se conserva como referencia, pero no fija versiones y puede instalar versiones más nuevas que las verificadas.
 
@@ -146,7 +159,7 @@ python -m streamlit run app/streamlit_app.py   # abre http://localhost:8501 — 
 | Sistema | Estado |
 |---|---|
 | Linux x86-64, Python 3.13.16 | **probado**: entorno virtual limpio desde el archivo de versiones fijadas, inicio rápido, todas las pruebas, reproducciones estricta y portable sin configuración gráfica externa |
-| Windows 11 AMD64 | **nivel analítico portable verificado por la responsable del proyecto** con v1.4.3-gh (2026-10-15, PowerShell, Python 3.13.16, entorno fijado idéntico a `baseline/environment.txt`): 477 pruebas correctas (0 fallidas, xfail ni xpass), 8/8 KPIs, firmas de los 5 gráficos idénticas, todos los comandos del informe portable con código de salida 0, notebook y gráficos versionados sin sobrescribir. **Nivel gráfico estricto no aprobado**: las imágenes PNG difieren; causa no determinada; aceptado como limitación. Quien preparó esta entrega no lo ha ejecutado en Windows |
+| Windows 11 AMD64 | **nivel analítico portable verificado por la responsable del proyecto** con v1.4.3-gh (2026-10-15, PowerShell, Python 3.13.16, entorno fijado idéntico a `baseline/environment.txt`): 477 pruebas correctas (0 fallidas, xfail ni xpass), 8/8 KPIs, firmas de los 5 gráficos idénticas, todos los comandos del informe portable con código de salida 0, notebook y gráficos versionados sin sobrescribir. **Nivel gráfico estricto no aprobado**: las imágenes PNG difieren; causa no determinada; aceptado como limitación. Quien preparó esta entrega no lo ha ejecutado en Windows. Con v1.5.0-app (informado por la responsable el 2026-10-16): 501 pruebas aprobadas, verificación analítica portable aprobada, nivel gráfico estricto no aprobado solo por las imágenes PNG |
 | macOS (Apple Silicon, Intel ≥ 10.15) | **preparado, pendiente de verificar**: existe un wheel para cada paquete fijado; el workflow ejecutará allí las pruebas y la reproducción portable |
 
 ## Mapa del repositorio

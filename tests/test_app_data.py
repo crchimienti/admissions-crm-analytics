@@ -120,6 +120,13 @@ def test_streamlit_config_is_local_and_without_usage_statistics():
     assert 'address = "localhost"' in cfg and "gatherUsageStats = false" in cfg
 
 
+def test_cloud_dependency_file_only_points_to_the_app_requirements():
+    """app/requirements.txt (v1.5.1-app) is the file Streamlit Community Cloud reads next to the entrypoint: it adds or
+    changes nothing, it only points to requirements-app.txt; the root requirements files stay as they are."""
+    lines = [l for l in (ROOT / "app" / "requirements.txt").read_text(encoding="utf-8").splitlines() if l and not l.startswith("#")]
+    assert lines == ["-r ../requirements-app.txt"]
+
+
 def test_app_requirements_extend_the_lock_without_changing_it():
     lines = [l for l in (ROOT / "requirements-app.txt").read_text(encoding="utf-8").splitlines() if l and not l.startswith("#")]
     assert lines[0] == "-r requirements-lock.txt"

@@ -1,6 +1,6 @@
-"""Full reproduction of the release (v1.5.0-app), compared with the frozen F0, F1, F2 and F3 references.
+"""Full reproduction of the release (v1.5.1-app), compared with the frozen F0, F1, F2 and F3 references.
 
-Reproducción completa de la versión (v1.5.0-app), comparada con F0, F1, F2 y F3 congeladas.
+Reproducción completa de la versión (v1.5.1-app), comparada con F0, F1, F2 y F3 congeladas.
 
 Two verification levels (v1.4.3-gh), always reported separately:
   * analytical (portable): data bytes, the 47 metrics and the eight KPIs, every notebook cell, text, table and number,
@@ -64,16 +64,17 @@ import release_checks as rc  # noqa: E402
 
 OUT = ROOT / "reports" / "release"
 PORTABLE_OUT = ROOT / "build" / "portable"   # portable-mode reports: ignored by Git, outside every reference manifest
-VERSION_ID = "v1.5.0-app"
+VERSION_ID = "v1.5.1-app"
 # previous release, compared file by file (read only); its manifest is kept and never rewritten
-GH0_ID = "v1.4.4-gh"
-GH0_MANIFEST = "reports/release/MANIFEST_RELEASE_v1.4.4.sha256"
-GH0_TREE_ID = "2d794550d0f0f00d7554f298cddbd718134a55bfa7672d8f28d52d4a93018777"
+GH0_ID = "v1.5.0-app"
+GH0_MANIFEST = "reports/release/MANIFEST_RELEASE_v1.5.0.sha256"
+GH0_TREE_ID = "cfe38dcaf631ece9fa91654263efd60467155994057cf794a78b3bc9bee1e248"
 # every kept release manifest, pinned (never rewritten or removed by the clean step)
 KEPT_MANIFESTS = {"reports/release/MANIFEST_RELEASE_v1.4.0.sha256": "e1c13bfa5390ed5128970700941e63887ed999f6304cc1b96e946b0479b4a41d",
                   "reports/release/MANIFEST_RELEASE_v1.4.1.sha256": "a2e68371cadd318a0d2d72d33d55663ab68d41dea2d7706253cbcbb927d9c7bb",
                   "reports/release/MANIFEST_RELEASE_v1.4.2.sha256": "98841cc859eec50fb11a2772263dbc1595f16ce4a86952584729791e1c8096c2",
                   "reports/release/MANIFEST_RELEASE_v1.4.3.sha256": "a9da920c3e2e8a3b7ee6fed8fff5875faf25fd2b05ebe840c859e3841c232d7b",
+                  "reports/release/MANIFEST_RELEASE_v1.4.4.sha256": "2d794550d0f0f00d7554f298cddbd718134a55bfa7672d8f28d52d4a93018777",
                   GH0_MANIFEST: GH0_TREE_ID}
 F3_ID = "v1.3.1-f3"
 F3_TREE_ID = "f1a73209cfaf24d3768784e121f376e1d0ec485eca31ddd22f2b57e09ef23c34"
@@ -119,23 +120,24 @@ DECLARED_NEW = {
     # v1.4.4-gh
     "reports/release/MANIFEST_RELEASE_v1.4.3.sha256", "LICENSE", "LICENSE-CONTENT", "tests/test_licenses.py",
     # v1.5.0-app (local demo)
-    GH0_MANIFEST, "app/app_data.py", "app/streamlit_app.py", ".streamlit/config.toml", "requirements-app.txt",
+    "reports/release/MANIFEST_RELEASE_v1.4.4.sha256", "app/app_data.py", "app/streamlit_app.py", ".streamlit/config.toml", "requirements-app.txt",
     "tests/test_app.py", "tests/test_app_data.py",
+    # v1.5.1-app (demo preview and hosting preparation)
+    GH0_MANIFEST, "app/requirements.txt", "docs/screenshots/app_summary.png", "docs/screenshots/app_funnel.png",
 }
-# v1.5.0-app against v1.4.4-gh (reports/release/MANIFEST_RELEASE_v1.4.4.sha256, read only): local demo
+# v1.5.1-app against v1.5.0-app (reports/release/MANIFEST_RELEASE_v1.5.0.sha256, read only): demo preview and hosting preparation
 DECLARED_MODIFIED_VS_GH0 = {
-    "README.md": "local demo section (separate environment, no filters, Linux-only testing); app/ in the repository map and licence scope; clone instruction and repository URL; Windows start-up and initial visual review confirmed by the user",
-    "README.es.md": "sección de la demo local (entorno aparte, sin filtros, probada solo en Linux); app/ en el mapa del repositorio y en el alcance de licencias; instrucción de clonado y URL del repositorio; arranque y revisión visual inicial en Windows confirmados por el usuario",
-    "LICENSE-CONTENT": "MIT scope includes app/ and .streamlit/; repository URL in the suggested attribution (was pending)",
-    "docs/PROJECT_STATUS.md": "v1.5.0-app row and scope; v1.4.4-gh pinned and recorded as published; demo status (Windows: start-up and initial visual review confirmed by the user; macOS not verified)",
-    "docs/PROJECT_STATUS.es.md": "fila y alcance de v1.5.0-app; v1.4.4-gh fijada y registrada como publicada; estado de la demo (Windows: arranque y revisión visual inicial confirmados por el usuario; macOS sin verificar)",
-    "CHANGELOG.md": "v1.5.0-app row; v1.4.4-gh tree id pinned with its kept manifest",
-    "scripts/release_run.py": "version identification v1.5.0-app and declarations of this revision",
-    "tests/test_release.py": "v1.5.0-app in the version list; app/, .streamlit/ and requirements-app.txt in the repository top level",
-    "tests/test_licenses.py": "repository URL allowed and required in the attribution; app/ and .streamlit/ in the licence scope",
+    "README.md": "demo preview with two screenshots and a placeholder for the online demo link; hosted-copy note (Streamlit Community Cloud, requires Internet, not yet verified there); Windows result of v1.5.0-app as reported by the project owner",
+    "README.es.md": "vista previa de la demo con dos capturas y espacio para el enlace de la demo en línea; nota sobre la copia alojada (Streamlit Community Cloud, requiere Internet, todavía no verificada allí); resultado de Windows de v1.5.0-app informado por la responsable",
+    "LICENSE-CONTENT": "screenshots of the demo (docs/screenshots/) under CC BY 4.0 for the project content they show; the Streamlit interface keeps its own licence",
+    "docs/PROJECT_STATUS.md": "v1.5.1-app row and scope; v1.5.0-app pinned and recorded as published; Windows result; maintenance pending; hosted copy prepared, not deployed",
+    "docs/PROJECT_STATUS.es.md": "fila y alcance de v1.5.1-app; v1.5.0-app fijada y registrada como publicada; resultado de Windows; mantenimiento pendiente; copia alojada preparada, no desplegada",
+    "CHANGELOG.md": "v1.5.1-app row; v1.5.0-app tree id pinned with its kept manifest",
+    "scripts/release_run.py": "version identification v1.5.1-app and declarations of this revision",
+    "tests/test_release.py": "v1.5.1-app in the version list",
+    "tests/test_app_data.py": "the Community Cloud dependency file (app/requirements.txt) only points to requirements-app.txt",
 }
-DECLARED_NEW_VS_GH0 = {GH0_MANIFEST, "app/app_data.py", "app/streamlit_app.py", ".streamlit/config.toml", "requirements-app.txt",
-                       "tests/test_app.py", "tests/test_app_data.py"}
+DECLARED_NEW_VS_GH0 = {GH0_MANIFEST, "app/requirements.txt", "docs/screenshots/app_summary.png", "docs/screenshots/app_funnel.png"}
 REPORT_FILES = rc.RELEASE_OUTPUTS
 TEXT_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 

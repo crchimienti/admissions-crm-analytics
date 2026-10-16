@@ -21,7 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import export_figures  # noqa: E402
 import release_checks as rc  # noqa: E402
 
-VERSION_IDS = ["v1.0.0-f0", "v1.1.0-f1", "v1.2.0-f2", "v1.2.1-f2", "v1.2.2-f2", "v1.2.3-f2", "v1.3.0-f3", "v1.3.1-f3", "v1.4.0-gh", "v1.4.1-gh", "v1.4.2-gh", "v1.4.3-gh", "v1.4.4-gh", "v1.5.0-app"]
+VERSION_IDS = ["v1.0.0-f0", "v1.1.0-f1", "v1.2.0-f2", "v1.2.1-f2", "v1.2.2-f2", "v1.2.3-f2", "v1.3.0-f3", "v1.3.1-f3", "v1.4.0-gh", "v1.4.1-gh", "v1.4.2-gh", "v1.4.3-gh", "v1.4.4-gh", "v1.5.0-app", "v1.5.1-app"]
 
 
 def sha(rel):

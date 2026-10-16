@@ -1,0 +1,6 @@
+# Dependencies of the demo for Streamlit Community Cloud (v1.5.1-app).
+# Community Cloud looks for a dependency file next to the entrypoint (app/streamlit_app.py) before the repository root,
+# so this file is used there instead of the root requirements.txt, which stays as it is for the analytical environment.
+# It adds nothing: it reads requirements-app.txt (requirements-lock.txt plus Streamlit 1.65.0 and its pinned dependencies).
+# Dependencias de la demo para Streamlit Community Cloud: remite a requirements-app.txt, sin añadir ni cambiar versiones.
+-r ../requirements-app.txt

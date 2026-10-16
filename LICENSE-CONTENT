@@ -17,6 +17,8 @@ What CC BY 4.0 covers
 - Documentation: README.md, README.es.md, CHANGELOG.md, docs/ (Markdown files and docs/img/), and the Markdown
   documents in assets/fonts/inter/FONTS.md, baseline/, reports/ and scripts/notebook_conclusions.md.
 - Original charts: docs/img/*.png and the chart images embedded in notebooks/admissions_analysis.ipynb.
+- Screenshots of the demo: docs/screenshots/*.png, for the project content they show (the Streamlit interface keeps
+  its own licence, Apache 2.0).
 - Synthetic data: data/*.csv and the synthetic test data in tests/fixtures/ (CSV and JSON), and the recorded
   results, reports and manifests in baseline/ and reports/.
 - In the notebook (notebooks/admissions_analysis.ipynb): the narrative (Markdown) cells, the charts and the
@@ -60,7 +62,8 @@ Licencia del contenido (resumen en español; el texto válido es el código lega
 - CC BY 4.0 (Creative Commons Atribución 4.0 Internacional) cubre, en la medida en que existan derechos que el
   licenciante pueda licenciar: la documentación (README, CHANGELOG, docs/, documentos Markdown de baseline/, reports/,
   scripts/notebook_conclusions.md y assets/fonts/inter/FONTS.md), los gráficos originales (docs/img/ y las imágenes del
-  notebook), los datos sintéticos (data/ y los datos de prueba de tests/fixtures/), los resultados, informes y
+  notebook), las capturas de la demo (docs/screenshots/, en cuanto al contenido del proyecto; la interfaz de Streamlit
+  conserva su licencia Apache 2.0), los datos sintéticos (data/ y los datos de prueba de tests/fixtures/), los resultados, informes y
   manifiestos registrados, y en el notebook las celdas narrativas, los gráficos y las tablas y textos de salida.
 - La licencia MIT (LICENSE) cubre el código fuente y la configuración (incluida la demo local de app/ y .streamlit/),
   y las celdas de código del notebook.
