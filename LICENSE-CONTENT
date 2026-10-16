@@ -24,8 +24,9 @@ What CC BY 4.0 covers
 
 What the MIT License covers instead (see LICENSE)
 -------------------------------------------------
-- Source code and configuration: src/, scripts/ (Python files), tests/ (Python files), schema/, profiles/,
-  config/, .github/, requirements*.txt, .gitignore, .gitattributes, and the code cells of the notebook.
+- Source code and configuration: src/, scripts/ (Python files), tests/ (Python files), app/ (local demo),
+  schema/, profiles/, config/, .github/, .streamlit/, requirements*.txt, .gitignore, .gitattributes, and the code
+  cells of the notebook.
 
 Not covered by either licence
 -----------------------------
@@ -43,10 +44,11 @@ How to attribute
 When you share or adapt the content, give credit, link to the licence and indicate whether changes were made, as
 CC BY 4.0 requires. Suggested attribution:
 
-    Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics, licensed under CC BY 4.0
+    Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics
+    (https://github.com/crchimienti/admissions-crm-analytics/), licensed under CC BY 4.0
     (https://creativecommons.org/licenses/by/4.0/). Changes: <describe your changes, or "none">.
 
-Add the repository URL to the attribution once the repository is published.
+Repository: https://github.com/crchimienti/admissions-crm-analytics/
 
 The data are 100 % synthetic: they do not describe any real company, person or market.
 
@@ -60,11 +62,12 @@ Licencia del contenido (resumen en español; el texto válido es el código lega
   scripts/notebook_conclusions.md y assets/fonts/inter/FONTS.md), los gráficos originales (docs/img/ y las imágenes del
   notebook), los datos sintéticos (data/ y los datos de prueba de tests/fixtures/), los resultados, informes y
   manifiestos registrados, y en el notebook las celdas narrativas, los gráficos y las tablas y textos de salida.
-- La licencia MIT (LICENSE) cubre el código fuente y la configuración, incluidas las celdas de código del notebook.
+- La licencia MIT (LICENSE) cubre el código fuente y la configuración (incluida la demo local de app/ y .streamlit/),
+  y las celdas de código del notebook.
 - Las fuentes Inter (assets/fonts/inter/) conservan su licencia SIL Open Font License 1.1 y sus avisos, sin cambios.
   Los paquetes de Python y demás software de terceros no se distribuyen aquí y conservan sus licencias.
 - No se reclaman derechos exclusivos sobre lo que no está protegido (valores sintéticos individuales, hechos, código
   genérico o partes generadas con asistencia de IA en la medida en que no existan derechos sobre ellas).
 - Atribución sugerida: «Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics», con licencia CC BY 4.0
-  (https://creativecommons.org/licenses/by/4.0/), indicando si se hicieron cambios. La URL del repositorio se añadirá
-  cuando esté publicado.
+  (https://creativecommons.org/licenses/by/4.0/), indicando si se hicieron cambios. Repositorio:
+  https://github.com/crchimienti/admissions-crm-analytics/

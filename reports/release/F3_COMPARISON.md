@@ -1,19 +1,22 @@
 **Language:** English | [Español](F3_COMPARISON.es.md)
 
-# v1.4.4-gh vs v1.3.1-f3
+# v1.5.0-app vs v1.3.1-f3
 
-Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f376e1d0ec485eca31ddd22f2b57e09ef23c34`, not modified). modified (declared): 12, new (declared): 33, unchanged: 109.
+Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f376e1d0ec485eca31ddd22f2b57e09ef23c34`, not modified). modified (declared): 12, new (declared): 40, unchanged: 109.
 
-| File | Status | SHA-256 v1.3.1-f3 | SHA-256 v1.4.4-gh | Declared change |
+| File | Status | SHA-256 v1.3.1-f3 | SHA-256 v1.5.0-app | Declared change |
 |---|---|---|---|---|
 | `.gitattributes` | new (declared) | `—` | `c8d0af5024765f68` |  |
 | `.github/workflows/tests.yml` | new (declared) | `—` | `409bee38b060b516` |  |
 | `.gitignore` | modified (declared) | `b9e0ad01d09ecce2` | `acd311ef94d80400` | virtual environments, secrets, local copies (*.zip, *.diff), editors and build/ added; original four rules kept |
-| `CHANGELOG.md` | new (declared) | `—` | `ddbb7604d143554d` |  |
+| `.streamlit/config.toml` | new (declared) | `—` | `6b1e848861e41704` |  |
+| `CHANGELOG.md` | new (declared) | `—` | `4f4ff855a65cd9cb` |  |
 | `LICENSE` | new (declared) | `—` | `4c6995101444de81` |  |
-| `LICENSE-CONTENT` | new (declared) | `—` | `099612f1b331c2c9` |  |
-| `README.es.md` | modified (declared) | `a8032fd5a0380dda` | `c1ab8d49c8c58935` | reescrito para visitantes: problema, qué hace, cómo ejecutarlo, resultados, alcance; historial enlazado |
-| `README.md` | modified (declared) | `8c7acccb800d87fa` | `d6d60eeb6ba84197` | rewritten for visitors: problem, what it does, how to run, results, scope; phase history moved to links |
+| `LICENSE-CONTENT` | new (declared) | `—` | `76ee82a9f549b581` |  |
+| `README.es.md` | modified (declared) | `a8032fd5a0380dda` | `4ee51ecf6ce01bdf` | reescrito para visitantes: problema, qué hace, cómo ejecutarlo, resultados, alcance; historial enlazado |
+| `README.md` | modified (declared) | `8c7acccb800d87fa` | `88bb91a1819d869a` | rewritten for visitors: problem, what it does, how to run, results, scope; phase history moved to links |
+| `app/app_data.py` | new (declared) | `—` | `bf0f978e45e2ea70` |  |
+| `app/streamlit_app.py` | new (declared) | `—` | `0a2717443faa13d8` |  |
 | `assets/fonts/inter/FONTS.md` | new (declared) | `—` | `654ab8e668aa7679` |  |
 | `assets/fonts/inter/Inter-Bold.otf` | new (declared) | `—` | `00fd6f4691ee8884` |  |
 | `assets/fonts/inter/Inter-Regular.otf` | new (declared) | `—` | `be6d709dcb730dda` |  |
@@ -29,8 +32,8 @@ Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f
 | `data/activities.csv` | unchanged | `3318a0b81877ae8b` | `3318a0b81877ae8b` |  |
 | `data/dq_ground_truth.csv` | unchanged | `f0dc4ac66ddc789d` | `f0dc4ac66ddc789d` |  |
 | `data/leads.csv` | unchanged | `255720913fea99f2` | `255720913fea99f2` |  |
-| `docs/PROJECT_STATUS.es.md` | modified (declared) | `e3970a882da4f54f` | `5d2fd5f1f7be228a` | filas v1.4.0-gh y v1.4.1-gh, decisiones de preparación, pendientes, B pendiente |
-| `docs/PROJECT_STATUS.md` | modified (declared) | `52f311850873fe43` | `8f4cbb691f6e36cd` | v1.4.0-gh and v1.4.1-gh rows, GitHub preparation decisions, open items, B pending |
+| `docs/PROJECT_STATUS.es.md` | modified (declared) | `e3970a882da4f54f` | `40b47ec6d0946f4d` | filas v1.4.0-gh y v1.4.1-gh, decisiones de preparación, pendientes, B pendiente |
+| `docs/PROJECT_STATUS.md` | modified (declared) | `52f311850873fe43` | `b1e3ba40caa932e2` | v1.4.0-gh and v1.4.1-gh rows, GitHub preparation decisions, open items, B pending |
 | `docs/analytical_decisions.es.md` | new (declared) | `—` | `95323c43cef1f121` |  |
 | `docs/analytical_decisions.md` | new (declared) | `—` | `99bcb92a8c715761` |  |
 | `docs/assumptions.es.md` | unchanged | `43040e6e83651a3b` | `43040e6e83651a3b` |  |
@@ -61,6 +64,8 @@ Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f
 | `reports/release/MANIFEST_RELEASE_v1.4.1.sha256` | new (declared) | `—` | `a2e68371cadd318a` |  |
 | `reports/release/MANIFEST_RELEASE_v1.4.2.sha256` | new (declared) | `—` | `98841cc859eec50f` |  |
 | `reports/release/MANIFEST_RELEASE_v1.4.3.sha256` | new (declared) | `—` | `a9da920c3e2e8a3b` |  |
+| `reports/release/MANIFEST_RELEASE_v1.4.4.sha256` | new (declared) | `—` | `2d794550d0f0f00d` |  |
+| `requirements-app.txt` | new (declared) | `—` | `f24c3c8d42223034` |  |
 | `requirements-lock.txt` | new (declared) | `—` | `8e517138fd757101` |  |
 | `requirements.txt` | unchanged | `fea7aa31645369df` | `fea7aa31645369df` |  |
 | `schema/canonical_v0.1.1.yaml` | unchanged | `a9cf44c1e2940f25` | `a9cf44c1e2940f25` |  |
@@ -78,7 +83,7 @@ Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f
 | `scripts/notebook_conclusions.md` | unchanged | `d2f5c04e765b4380` | `d2f5c04e765b4380` |  |
 | `scripts/notebook_rendering.py` | new (declared) | `—` | `4effd299bd890574` |  |
 | `scripts/release_checks.py` | new (declared) | `—` | `db7d17bb715bce27` |  |
-| `scripts/release_run.py` | new (declared) | `—` | `1ffcc92b6a3fe928` |  |
+| `scripts/release_run.py` | new (declared) | `—` | `d909f8446516c121` |  |
 | `scripts/show_results.py` | new (declared) | `—` | `7e960f81beba6428` |  |
 | `src/calendar_utils.py` | unchanged | `8b68b1b7115d77ac` | `8b68b1b7115d77ac` |  |
 | `src/canonical/__init__.py` | unchanged | `bb0f52397274a32d` | `bb0f52397274a32d` |  |
@@ -132,6 +137,8 @@ Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f
 | `tests/fixtures/timezones/cases.yaml` | unchanged | `0cc974a278cc8f08` | `0cc974a278cc8f08` |  |
 | `tests/kpi_helpers.py` | unchanged | `1e3b307f49291e4b` | `1e3b307f49291e4b` |  |
 | `tests/release_declared.py` | new (declared) | `—` | `221ea0d97369dcae` |  |
+| `tests/test_app.py` | new (declared) | `—` | `ae36b68c6a9f35a9` |  |
+| `tests/test_app_data.py` | new (declared) | `—` | `ed3bffa2d12ebb53` |  |
 | `tests/test_baseline.py` | unchanged | `42fdf104d1dee96d` | `42fdf104d1dee96d` |  |
 | `tests/test_canonical_availability.py` | unchanged | `50776fda3bf09247` | `50776fda3bf09247` |  |
 | `tests/test_canonical_contract.py` | unchanged | `c85afa00aec6320f` | `c85afa00aec6320f` |  |
@@ -148,7 +155,7 @@ Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f
 | `tests/test_kpi_regression.py` | unchanged | `cf97e3d5026a9d6f` | `cf97e3d5026a9d6f` |  |
 | `tests/test_kpi_requirements.py` | unchanged | `c8d8c7027c8e1dce` | `c8d8c7027c8e1dce` |  |
 | `tests/test_kpi_spec_schema.py` | unchanged | `c1ee7a67938347c5` | `c1ee7a67938347c5` |  |
-| `tests/test_licenses.py` | new (declared) | `—` | `8d838cf0a1caafd6` |  |
+| `tests/test_licenses.py` | new (declared) | `—` | `859dfba6a5a1283c` |  |
 | `tests/test_metrics_robustness.py` | unchanged | `bb9f402796be164b` | `bb9f402796be164b` |  |
 | `tests/test_metrics_unit.py` | unchanged | `c9eedfe68178addb` | `c9eedfe68178addb` |  |
 | `tests/test_notebook_presentation.py` | unchanged | `f0c0b199779f5893` | `f0c0b199779f5893` |  |
@@ -156,7 +163,7 @@ Reference: `reports/f3/MANIFEST_F3.sha256` (tree id `f1a73209cfaf24d3768784e121f
 | `tests/test_regression_f1.py` | modified (declared) | `f742875423d7cd5b` | `4584fc8c9d6fec17` | recognises the declared v1.4.0-gh changes (new hashes of code files pinned) |
 | `tests/test_regression_f2.py` | modified (declared) | `d122980a63f48317` | `46a4834d561941c7` | recognises the declared changes; v1.4.1-gh: path comparison with uniform relative POSIX paths and a separator test |
 | `tests/test_regression_f3.py` | new (declared) | `—` | `403bb32016759c26` |  |
-| `tests/test_release.py` | new (declared) | `—` | `ea58a9910e7d8ba8` |  |
+| `tests/test_release.py` | new (declared) | `—` | `1e4c10035a8d220f` |  |
 | `tests/test_rendering.py` | new (declared) | `—` | `0848437fed006c21` |  |
 | `tests/test_serialization.py` | new (declared) | `—` | `01951cd3d84a254a` |  |
 | `tests/test_validation_modes.py` | new (declared) | `—` | `06f778a17e7239f2` |  |

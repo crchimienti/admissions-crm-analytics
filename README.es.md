@@ -32,7 +32,7 @@ Un equipo de admisiones recibe leads por dos rutas —un bot que agenda entrevis
 | Perfil | solo está probado el perfil de **admisiones**; no se afirma portabilidad a otros funnels |
 | CRM | **sin conexión** a ningún CRM; sin credenciales ni llamadas a APIs |
 | Tiempo | el adaptador solo admite marcas de tiempo locales sintéticas; **UTC todavía no está soportado** |
-| Fases futuras | no implementadas: el resto de KPIs declarativos, UTC y reglas de calendario local, una demo visual local, cualquier integración CRM |
+| Fases futuras | no implementadas: el resto de KPIs declarativos, UTC y reglas de calendario local, cualquier integración CRM. Existe una demo local (`app/`, ver abajo) |
 
 ## Principales resultados sintéticos
 
@@ -87,7 +87,7 @@ Más detalle: [decisiones analíticas](docs/analytical_decisions.es.md) y el [no
 
 ## Cómo ejecutarlo
 
-Necesitas **Python 3.13** (la versión verificada es 3.13.16) y unos 400 MB libres para el entorno virtual. Consigue la carpeta del proyecto (hoy: descomprime `admissions-crm-analytics-v1.4.4-gh.zip`; cuando esté publicado: `git clone`), abre un terminal en ella y sigue el bloque de tu sistema. No hay que borrar nada a mano: los scripts limpian lo que generan.
+Necesitas **Python 3.13** (la versión verificada es 3.13.16) y unos 400 MB libres para el entorno virtual. Consigue la carpeta del proyecto (`git clone https://github.com/crchimienti/admissions-crm-analytics.git`, o descomprime un ZIP entregado en una carpeta nueva), abre un terminal en ella y sigue el bloque de tu sistema. No hay que borrar nada a mano: los scripts limpian lo que generan.
 
 **macOS / Linux**
 
@@ -128,6 +128,17 @@ python scripts\release_run.py --mode portable   # reproducción analítica (unos
 | Análisis del notebook | cada celda, texto, tabla y cifra idénticos a F1; ejecución sin errores; estructura de los gráficos | probado | verificado por la responsable del proyecto en Windows 11 AMD64 con v1.4.3-gh (2026-10-15): verificación analítica portable aprobada, estructura de los 5 gráficos idéntica | pendiente |
 | Renderizado de gráficos | notebook idéntico byte a byte a F1, incluidas las 5 imágenes PNG | probado, sin fuente del sistema ni configuración externa | **no aprobado**: las 5 imágenes PNG difieren de la referencia Linux; causa no determinada; aceptado como limitación del renderizado estricto entre plataformas | pendiente |
 
+**Demo local (Streamlit, opcional).** Una pequeña app local para explorar los resultados: resumen de los ocho KPIs, funnel y los gráficos del notebook, las 47 métricas de referencia, y definiciones y límites, en español o inglés. Solo lee lo que el proyecto ya calcula (sin fórmulas nuevas), funciona en `localhost`, no envía estadísticas de uso, no admite subida de archivos y nunca ejecuta el generador ni las pruebas. **No tiene filtros interactivos**: las funciones actuales calculan cada métrica sobre su población completa, y filtrar exigiría una ruta nueva para poblaciones y denominadores. Usa un entorno virtual aparte para no cambiar el entorno analítico fijado:
+
+```powershell
+py -3.13 -m venv venv                       # macOS / Linux: python3.13 -m venv venv
+venv\Scripts\Activate.ps1                   # macOS / Linux: source venv/bin/activate
+python -m pip install -r requirements-app.txt
+python -m streamlit run app/streamlit_app.py   # abre http://localhost:8501 — se detiene con Ctrl+C
+```
+
+`requirements-app.txt` es `requirements-lock.txt` más Streamlit 1.65.0 y sus dependencias, todas fijadas. Probada en Linux (pruebas automáticas, arranque del servidor, revisión en un navegador sin interfaz). Windows: arranque y revisión visual inicial en Windows confirmados por el usuario (v1.5.0-app, 2026-10-15); la batería de pruebas no se ha ejecutado en Windows con esta versión. macOS: pendiente.
+
 **Archivos de entorno.** `requirements-lock.txt` fija todos los paquetes; sus ocho paquetes de referencia son exactamente las versiones registradas en [`baseline/environment.txt`](baseline/environment.txt), y las dependencias de una sola plataforma llevan marcadores de entorno. `requirements.txt` (versiones mínimas, sin cambios desde v1) se conserva como referencia, pero no fija versiones y puede instalar versiones más nuevas que las verificadas.
 
 **Estado por plataforma.**
@@ -149,6 +160,7 @@ python scripts\release_run.py --mode portable   # reproducción analítica (unos
 | [`notebooks/`](notebooks) | el notebook de análisis ejecutado |
 | [`docs/`](docs) | supuestos, diccionario de datos, definiciones de KPI, contrato y especificación de KPIs, decisiones analíticas, estado del proyecto |
 | [`assets/fonts/inter/`](assets/fonts/inter) | los dos archivos de la fuente Inter que dibujan los gráficos del notebook, con su licencia y procedencia |
+| [`app/`](app) | la demo local de Streamlit (`streamlit_app.py`) y su capa de datos (`app_data.py`), que solo lee resultados existentes |
 | [`scripts/`](scripts) | inicio rápido, exportación de gráficos, reproducción completa; las herramientas de fases anteriores se niegan a ejecutarse en este árbol |
 | [`tests/`](tests) | todas las pruebas automáticas y los fixtures calculados a mano |
 | [`baseline/`](baseline), [`reports/`](reports) | referencias congeladas de cada fase y el informe de la entrega |
@@ -170,8 +182,8 @@ No se han usado ni solicitado exportaciones reales de CRM, nombres, emails, tel�
 
 | Parte | Licencia |
 |---|---|
-| Código fuente y configuración (`src/`, `scripts/`, código de `tests/`, `schema/`, `profiles/`, `config/`, `.github/`) y las **celdas de código** del notebook | MIT — [`LICENSE`](LICENSE) |
+| Código fuente y configuración (`src/`, `scripts/`, código de `tests/`, `app/`, `schema/`, `profiles/`, `config/`, `.github/`, `.streamlit/`) y las **celdas de código** del notebook | MIT — [`LICENSE`](LICENSE) |
 | Documentación, gráficos originales (`docs/img/`, imágenes del notebook), datos sintéticos (`data/`, fixtures de prueba), informes y las **celdas narrativas, gráficos y salidas** del notebook | CC BY 4.0 — [`LICENSE-CONTENT`](LICENSE-CONTENT), en la medida en que existan derechos sobre ellos |
 | Archivos de la fuente Inter (`assets/fonts/inter/`) | SIL Open Font License 1.1, de The Inter Project Authors — [`OFL.txt`](assets/fonts/inter/OFL.txt), sin cambios |
 
-Los materiales de terceros conservan sus propias licencias y avisos. No se reclaman derechos exclusivos sobre lo que no está protegido por derechos de autor (por ejemplo, valores sintéticos individuales o partes generadas con asistencia de IA cuando no existan derechos). Atribución sugerida del contenido: *Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics*, CC BY 4.0; detalles en [`LICENSE-CONTENT`](LICENSE-CONTENT).
+Los materiales de terceros conservan sus propias licencias y avisos. No se reclaman derechos exclusivos sobre lo que no está protegido por derechos de autor (por ejemplo, valores sintéticos individuales o partes generadas con asistencia de IA cuando no existan derechos). Atribución sugerida del contenido: *Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics* (https://github.com/crchimienti/admissions-crm-analytics/), CC BY 4.0; detalles en [`LICENSE-CONTENT`](LICENSE-CONTENT).

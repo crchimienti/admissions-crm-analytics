@@ -1,6 +1,6 @@
 **Idioma:** [English](PROJECT_STATUS.md) | Español
 
-# Estado del proyecto (preparación para GitHub, `v1.4.4-gh`)
+# Estado del proyecto (demo local, `v1.5.0-app`)
 
 > **Uso:** este documento es la referencia al retomar una sesión. Si una especificación no aparece aquí ni en los archivos que se citan, **no se sustituye ni se reconstruye**: se pide a la responsable del proyecto. Cualquier cambio de este documento debe reflejar una decisión aprobada.
 
@@ -19,17 +19,16 @@ Estas restricciones no son prohibiciones permanentes: rigen hasta que la respons
 
 - Solo datos sintéticos, creados desde cero. No se usan ni se solicitan datos reales, exports, capturas, nombres, emails, teléfonos ni identificadores.
 - Sin conexión a HubSpot ni a ningún otro CRM.
-- Sin app web (Streamlit u otra).
-- Sin repositorio Git, commits, tags ni publicación en GitHub. La preparación para GitHub (`v1.4.0-gh`) es solo local.
+- Sin app web pública ni despliegue. La demo local de Streamlit `v1.5.0-app` está autorizada (2026-10-15) dentro del alcance registrado en §3.
+- El repositorio lo publicó la responsable (https://github.com/crchimienti/admissions-crm-analytics/, `v1.4.4-gh`, primer commit `bc52084`). Las entregas no hacen commits, tags, push ni despliegues; no se rehace el historial ni se mueve la etiqueta `v1.4.4-gh`.
 - No se generaliza todavía el generador sintético ni se afirma portabilidad a otros funnels.
 
 ### 1.3 Objetivos futuros (todavía no autorizados)
 
 Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni empezado. Cada uno requerirá su propio plan y aprobación:
 
-- MVP de app web que funcione con CSV y datos sintéticos, sin credenciales ni CRM real.
+- Una app web más allá de la demo local (carga de CSV, despliegue), sin credenciales ni CRM real.
 - Integración con HubSpot solo de lectura, como fase separada.
-- Publicación del repositorio en GitHub.
 - Prueba con un segundo funnel genérico antes de cualquier afirmación de portabilidad.
 
 ## 2. Versiones congeladas
@@ -48,7 +47,8 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
 | `v1.4.1-gh` | revisión acotada de v1.4.0-gh (solo local): renderizado de gráficos de referencia fijado por el proyecto (fuentes Inter incluidas, OFL 1.1), comparación de rutas de Windows en `test_reports_f2_frozen`, bloque de resultados y redacción del README | tree id `a2e68371cadd318a0d2d72d33d55663ab68d41dea2d7706253cbcbb927d9c7bb` | `reports/release/MANIFEST_RELEASE_v1.4.1.sha256`, ZIP v1.4.1-gh |
 | `v1.4.2-gh` | corrección autorizada de compatibilidad detectada en Windows: el CSV temporal de `test_regeneration_is_reproducible` se escribe con LF | tree id `98841cc859eec50fb11a2772263dbc1595f16ce4a86952584729791e1c8096c2` | `reports/release/MANIFEST_RELEASE_v1.4.2.sha256`, ZIP v1.4.2-gh |
 | `v1.4.3-gh` | niveles de verificación separados: analítica portable (`--mode portable`) y gráfica estricta (por defecto); firma estructural de los gráficos; trabajos de CI separados | tree id `a9da920c3e2e8a3b7ee6fed8fff5875faf25fd2b05ebe840c859e3841c232d7b` | `reports/release/MANIFEST_RELEASE_v1.4.3.sha256`, ZIP v1.4.3-gh |
-| `v1.4.4-gh` | licencias (MIT para el código, CC BY 4.0 para el contenido, fuentes Inter con SIL OFL 1.1) y documentación del resultado de Windows; sin cambios en código, datos, notebook, gráficos ni fuentes — versión local final antes del primer commit | tree id = SHA-256 de `reports/release/MANIFEST_RELEASE.sha256` (figura en `reports/release/RELEASE_REPORT.es.md`) | `reports/release/`, ZIP v1.4.4-gh |
+| `v1.4.4-gh` | licencias (MIT para el código, CC BY 4.0 para el contenido, fuentes Inter con SIL OFL 1.1) y documentación del resultado de Windows; sin cambios en código, datos, notebook, gráficos ni fuentes — publicada por la responsable como primer commit (`bc52084`) | tree id `2d794550d0f0f00d7554f298cddbd718134a55bfa7672d8f28d52d4a93018777` | `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`, ZIP v1.4.4-gh |
+| `v1.5.0-app` | demo local de Streamlit (`app/`, `.streamlit/`, `requirements-app.txt`), sus pruebas y la URL del repositorio en la atribución; sin cambios en motores, cálculos, datos, definiciones, notebook, gráficos ni fuentes | tree id = SHA-256 de `reports/release/MANIFEST_RELEASE.sha256` (figura en `reports/release/RELEASE_REPORT.es.md`) | `reports/release/`, ZIP v1.5.0-app |
 
 `baseline/`, `reports/f1/`, `reports/f2/` y `reports/f3/` no se escriben nunca. `scripts/f0_baseline.py`, `scripts/f1_run.py`, `scripts/export_metrics.py`, `scripts/f2_run.py` y `scripts/f3_run.py` se niegan a ejecutarse en el árbol actual. F0, F1, F2 y F3 se verifican desde sus ZIP en una carpeta limpia. El árbol actual se verifica con `python scripts/release_run.py --check`, que lo compara en solo lectura con `reports/f3/MANIFEST_F3.sha256` y solo escribe `reports/release/`.
 
@@ -75,6 +75,11 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
 - **v1.4.4-gh** (aprobada el 2026-10-15, solo licencias y documentación):
   - Licencias decididas por la responsable del proyecto: titular **Carlos Eduardo Rodriguez Chimienti**, año 2026. MIT para el código fuente original y la configuración, incluidas las celdas de código del notebook (`LICENSE`, texto oficial de MIT). CC BY 4.0 para la documentación, los gráficos originales, los datos sintéticos, los informes y las celdas narrativas, gráficos y salidas del notebook, en la medida en que existan derechos (`LICENSE-CONTENT`, con alcance y atribución). Las fuentes Inter y todos los materiales de terceros conservan sus licencias y avisos (`assets/fonts/inter/OFL.txt` sin cambios). No se reclaman derechos exclusivos sobre material no protegido. Atribución sugerida: *Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics*; la URL del repositorio se añadirá cuando exista.
   - Decisiones del 2026-10-15: la diferencia de PNG entre Windows y Linux se acepta como limitación del renderizado estricto entre plataformas; no se harán más cambios de fuentes, hinting, renderizado ni referencias para forzarla; Windows se describe como verificado solo para el alcance analítico portable; macOS sigue sin verificar; JupyterLab (visualización interactiva) es opcional, no está instalado en el entorno de la responsable y no es un fallo de la ejecución del notebook; no se añade ningún paquete por ese motivo.
+- **v1.5.0-app** (autorizada el 2026-10-15, demo local):
+  - Nuevos: `app/app_data.py` (capa de datos, sin importar Streamlit), `app/streamlit_app.py` (cuatro vistas: resumen y los 8 KPIs; funnel y los gráficos del notebook; las 47 métricas de referencia; definiciones, denominadores y límites), `.streamlit/config.toml` (`localhost`, sin estadísticas de uso), `requirements-app.txt` (`requirements-lock.txt` más Streamlit 1.65.0 y sus dependencias, fijadas; entorno virtual aparte), `tests/test_app_data.py`, `tests/test_app.py`.
+  - La demo solo llama a funciones existentes y probadas (`release_checks.load_results`, `metrics.funnel`, `metrics.cohort_table`, `metrics.population_counts`) y muestra las imágenes versionadas del notebook; no añade fórmulas, KPIs ni lógica de negocio. Sin red, CRM, credenciales, carga de archivos ni datos reales; la app nunca ejecuta el generador, las pruebas ni la ejecución de release. Aviso visible de datos sintéticos en todas las vistas.
+  - **Sin filtros interactivos:** las funciones actuales calculan cada métrica sobre su población completa; filtrar exigiría una ruta nueva para poblaciones y denominadores, que no está autorizada.
+  - Modificados: `README(.es).md` (sección de la demo, mapa del repositorio, alcance de licencias, instrucción de clonado, URL del repositorio), `LICENSE-CONTENT` (el alcance incluye `app/` y `.streamlit/`; URL del repositorio en la atribución), `docs/PROJECT_STATUS(.es).md`, `CHANGELOG.md`, `scripts/release_run.py` (versión y declaraciones; el manifiesto de v1.4.4-gh se conserva como `reports/release/MANIFEST_RELEASE_v1.4.4.sha256`), `tests/test_release.py`, `tests/test_licenses.py`.
 
 ## 4. Contrato vigente: `crm-canonical/0.1.1`
 
@@ -139,7 +144,7 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
 
 - **F2 cerrada y congelada** en `v1.2.3-f2`.
 - **F3.0 cerrada y congelada** en `v1.3.1-f3` (aprobada el 2026-10-14).
-- **`v1.4.4-gh` entregada** (licencias y documentación sobre `v1.4.3-gh`), pendiente de revisión por la responsable antes del primer commit.
+- **`v1.4.4-gh` publicada** por la responsable (https://github.com/crchimienti/admissions-crm-analytics/, primer commit `bc52084`). Según su comprobación hay dos ejecuciones de GitHub Actions en verde; de ello no se deduce qué trabajos o sistemas cubren.
   - **Licencia — decidida el 2026-10-15** (ver §3, v1.4.4-gh): `LICENSE` (MIT) y `LICENSE-CONTENT` (CC BY 4.0).
   - **Renderizado de los gráficos del notebook — resuelto en v1.4.1-gh en Linux.** `scripts/build_notebook.py` aplica el renderizado de referencia dentro del kernel antes de la primera celda (`scripts/notebook_rendering.py`): los dos archivos Inter 4.000 incluidos en `assets/fonts/inter/` (SIL OFL 1.1; hashes y procedencia en `FONTS.md`), `font.family = Inter, sans-serif, DejaVu Sans` y `text.hinting = no_hinting`; cualquier otra fuente llamada Inter se ignora y un archivo ausente o cambiado detiene la construcción. Verificado en Linux sin fuente Inter del sistema ni configuración externa: el notebook reconstruido es idéntico byte a byte a F1. Windows: las imágenes PNG difieren (limitación aceptada, ver abajo); macOS: sin verificar.
   - **Comparación de rutas en Windows — corregida en v1.4.1-gh.** `test_reports_f2_frozen` compara rutas relativas POSIX, como en los manifiestos (mismos hashes fijados); una prueba focalizada cubre separadores de Windows y POSIX con rutas puras. No sustituye a ejecutar la batería en Windows.
@@ -147,8 +152,7 @@ Figuran en la evolución prevista del proyecto, pero ninguno está autorizado ni
   - **Linux:** niveles analítico y gráfico estricto probados por quien preparó las entregas (sin cambios).
   - **macOS:** sin verificar.
   - **JupyterLab:** visualización interactiva opcional; no forma parte del entorno fijado.
-  - **Siguiente paso (de la responsable, cuando lo autorice):** crear el repositorio, hacer un único primer commit de `v1.4.4-gh` y etiquetarlo; sin commits ni etiquetas retroactivos; después, añadir la URL del repositorio a la atribución.
-- **Demo local `v1.5.0-app` planificada, no autorizada.** Requisitos registrados para su plan:
+- **Demo local `v1.5.0-app` entregada**, para que la responsable la integre en GitHub. Linux: pruebas automáticas, arranque del servidor y revisión en un navegador sin interfaz. Windows: arranque y revisión visual inicial en Windows confirmados por el usuario (2026-10-15); no es una ejecución de la batería de pruebas ni una comprobación exhaustiva de todas las vistas. macOS: sin verificar. Requisitos que cumple:
   - sin conexiones externas, CRM ni telemetría; solo comunicación local navegador–servidor;
   - puede haber cachés, pero los datos, el código y las referencias versionadas deben quedar intactos;
   - solo funciones y vistas que existen y están probadas; no se promete un filtro de cohortes maduras como parámetro existente sin verificar su API;

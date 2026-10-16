@@ -12,6 +12,7 @@ import pytest
 from kpi_helpers import ROOT
 
 HOLDER = "Carlos Eduardo Rodriguez Chimienti"
+REPO_URL = "https://github.com/crchimienti/admissions-crm-analytics/"
 # Official MIT text (SPDX license list, text/MIT.txt) with the holder and year filled in; compared word for word.
 MIT_OFFICIAL = f"""MIT License
 
@@ -52,12 +53,12 @@ def test_license_content_identifies_cc_by_4_0_and_its_scope():
                  "SPDX identifier: CC-BY-4.0", "https://creativecommons.org/licenses/by/4.0/legalcode",
                  "to the extent that copyright or similar", "narrative (Markdown) cells", "code cells of the notebook",
                  "MIT License", "SIL Open Font License, Version 1.1", "The Inter Project Authors", ATTRIBUTION,
-                 "indicate whether changes were made", "Add the repository URL to the attribution once the repository is published",
+                 "indicate whether changes were made", f"Repository: {REPO_URL}",
                  "100 % synthetic", "AI assistance"):
         assert must in text, must
     # Spanish summary with the same scope
     for must in ("CC BY 4.0", "celdas de código del notebook", "celdas narrativas", "SIL Open Font License 1.1",
-                 f"«{ATTRIBUTION}»", "La URL del repositorio se añadirá"):
+                 f"«{ATTRIBUTION}»", f"Repositorio:\n  {REPO_URL}", "demo local de app/"):
         assert must in text, must
 
 
@@ -65,16 +66,22 @@ def test_paths_named_in_the_licence_scope_exist():
     text = read("LICENSE-CONTENT")
     for path in ("README.md", "README.es.md", "CHANGELOG.md", "docs/img/", "assets/fonts/inter/FONTS.md", "baseline/",
                  "reports/", "scripts/notebook_conclusions.md", "data/", "tests/fixtures/", "notebooks/admissions_analysis.ipynb",
-                 "src/", "scripts/", "tests/", "schema/", "profiles/", "config/", ".github/", ".gitignore", ".gitattributes",
+                 "src/", "scripts/", "tests/", "app/", ".streamlit/", "schema/", "profiles/", "config/", ".github/", ".gitignore", ".gitattributes",
                  "assets/fonts/inter/OFL.txt", "LICENSE"):
         assert path in text, path
         assert (ROOT / path.rstrip("/")).exists(), path
 
 
 def test_no_repository_url_is_invented():
-    for rel in ("LICENSE", "LICENSE-CONTENT", "README.md", "README.es.md"):
-        urls = re.findall(r"https?://[^\s)>\]]+", read(rel))
-        assert all(not u.startswith("https://github.com/") or u.startswith("https://github.com/rsms/inter") for u in urls), (rel, urls)
+    """Only the published repository (v1.5.0-app) and the upstream Inter project are named on GitHub."""
+    allowed = (REPO_URL, REPO_URL.rstrip("/") + ".git", "https://github.com/rsms/inter")
+    for rel in ("LICENSE", "LICENSE-CONTENT", "README.md", "README.es.md", "app/app_data.py"):
+        urls = re.findall(r"https?://[^\s)>\]`\"]+", read(rel))
+        assert all(not u.startswith("https://github.com/") or u.startswith(allowed) for u in urls), (rel, urls)
+    for rel in ("LICENSE-CONTENT", "README.md", "README.es.md"):
+        assert REPO_URL in read(rel), rel
+    assert "once the repository is published" not in read("LICENSE-CONTENT")
+    assert "se añadirá" not in read("LICENSE-CONTENT")
 
 
 def test_third_party_font_licence_and_notices_are_unchanged():

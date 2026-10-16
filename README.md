@@ -32,7 +32,7 @@ An admissions team receives leads through two routes — a bot that books interv
 | Profile | only the **admissions** profile is tested; no portability to other funnels is claimed |
 | CRM | **not connected** to any CRM; no credentials, no API calls |
 | Time | the adapter supports synthetic local wall-clock timestamps only; **UTC is not supported yet** |
-| Future phases | not implemented: the remaining declarative KPIs, UTC and local-calendar rules, a local visual demo, any CRM integration |
+| Future phases | not implemented: the remaining declarative KPIs, UTC and local-calendar rules, any CRM integration. A local demo exists (`app/`, see below) |
 
 ## Main synthetic results
 
@@ -87,7 +87,7 @@ More detail: [analytical decisions](docs/analytical_decisions.md) and the [execu
 
 ## How to run
 
-You need **Python 3.13** (3.13.16 is the verified version) and about 400 MB of free disk space for the virtual environment. Get the project folder (today: unzip `admissions-crm-analytics-v1.4.4-gh.zip`; once published: `git clone`), open a terminal in it, and follow the block for your system. Nothing has to be deleted by hand: the scripts clean up after themselves.
+You need **Python 3.13** (3.13.16 is the verified version) and about 400 MB of free disk space for the virtual environment. Get the project folder (`git clone https://github.com/crchimienti/admissions-crm-analytics.git`, or unzip a delivered ZIP into a new folder), open a terminal in it, and follow the block for your system. Nothing has to be deleted by hand: the scripts clean up after themselves.
 
 **macOS / Linux**
 
@@ -128,6 +128,17 @@ python scripts\release_run.py --mode portable   # analytical reproduction (about
 | Notebook analysis | every cell, text, table and number identical to F1; execution without errors; chart structure | tested | verified by the project owner on Windows 11 AMD64 with v1.4.3-gh (2026-10-15): portable analytical verification passed, chart structure of the 5 charts identical | pending |
 | Chart rendering | notebook byte-identical to F1, including the 5 PNG images | tested, with no system font and no external configuration | **not passed**: the 5 PNG images differ from the Linux reference; cause not determined; accepted as a limitation of strict rendering across platforms | pending |
 
+**Local demo (Streamlit, optional).** A small local app to explore the results: summary of the eight KPIs, funnel and the notebook charts, the 47 reference metrics, and definitions and limits, in Spanish or English. It only reads what the project already computes (no new formula), runs on `localhost`, sends no usage statistics, accepts no uploads and never runs the generator or the tests. It has **no interactive filters**: the current functions compute each metric on its whole population, and filtering would need a new route for populations and denominators. Use a separate virtual environment, so the pinned analytical one is not changed:
+
+```powershell
+py -3.13 -m venv venv                       # macOS / Linux: python3.13 -m venv venv
+venv\Scripts\Activate.ps1                   # macOS / Linux: source venv/bin/activate
+python -m pip install -r requirements-app.txt
+python -m streamlit run app/streamlit_app.py   # opens http://localhost:8501 — stop with Ctrl+C
+```
+
+`requirements-app.txt` is `requirements-lock.txt` plus Streamlit 1.65.0 and its dependencies, all pinned. Tested on Linux (automated tests, server start, review in a headless browser). Windows: start-up and initial visual review on Windows confirmed by the user (v1.5.0-app, 2026-10-15); the test suite has not been run on Windows with this version. macOS: pending.
+
 **Environment files.** `requirements-lock.txt` pins every package; its eight reference packages are exactly the versions recorded in [`baseline/environment.txt`](baseline/environment.txt), and platform-only dependencies carry environment markers. `requirements.txt` (minimum versions, unchanged since v1) is kept for reference but does not pin versions, so it can install newer releases than the ones verified.
 
 **Platform status.**
@@ -149,6 +160,7 @@ python scripts\release_run.py --mode portable   # analytical reproduction (about
 | [`notebooks/`](notebooks) | the executed analysis notebook |
 | [`docs/`](docs) | assumptions, data dictionary, KPI definitions, contract and KPI specification, analytical decisions, project status |
 | [`assets/fonts/inter/`](assets/fonts/inter) | the two Inter font files that draw the notebook charts, with their licence and provenance |
+| [`app/`](app) | the local Streamlit demo (`streamlit_app.py`) and its data layer (`app_data.py`), which only reads existing results |
 | [`scripts/`](scripts) | quick start, figure export, full reproduction; the tools of earlier phases refuse to run on this tree |
 | [`tests/`](tests) | all automated tests and the hand-calculated fixtures |
 | [`baseline/`](baseline), [`reports/`](reports) | frozen references of each phase and the release report |
@@ -170,8 +182,8 @@ No real CRM exports, names, emails, phone numbers or identifiers were used or re
 
 | Part | Licence |
 |---|---|
-| Source code and configuration (`src/`, `scripts/`, `tests/` code, `schema/`, `profiles/`, `config/`, `.github/`) and the **code cells** of the notebook | MIT — [`LICENSE`](LICENSE) |
+| Source code and configuration (`src/`, `scripts/`, `tests/` code, `app/`, `schema/`, `profiles/`, `config/`, `.github/`, `.streamlit/`) and the **code cells** of the notebook | MIT — [`LICENSE`](LICENSE) |
 | Documentation, original charts (`docs/img/`, notebook images), synthetic data (`data/`, test fixtures), reports, and the **narrative cells, charts and outputs** of the notebook | CC BY 4.0 — [`LICENSE-CONTENT`](LICENSE-CONTENT), to the extent rights exist in them |
 | Inter font files (`assets/fonts/inter/`) | SIL Open Font License 1.1, by The Inter Project Authors — [`OFL.txt`](assets/fonts/inter/OFL.txt), unchanged |
 
-Third-party material keeps its own licences and notices. No exclusive rights are claimed over material not protected by copyright (for example individual synthetic values or parts produced with AI assistance where no rights exist). Suggested attribution for the content: *Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics*, CC BY 4.0; details in [`LICENSE-CONTENT`](LICENSE-CONTENT).
+Third-party material keeps its own licences and notices. No exclusive rights are claimed over material not protected by copyright (for example individual synthetic values or parts produced with AI assistance where no rights exist). Suggested attribution for the content: *Carlos Eduardo Rodriguez Chimienti — Admissions CRM Analytics* (https://github.com/crchimienti/admissions-crm-analytics/), CC BY 4.0; details in [`LICENSE-CONTENT`](LICENSE-CONTENT).

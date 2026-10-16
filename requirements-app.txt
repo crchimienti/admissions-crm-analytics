@@ -1,0 +1,33 @@
+# Local demo (v1.5.0-app): the pinned analytical environment plus Streamlit and its dependencies.
+# Demo local: el entorno analítico fijado más Streamlit y sus dependencias.
+#
+# Install in a SEPARATE virtual environment (for example .venv-app); requirements-lock.txt is not changed.
+# Instalar en un entorno virtual APARTE (por ejemplo .venv-app); requirements-lock.txt no cambia.
+# - Every line below is the exact version installed and checked (pip check) on Linux with Python 3.13.16,
+#   on top of requirements-lock.txt, which keeps all its versions.
+# - watchdog is not installed on macOS, as declared by Streamlit itself.
+# - Wheels exist for every line on Windows x64 and on macOS 12 or later (Apple Silicon and Intel);
+#   installation there has not been run by the maintainer of this delivery.
+-r requirements-lock.txt
+altair==6.3.0
+anyio==4.15.1
+certifi==2026.7.22
+charset-normalizer==3.5.2
+click==8.5.0
+h11==0.16.0
+httptools==0.9.0
+idna==3.20
+itsdangerous==2.2.0
+narwhals==2.27.1
+protobuf==7.36.2
+pyarrow==25.0.1
+pydeck==0.9.3
+python-multipart==0.0.32
+requests==2.34.2
+starlette==1.8.0
+streamlit==1.65.0    # app
+toml==0.10.2
+urllib3==2.8.0
+uvicorn==0.54.0
+watchdog==6.0.0 ; platform_system != "Darwin"
+websockets==17.2

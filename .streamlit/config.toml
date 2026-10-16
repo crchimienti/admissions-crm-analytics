@@ -1,0 +1,12 @@
+# Local demo settings (v1.5.0-app). Read by `streamlit run app/streamlit_app.py` from the project folder.
+# Ajustes de la demo local: solo en este equipo y sin estadísticas de uso.
+[server]
+address = "localhost"        # serve only to this computer
+port = 8501
+
+[browser]
+gatherUsageStats = false     # no usage statistics are sent
+serverAddress = "localhost"
+
+[client]
+toolbarMode = "minimal"
